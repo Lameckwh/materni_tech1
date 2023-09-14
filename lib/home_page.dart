@@ -6,7 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'daily_tips.dart';
 import 'drawer_content.dart';
 import 'pregnancy_tracker_form.dart';
-import 'tips_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -147,7 +146,6 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
-                  Text("data"),
                   Positioned(
                     top: 20,
                     bottom: 0,

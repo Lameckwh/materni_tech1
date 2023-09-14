@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'child_diet.dart';
 import 'child_diet_form.dart';
-import 'mother_diet.dart';
 import 'mother_diet_form.dart';
 
 class DietTrackerPage extends StatelessWidget {
@@ -16,62 +14,67 @@ class DietTrackerPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(60.0, 40.0, 50.0, 20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ChildDietForm()),
-                );
-              },
-              child: Container(
-                height: 90,
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(18, 53, 232, 1),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Child',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
+        padding: const EdgeInsets.fromLTRB(50.0, 40.0, 50.0, 20.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChildDietForm()),
+                  );
+                },
+                child: Container(
+                  height: 70,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(18, 53, 232, 1),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Child',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 60),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MotherDietForm()),
-                );
-              },
-              child: Container(
-                height: 90,
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(18, 53, 232, 1),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Mother',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
+              const SizedBox(height: 60),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MotherDietForm()),
+                  );
+                },
+                child: Container(
+                  height: 70,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(18, 53, 232, 1),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Mother',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

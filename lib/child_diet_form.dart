@@ -8,6 +8,8 @@ class ChildDietForm extends StatefulWidget {
 
 class _ChildDietFormState extends State<ChildDietForm> {
   DateTime selectedDate = DateTime.now();
+  DateTime selectedDate1 = DateTime.now();
+  DateTime selectedDate2 = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -27,14 +29,14 @@ class _ChildDietFormState extends State<ChildDietForm> {
   Future<void> _selectDate1(BuildContext context) async {
     final DateTime? picked1 = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: selectedDate1,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
 
-    if (picked1 != null && picked1 != selectedDate) {
+    if (picked1 != null && picked1 != selectedDate1) {
       setState(() {
-        selectedDate = picked1;
+        selectedDate1 = picked1;
       });
     }
   }
@@ -42,14 +44,14 @@ class _ChildDietFormState extends State<ChildDietForm> {
   Future<void> _selectDate2(BuildContext context) async {
     final DateTime? picked2 = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: selectedDate2,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
 
-    if (picked2 != null && picked2 != selectedDate) {
+    if (picked2 != null && picked2 != selectedDate2) {
       setState(() {
-        selectedDate = picked2;
+        selectedDate2 = picked2;
       });
     }
   }
@@ -149,7 +151,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                             border: InputBorder.none,
                           ),
                           child: Text(
-                            "${selectedDate.toLocal()}".split(' ')[0],
+                            "${selectedDate1.toLocal()}".split(' ')[0],
                             style: const TextStyle(
                               fontSize: 16,
                               color: Color.fromRGBO(0, 0, 0, .5),
@@ -181,7 +183,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                             border: InputBorder.none,
                           ),
                           child: Text(
-                            "${selectedDate.toLocal()}".split(' ')[0],
+                            "${selectedDate2.toLocal()}".split(' ')[0],
                             style: const TextStyle(
                               fontSize: 16,
                               color: Color.fromRGBO(0, 0, 0, .5),

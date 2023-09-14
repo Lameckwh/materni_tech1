@@ -119,10 +119,8 @@ class DrawerContent extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PregnancyToolsPage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()));
             },
           ),
         ],

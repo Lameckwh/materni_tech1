@@ -1,7 +1,61 @@
 import 'package:flutter/material.dart';
-import 'mother_diet.dart';
+import 'package:materni_tech1/pregnancy_tracker_page.dart';
 
-class MotherDietForm extends StatelessWidget {
+class MotherDietForm extends StatefulWidget {
+  @override
+  State<MotherDietForm> createState() => _MotherDietFormState();
+}
+
+class _MotherDietFormState extends State<MotherDietForm> {
+  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate1 = DateTime.now();
+  DateTime selectedDate2 = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  Future<void> _selectDate1(BuildContext context) async {
+    final DateTime? picked1 = await showDatePicker(
+      context: context,
+      initialDate: selectedDate1,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked1 != null && picked1 != selectedDate1) {
+      setState(() {
+        selectedDate1 = picked1;
+      });
+    }
+  }
+
+  Future<void> _selectDate2(BuildContext context) async {
+    final DateTime? picked2 = await showDatePicker(
+      context: context,
+      initialDate: selectedDate2,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked2 != null && picked2 != selectedDate2) {
+      setState(() {
+        selectedDate2 = picked2;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,39 +69,26 @@ class MotherDietForm extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 40, 20, 10),
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(40, 30, 20, 30),
+                  padding: const EdgeInsets.fromLTRB(10, 30, 20, 30),
                   decoration: BoxDecoration(
                     color: Colors.white70,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Provide your pregnancy',
-                        style: TextStyle(
-                          color: Color.fromRGBO(0, 176, 255, 1),
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'information',
-                        style: TextStyle(
-                          color: Color.fromRGBO(0, 176, 255, 1),
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  child: const Text(
+                    'Provide your pregnancy information',
+                    style: TextStyle(
+                      color: Color.fromRGBO(0, 176, 255, 1),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -56,20 +97,112 @@ class MotherDietForm extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    _buildContainer('Last date of period', '12 July 2023'),
-                    const SizedBox(height: 20),
-                    _buildContainer('Exoected Birth date', '12 March 2024'),
-                    const SizedBox(height: 20),
-                    _buildContainer('Weight', '0kg'),
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            10.0), // Set the border radius here
+                      ),
+                      color: const Color.fromRGBO(238, 238, 238, 1),
+                      child: InkWell(
+                        onTap: () => _selectDate(context),
+                        child: InputDecorator(
+                          decoration: const InputDecoration(
+                            labelText: 'Last day of period',
+                            prefixIcon: Icon(
+                              color: Color.fromRGBO(0, 176, 255, 1),
+                              Icons.calendar_today,
+                            ), // Leading calendar icon
+                            suffixIcon: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color.fromRGBO(0, 176, 255, 1),
+                            ), // Trailing forward arrow icon
+                            border: InputBorder.none,
+                          ),
+                          child: Text(
+                            "${selectedDate.toLocal()}".split(' ')[0],
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color.fromRGBO(0, 0, 0, .5),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            10.0), // Set the border radius here
+                      ),
+                      color: const Color.fromRGBO(238, 238, 238, 1),
+                      child: InkWell(
+                        onTap: () => _selectDate1(context),
+                        child: InputDecorator(
+                          decoration: const InputDecoration(
+                            labelText: 'Last day of period',
+                            prefixIcon: Icon(
+                              color: Color.fromRGBO(0, 176, 255, 1),
+                              Icons.calendar_today,
+                            ), // Leading calendar icon
+                            suffixIcon: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color.fromRGBO(0, 176, 255, 1),
+                            ), // Trailing forward arrow icon
+                            border: InputBorder.none,
+                          ),
+                          child: Text(
+                            "${selectedDate1.toLocal()}".split(' ')[0],
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color.fromRGBO(0, 0, 0, .5),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            10.0), // Set the border radius here
+                      ),
+                      color: const Color.fromRGBO(238, 238, 238, 1),
+                      child: InkWell(
+                        onTap: () => _selectDate2(context),
+                        child: InputDecorator(
+                          decoration: const InputDecoration(
+                            labelText: 'Last day of period',
+                            prefixIcon: Icon(
+                              color: Color.fromRGBO(0, 176, 255, 1),
+                              Icons.calendar_today,
+                            ), // Leading calendar icon
+                            suffixIcon: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color.fromRGBO(0, 176, 255, 1),
+                            ), // Trailing forward arrow icon
+                            border: InputBorder.none,
+                          ),
+                          child: Text(
+                            "${selectedDate2.toLocal()}".split(' ')[0],
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color.fromRGBO(0, 0, 0, .5),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 60),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => motherDiet()),
+                    MaterialPageRoute(
+                        builder: (context) => PregnancyTrackerPage()),
                   );
 
                   // Navigate to the next screen or perform any action here
