@@ -63,8 +63,13 @@ class _childDietState extends State<childDiet> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
-        title: const Text('Child Diet Tracker',
-            style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Child Diet Tracker',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 19,
+          ),
+        ),
         leading: IconButton(
           color: Colors.white,
           icon: const Icon(Icons.arrow_back),
@@ -117,7 +122,7 @@ class _childDietState extends State<childDiet> {
                                     formattedDate,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 19,
+                                      fontSize: 1,
                                       color: Color.fromRGBO(30, 211, 48, 1),
                                     ),
                                   ),
@@ -128,7 +133,7 @@ class _childDietState extends State<childDiet> {
                               ),
                               Text(
                                 tips[currentTipIndex],
-                                style: const TextStyle(fontSize: 19),
+                                style: const TextStyle(fontSize: 18),
                               )
                             ],
                           ),

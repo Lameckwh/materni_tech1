@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:materni_tech1/diet_tracker.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'daily_tips.dart';
+import 'tips_page.dart';
 import 'drawer_content.dart';
 import 'pregnancy_tracker_form.dart';
 

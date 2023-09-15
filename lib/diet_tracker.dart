@@ -6,11 +6,12 @@ class DietTrackerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
         toolbarHeight: 100,
         title: const Text(
           'Diet Tracker',
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
         ),
       ),
       body: Padding(

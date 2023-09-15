@@ -16,6 +16,7 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
         title: const Text(
           'Calendar',

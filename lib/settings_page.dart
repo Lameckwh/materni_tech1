@@ -1,9 +1,185 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'drawer_content.dart';
 
-class SettingsPage extends StatelessWidget {
-  bool isSwitched = false;
+class SettingsPage extends StatefulWidget {
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  bool notificationsEnabled = false;
+  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate2 = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  Future<void> _selectDate2(BuildContext context) async {
+    final DateTime? picked2 = await showDatePicker(
+      context: context,
+      initialDate: selectedDate2,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked2 != null && picked2 != selectedDate2) {
+      setState(() {
+        selectedDate2 = picked2;
+      });
+    }
+  }
+
+  void _pregnancyInfoUpdate(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(20.0),
+          title: const Text('Update Pregnancy Information'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: () => _selectDate(context),
+                child: InputDecorator(
+                  decoration: const InputDecoration(
+                    labelText: 'Last day of period',
+                    prefixIcon: Icon(
+                      color: Color.fromRGBO(0, 176, 255, 1),
+                      Icons.calendar_today,
+                    ), // Leading calendar icon
+                    suffixIcon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromRGBO(0, 176, 255, 1),
+                    ), // Trailing forward arrow icon
+                    border: InputBorder.none,
+                  ),
+                  child: Text(
+                    "${selectedDate.toLocal()}".split(' ')[0],
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(0, 0, 0, .5),
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () => _selectDate2(context),
+                child: InputDecorator(
+                  decoration: const InputDecoration(
+                    labelText: 'Last day of period',
+                    prefixIcon: Icon(
+                      color: Color.fromRGBO(0, 176, 255, 1),
+                      Icons.calendar_today,
+                    ), // Leading calendar icon
+                    suffixIcon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromRGBO(0, 176, 255, 1),
+                    ), // Trailing forward arrow icon
+                    border: InputBorder.none,
+                  ),
+                  child: Text(
+                    "${selectedDate.toLocal()}".split(' ')[0],
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(0, 0, 0, .5),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the popup
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _measurementsUnits(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(20.0),
+          title: const Text('Popup Title'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton(
+                onPressed: () {
+                  // Add logic for the first button here
+                },
+                child: const Text('Button 1'),
+              ),
+              TextButton(
+                onPressed: () {
+                  // Add logic for the second button here
+                },
+                child: const Text('Button 2'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the popup
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _rateUs(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(20.0),
+          // title: Text('Popup Title'),
+          content: const Text(
+              "We worked really hard on this! You can make us so happy if you rated it 5 stars: D. Thank you!"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the popup
+              },
+              child: const Text('ClOSE'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the popup
+              },
+              child: const Text('RATE 5 STARS'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +192,7 @@ class SettingsPage extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: Color.fromRGBO(0, 176, 255, 1),
+        backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
         toolbarHeight: 100,
       ),
       drawer: DrawerContent(),
@@ -45,7 +221,11 @@ class SettingsPage extends StatelessWidget {
                       children: [
                         const Text("Update Pregnancy Information"),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _pregnancyInfoUpdate(
+                              context,
+                            );
+                          },
                           icon: const Icon(Icons.arrow_forward_ios),
                         ),
                       ],
@@ -55,7 +235,11 @@ class SettingsPage extends StatelessWidget {
                       children: [
                         const Text("Measurements Units"),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _measurementsUnits(
+                              context,
+                            );
+                          },
                           icon: const Icon(Icons.arrow_forward_ios),
                         ),
                       ],
@@ -65,10 +249,16 @@ class SettingsPage extends StatelessWidget {
                       children: [
                         const Text("Notifications"),
                         Switch(
-                          value: isSwitched,
-                          onChanged: (value) {},
-                          activeTrackColor: Colors.lightGreenAccent,
-                          activeColor: Colors.green,
+                          value: notificationsEnabled,
+                          onChanged: (value) {
+                            setState(() {
+                              notificationsEnabled = value;
+                            });
+
+                            // You can add code here to handle enabling/disabling notifications.
+                            // For example, you can use a plugin like 'flutter_local_notifications'
+                            // to schedule and display notifications when notificationsEnabled is true.
+                          },
                         ),
                       ],
                     )
@@ -100,7 +290,21 @@ class SettingsPage extends StatelessWidget {
                           style: TextStyle(),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            String email =
+                                Uri.encodeComponent("bit-032-19@must.ac.mw");
+                            String subject =
+                                Uri.encodeComponent("MaterniTech FeedBack ");
+                            String body = Uri.encodeComponent("Hi, I am .....");
+                            // print(subject); //output,: Hello%20Flutter
+                            Uri mail = Uri.parse(
+                                "mailto:$email?subject=$subject&body=$body");
+                            if (await launchUrl(mail)) {
+                              //email app opened
+                            } else {
+                              //email app is not opened
+                            }
+                          },
                           icon: const Icon(Icons.arrow_forward_ios),
                         ),
                       ],
@@ -110,7 +314,11 @@ class SettingsPage extends StatelessWidget {
                       children: [
                         const Text("Rate Us"),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _rateUs(
+                              context,
+                            );
+                          },
                           icon: const Icon(Icons.arrow_forward_ios),
                         ),
                       ],

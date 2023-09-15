@@ -4,6 +4,7 @@ class PregnancyTrackerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 176, 255, 1),
         toolbarHeight: 80,

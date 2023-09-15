@@ -62,6 +62,7 @@ class _motherDietState extends State<motherDiet> {
         screenHeight * 0.2; // For example, 20% of the screen height
 
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
         title: const Text('Mother Diet Tracker',

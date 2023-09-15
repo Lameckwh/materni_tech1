@@ -11,6 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: const TextTheme(
+          // Define your default font size here
+          bodyLarge: TextStyle(
+              fontSize: 28.0), // Example: 16.0 is the default font size
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: GetStartedPage(),
     );

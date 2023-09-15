@@ -65,7 +65,6 @@ class _ChildDietFormState extends State<ChildDietForm> {
         iconTheme: const IconThemeData(
           color: Colors.black, // Change this color to your desired color
         ),
-        backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       ),
       body: SingleChildScrollView(
         child: Padding(

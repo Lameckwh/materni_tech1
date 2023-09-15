@@ -9,6 +9,7 @@ class DrawerContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       child: ListView(
         children: <Widget>[
           const DrawerHeader(
@@ -28,7 +29,7 @@ class DrawerContent extends StatelessWidget {
                     'MATERNTECH',
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -46,13 +47,13 @@ class DrawerContent extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.home,
-              size: 35,
+              size: 32,
               color: Colors.black,
             ),
             title: const Text(
               'Home',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
               ),
             ),
             onTap: () {
@@ -64,13 +65,13 @@ class DrawerContent extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.calendar_today,
-              size: 35,
+              size: 32,
               color: Colors.black,
             ),
             title: const Text(
               'Calendar',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
               ),
             ),
             onTap: () {
@@ -82,13 +83,13 @@ class DrawerContent extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.pregnant_woman,
-              size: 35,
+              size: 32,
               color: Colors.black,
             ),
             title: const Text(
               'Pregnancy Tools',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
               ),
             ),
             onTap: () {
@@ -108,13 +109,13 @@ class DrawerContent extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.settings,
-              size: 35,
+              size: 32,
               color: Colors.black,
             ),
             title: const Text(
               'Settings',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
               ),
             ),
             onTap: () {
