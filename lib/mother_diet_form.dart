@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:materni_tech1/pregnancy_tracker_page.dart';
 
+import 'mother_diet.dart';
+
 class MotherDietForm extends StatefulWidget {
   @override
   State<MotherDietForm> createState() => _MotherDietFormState();
@@ -201,8 +203,7 @@ class _MotherDietFormState extends State<MotherDietForm> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PregnancyTrackerPage()),
+                    MaterialPageRoute(builder: (context) => const MotherDiet()),
                   );
 
                   // Navigate to the next screen or perform any action here

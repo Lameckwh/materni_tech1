@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:materni_tech1/diet_tracker.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'child_diet_form.dart';
+import 'mother_diet_form.dart';
 import 'tips_page.dart';
 import 'drawer_content.dart';
 import 'pregnancy_tracker_form.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,9 +16,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<String> images = [
-    'images/slide_show.png',
-    'images/slide_show.png',
-    'images/slide_show.png',
+    'images/baby.png',
+    'images/healthy_foods.png',
+    'images/T-Fitness-Guide.jpeg',
   ];
 
   int currentIndex = 0;
@@ -59,7 +61,7 @@ class _HomePageState extends State<HomePage> {
 
       _pageController.animateToPage(
         currentIndex,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 1000),
         curve: Curves.ease,
       );
     });
@@ -72,7 +74,7 @@ class _HomePageState extends State<HomePage> {
       });
       _pageController.animateToPage(
         currentIndex,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 1000),
         curve: Curves.ease,
       );
     }
@@ -85,7 +87,7 @@ class _HomePageState extends State<HomePage> {
       });
       _pageController.animateToPage(
         currentIndex,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 1000),
         curve: Curves.ease,
       );
     }
@@ -95,6 +97,116 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  void _dietTracker(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(10.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14.0),
+            // You can further customize the shape here
+            side: const BorderSide(color: Colors.blue, width: 2.0),
+          ),
+          title: const Text('Whom to track?'),
+          content: Container(
+            height: 100.h,
+            width: 200.w,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 20.h),
+                Container(
+                  height: 30.h,
+                  width: 110.w,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      // Add your onPressed logic here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MotherDietForm()),
+                      );
+                    },
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Set the border radius
+                      ),
+                      side: const BorderSide(
+                        color: Colors.blue, // Set the border color
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Mother',
+                          style: TextStyle(fontSize: 14.sp),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward,
+                          color: Colors.blue, // Set the icon color
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                Container(
+                  height: 30.h,
+                  width: 110.w,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      // Add your onPressed logic here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChildDietForm()),
+                      );
+                    },
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Set the border radius
+                      ),
+                      side: const BorderSide(
+                        color: Colors.blue, // Set the border color
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Child',
+                          style: TextStyle(fontSize: 14.sp),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward,
+                          color: Colors.blue, // Set the icon color
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the popup
+              },
+              child: const Text(
+                'Close',
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -108,13 +220,13 @@ class _HomePageState extends State<HomePage> {
             bottomRight: Radius.circular(5.0), // Adjust the radius as needed
           ),
         ),
-        toolbarHeight: 80,
+        toolbarHeight: 70.h,
         elevation: 1,
         backgroundColor: Colors.blue,
-        title: const Text(
+        title: Text(
           "Home",
           style: TextStyle(
-            fontSize: 19,
+            fontSize: 19.sp,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -122,14 +234,13 @@ class _HomePageState extends State<HomePage> {
       drawer: DrawerContent(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 20, 30, 60),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: <Widget>[
-              const SizedBox(height: 10),
               Stack(
                 children: <Widget>[
-                  Container(
-                    height: 200.0,
+                  SizedBox(
+                    height: 180.0.h,
                     child: PageView.builder(
                       controller: _pageController,
                       itemCount: images.length,
@@ -154,71 +265,92 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back_ios,
-                            size: 30,
-                            weight: 400,
-                            color: Color.fromRGBO(0, 176, 255, 1),
+                        Container(
+                          margin: const EdgeInsets.all(7),
+                          decoration: const BoxDecoration(
+                            color: Color.fromRGBO(255, 255, 255,
+                                .6), // Set the background color here
+                            // You can also set a shape
                           ),
-                          onPressed: goToPreviousImage,
-                          color: Colors.white,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back_ios,
+                              size: 25,
+                              weight: 400,
+                              color: Color.fromRGBO(0, 176, 255, 1),
+                            ),
+                            onPressed: goToPreviousImage,
+                            color: Colors.white,
+                          ),
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 30,
-                            weight: 400,
-                            color: Color.fromRGBO(0, 176, 255, 1),
+                        Container(
+                          margin: const EdgeInsets.all(7),
+                          decoration: const BoxDecoration(
+                            color: Color.fromRGBO(255, 255, 255, .6),
+                            // You can also set a shape
                           ),
-                          onPressed: goToNextImage,
-                          color: Colors.white,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 25,
+                              weight: 400,
+                              color: Color.fromRGBO(0, 176, 255, 1),
+                            ),
+                            onPressed: goToNextImage,
+                            color: Colors.white,
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              Container(
-                height: 200, // Set a fixed height for the containers
+              SizedBox(height: 20.h),
+              SizedBox(
+                height: 180.h, // Set a fixed height for the containers
                 child: Row(
                   children: <Widget>[
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                          _dietTracker(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => DietTrackerPage()),
                           );
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(15),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0xE1DDDDDD),
+                                blurRadius: 6.0,
+                                spreadRadius: 2.0,
+                                offset: Offset(0.0, 0.0),
+                              )
+                            ],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
                                 'images/diet_tracker.png', // Replace with your image path
-                                width: 90, // Adjust width as needed
-                                height: 90, // Adjust height as needed
+                                width: 90.w, // Adjust width as needed
+                                height: 90.h, // Adjust height as needed
                               ),
-                              const SizedBox(height: 10),
-                              const Text(
+                              SizedBox(height: 10.h),
+                              Text(
                                 'Diet',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 19,
+                                  fontSize: 19.sp,
                                 ),
                               ),
-                              const Text(
+                              Text(
                                 'Tracker',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 19,
+                                  fontSize: 19.sp,
                                 ),
                               ),
                             ],
@@ -226,7 +358,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 35),
+                    SizedBox(width: 15.w),
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
@@ -240,28 +372,36 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(15),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0xE1DDDDDD),
+                                blurRadius: 6.0,
+                                spreadRadius: 2.0,
+                                offset: Offset(0.0, 0.0),
+                              )
+                            ],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
                                 'images/pregnancy_tracker.png', // Replace with your image path
-                                width: 80, // Adjust width as needed
-                                height: 80, // Adjust height as needed
+                                width: 80.w, // Adjust width as needed
+                                height: 80.h, // Adjust height as needed
                               ),
-                              const SizedBox(height: 10),
-                              const Text(
+                              SizedBox(height: 10.h),
+                              Text(
                                 'Pregnancy',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 19,
+                                  fontSize: 19.sp,
                                 ),
                               ),
-                              const Text(
+                              Text(
                                 'Tracker',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 19,
+                                  fontSize: 19.sp,
                                 ),
                               ),
                             ],
@@ -272,9 +412,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 35),
-              Container(
-                height: 200, // Set a fixed height for the containers
+              SizedBox(height: 15.h),
+              SizedBox(
+                height: 180.h, // Set a fixed height for the containers
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -284,6 +424,14 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(15),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0xE1DDDDDD),
+                                blurRadius: 6.0,
+                                spreadRadius: 2.0,
+                                offset: Offset(0.0, 0.0),
+                              )
+                            ],
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -291,22 +439,22 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Image.asset(
                                 'images/magazine.png', // Replace with your image path
-                                width: 90, // Adjust width as needed
-                                height: 90, // Adjust height as needed
+                                width: 90.w, // Adjust width as needed
+                                height: 90.h, // Adjust height as needed
                               ),
-                              const SizedBox(height: 10),
-                              const Text(
+                              SizedBox(height: 10.h),
+                              Text(
                                 'Magazine &',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 19,
+                                  fontSize: 19.sp,
                                 ),
                               ),
-                              const Text(
+                              Text(
                                 'Stories',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 19,
+                                  fontSize: 19.sp,
                                 ),
                               ),
                             ],
@@ -314,7 +462,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 35),
+                    SizedBox(width: 15.w),
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
@@ -327,21 +475,29 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(15),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0xE1DDDDDD),
+                                blurRadius: 6.0,
+                                spreadRadius: 2.0,
+                                offset: Offset(0.0, 0.0),
+                              )
+                            ],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
                                 'images/tips.png', // Replace with your image path
-                                width: 90, // Adjust width as needed
-                                height: 90, // Adjust height as needed
+                                width: 90.w, // Adjust width as needed
+                                height: 90.h, // Adjust height as needed
                               ),
-                              const SizedBox(height: 10),
-                              const Text(
+                              SizedBox(height: 10.h),
+                              Text(
                                 'Tips',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 19,
+                                  fontSize: 19.sp,
                                 ),
                               ),
                             ],

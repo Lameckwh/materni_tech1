@@ -91,7 +91,7 @@ class _TipPageState extends State<TipPage> {
   }
 
   void goToPreviousTip() {
-    if (currentIndex > 0) {
+    if ((currentIndex > 0)) {
       setState(() {
         currentIndex--;
       });

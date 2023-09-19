@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'calendar_page.dart';
 // import 'pregnancy_tools.dart';
 import 'pregnancy_tools_page.dart';
@@ -12,8 +13,8 @@ class DrawerContent extends StatelessWidget {
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       child: ListView(
         children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(
+          DrawerHeader(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('images/drawer_image.png'),
                 fit: BoxFit.cover,
@@ -24,12 +25,12 @@ class DrawerContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 8.0),
+                  padding: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
                     'MATERNTECH',
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 22,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -41,19 +42,19 @@ class DrawerContent extends StatelessWidget {
             color: Colors.grey,
             thickness: 2,
           ),
-          const SizedBox(
-            height: 40,
+          SizedBox(
+            height: 40.h,
           ),
           ListTile(
             leading: const Icon(
               Icons.home,
-              size: 32,
+              size: 30,
               color: Colors.black,
             ),
             title: const Text(
               'Home',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
               ),
             ),
             onTap: () {
@@ -65,13 +66,13 @@ class DrawerContent extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.calendar_today,
-              size: 32,
+              size: 30,
               color: Colors.black,
             ),
-            title: const Text(
+            title: Text(
               'Calendar',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16.sp,
               ),
             ),
             onTap: () {
@@ -83,13 +84,13 @@ class DrawerContent extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.pregnant_woman,
-              size: 32,
+              size: 30,
               color: Colors.black,
             ),
-            title: const Text(
+            title: Text(
               'Pregnancy Tools',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16.sp,
               ),
             ),
             onTap: () {
@@ -109,13 +110,14 @@ class DrawerContent extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.settings,
-              size: 32,
+              size: 30,
               color: Colors.black,
             ),
-            title: const Text(
+            title: Text(
               'Settings',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16.sp,
+                color: Colors.black,
               ),
             ),
             onTap: () {

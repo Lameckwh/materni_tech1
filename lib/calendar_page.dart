@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'drawer_content.dart';
@@ -18,26 +19,29 @@ class _CalendarPageState extends State<CalendarPage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Calendar',
           style: TextStyle(
-            fontSize: 28,
+            fontSize: 19.sp,
             fontWeight: FontWeight.w600,
           ),
         ),
         backgroundColor: Color.fromRGBO(0, 176, 255, 1),
-        toolbarHeight: 100,
+        toolbarHeight: 70.h,
+        elevation: 1,
       ),
       drawer: DrawerContent(),
       body: Column(
         children: [
-          const SizedBox(height: 50),
+          SizedBox(height: 50.h),
           TableCalendar(
             firstDay: DateTime.utc(1900, 1, 1),
             lastDay: DateTime.utc(2070, 12, 31),
             focusedDay: _focusedDay,
             headerStyle: const HeaderStyle(
-                formatButtonVisible: false, titleCentered: true),
+              formatButtonVisible: false,
+              titleCentered: true,
+            ),
             availableGestures: AvailableGestures.all,
             selectedDayPredicate: (day) {
               return isSameDay(_selectedDay, day);

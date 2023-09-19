@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,16 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        textTheme: const TextTheme(
-          // Define your default font size here
-          bodyLarge: TextStyle(
-              fontSize: 28.0), // Example: 16.0 is the default font size
-        ),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: GetStartedPage(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: GetStartedPage(),
     );
   }
 }
@@ -33,30 +30,30 @@ class GetStartedPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 110),
+            SizedBox(height: 110.h),
             Image.asset(
               'images/welcome.png', // Replace with your image path
-              width: 250, // Adjust width as needed
-              height: 250, // Adjust height as needed
+              width: 220.w, // Adjust width as needed
+              height: 220.h, // Adjust height as needed
             ),
-            const SizedBox(height: 50),
-            const Text(
+            SizedBox(height: 50.h),
+            Text(
               "Maternal Health and", // Updated text
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
+            Text(
               "Child Nutrition", // Updated text
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 80),
+            SizedBox(height: 80.h),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -68,17 +65,17 @@ class GetStartedPage extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromRGBO(18, 53, 232, 1),
-                minimumSize: const Size(200, 50), // Set button width and height
+                minimumSize: Size(170.w, 50.h), // Set button width and height
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5), // Set border radius
                 ),
                 // Set the background color to orange
               ),
-              child: const Text(
+              child: Text(
                 'Get Started',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Ubuntu"),
               ),

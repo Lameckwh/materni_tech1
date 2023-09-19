@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class childDiet extends StatefulWidget {
   const childDiet({Key? key}) : super(key: key);
@@ -54,20 +55,15 @@ class _childDietState extends State<childDiet> {
     final String month = _getMonthName(now.month);
     final String formattedDate = '$day $month';
 
-    // Extract the screen dimensions
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    double cardHeight =
-        screenHeight * 0.2; // For example, 20% of the screen height
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
-        title: const Text(
+        toolbarHeight: 70.h,
+        title: Text(
           'Child Diet Tracker',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 19,
+            fontSize: 19.sp,
           ),
         ),
         leading: IconButton(
@@ -89,18 +85,17 @@ class _childDietState extends State<childDiet> {
                   children: [
                     // ignore: sized_box_for_whitespace
                     Container(
-                      height: 150,
-                      width: 150,
+                      height: 150.sp,
+                      width: 150.sp,
                       child: Image.asset(
                         'images/chield_diet.png',
                       ),
                     ),
-                    SizedBox(
-                        height: screenHeight * 0.01), // 2% of screen height
+                    SizedBox(height: 20.h), // 2% of screen height
 
-                    SizedBox(height: screenHeight * 0.02),
                     Container(
-                      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      margin:
+                          const EdgeInsets.only(left: 11, right: 11, top: 11),
                       // height: 25,
                       child: Card(
                         elevation: 1,
@@ -112,40 +107,38 @@ class _childDietState extends State<childDiet> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
+                                  Text(
                                     "Today’s tip",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 19),
+                                        fontSize: 18.sp),
                                   ),
                                   Text(
                                     formattedDate,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 1,
+                                      fontSize: 18.sp,
                                       color: Color.fromRGBO(30, 211, 48, 1),
                                     ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 30,
+                              SizedBox(
+                                height: 30.h,
                               ),
                               Text(
                                 tips[currentTipIndex],
-                                style: const TextStyle(fontSize: 18),
+                                style: TextStyle(fontSize: 16.sp),
                               )
                             ],
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+
                     Container(
-                      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: const Card(
+                      margin: const EdgeInsets.all(7),
+                      child: Card(
                         elevation: 1,
                         child: Padding(
                           padding: EdgeInsets.all(11.0),
@@ -156,17 +149,18 @@ class _childDietState extends State<childDiet> {
                                 "Unsafe foods for toddlers: choking risks",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 19),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.sp),
                               ),
                               SizedBox(
-                                height: 30,
+                                height: 30.h,
                               ),
                               Text(
                                 """At two years old, your child should be able to use a spoon, drink from a cup with just one hand, and feed themselves a wide variety of finger foods. However, they are still learning to chew and swallow efficiently and may gulp food down when in a hurry to get on with playing. For that reason, the risk of choking at this age is high.""",
-                                style: TextStyle(fontSize: 19),
+                                style: TextStyle(fontSize: 16.sp),
                               ),
                               SizedBox(
-                                height: 15,
+                                height: 15.h,
                               ),
                               Text(
                                 """Avoid these foods, which could be swallowed whole and block the windpipe:
@@ -197,7 +191,7 @@ Whole grapes, cherry tomatoes (cut them in quarters)
 Large chunks of any food such as meat, potatoes, or raw vegetables and fruits
 
 """,
-                                style: TextStyle(fontSize: 19),
+                                style: TextStyle(fontSize: 16.sp),
                               )
                             ],
                           ),
@@ -210,8 +204,7 @@ Large chunks of any food such as meat, potatoes, or raw vegetables and fruits
             ),
             Container(
               color: Colors.grey[200],
-              padding: EdgeInsets.all(
-                  screenWidth * 0.02), // Padding based on screen width
+              padding: EdgeInsets.all(16), // Padding based on screen width
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -219,7 +212,7 @@ Large chunks of any food such as meat, potatoes, or raw vegetables and fruits
                     icon: const Icon(Icons.arrow_back),
                     onPressed: () {},
                   ),
-                  const Text('Year 2'),
+                  Text('Year 2', style: TextStyle(fontSize: 18.sp)),
                   IconButton(
                     icon: const Icon(Icons.arrow_forward),
                     onPressed: () {},

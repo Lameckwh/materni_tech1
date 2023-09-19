@@ -127,9 +127,7 @@ class _SettingsPageState extends State<SettingsPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextButton(
-                onPressed: () {
-                  // Add logic for the first button here
-                },
+                onPressed: () {},
                 child: const Text('Button 1'),
               ),
               TextButton(

@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class motherDiet extends StatefulWidget {
-  const motherDiet({Key? key}) : super(key: key);
+class MotherDiet extends StatefulWidget {
+  const MotherDiet({Key? key}) : super(key: key);
 
   @override
-  State<motherDiet> createState() => _motherDietState();
+  State<MotherDiet> createState() => _MotherDietState();
 }
 
-class _motherDietState extends State<motherDiet> {
+class _MotherDietState extends State<MotherDiet> {
   final List<String> tips = [
     "During pregnancy, aim for regular prenatal check-ups to monitor your health and your baby's development. It's essential for a healthy pregnancy.",
     "Stay physically active during pregnancy, but consult your healthcare provider for safe exercise recommendations.",
