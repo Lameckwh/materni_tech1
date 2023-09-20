@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:materni_tech1/models/note.dart';
 import 'home_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+// Initializes Hive with a valid directory in your app files
+  await Hive.initFlutter();
+// Register Hive Adapter
+  Hive.registerAdapter(NoteAdapter());
+// open box
+  await Hive.openBox("noteBox");
   runApp(const MyApp());
 }
 

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:materni_tech1/pregnancy_tracker_page.dart';
+import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
 
-class PregnancyTrackerForm extends StatefulWidget {
+import 'mother_diet.dart';
+
+class MotherDietForm extends StatefulWidget {
   @override
-  State<PregnancyTrackerForm> createState() => _PregnancyTrackerFormState();
+  State<MotherDietForm> createState() => _MotherDietFormState();
 }
 
-class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
+class _MotherDietFormState extends State<MotherDietForm> {
   DateTime selectedDate = DateTime.now();
   DateTime selectedDate1 = DateTime.now();
   DateTime selectedDate2 = DateTime.now();
@@ -72,6 +74,7 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -200,8 +203,7 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PregnancyTrackerPage()),
+                    MaterialPageRoute(builder: (context) => const MotherDiet()),
                   );
 
                   // Navigate to the next screen or perform any action here

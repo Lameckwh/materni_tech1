@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:materni_tech1/pregnancy_tracker_page.dart';
+import 'package:materni_tech1/diet_tracker/child_diet.dart';
 
-import 'mother_diet.dart';
-
-class MotherDietForm extends StatefulWidget {
+class ChildDietForm extends StatefulWidget {
   @override
-  State<MotherDietForm> createState() => _MotherDietFormState();
+  State<ChildDietForm> createState() => _ChildDietFormState();
 }
 
-class _MotherDietFormState extends State<MotherDietForm> {
+class _ChildDietFormState extends State<ChildDietForm> {
   DateTime selectedDate = DateTime.now();
   DateTime selectedDate1 = DateTime.now();
   DateTime selectedDate2 = DateTime.now();
@@ -67,14 +65,12 @@ class _MotherDietFormState extends State<MotherDietForm> {
         iconTheme: const IconThemeData(
           color: Colors.black, // Change this color to your desired color
         ),
-        backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -85,7 +81,7 @@ class _MotherDietFormState extends State<MotherDietForm> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: const Text(
-                    'Provide your pregnancy information',
+                    "Provide your Child's information",
                     style: TextStyle(
                       color: Color.fromRGBO(0, 176, 255, 1),
                       fontSize: 20,
@@ -203,7 +199,7 @@ class _MotherDietFormState extends State<MotherDietForm> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MotherDiet()),
+                    MaterialPageRoute(builder: (context) => const childDiet()),
                   );
 
                   // Navigate to the next screen or perform any action here

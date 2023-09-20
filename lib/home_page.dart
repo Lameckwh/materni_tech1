@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'child_diet_form.dart';
-import 'mother_diet_form.dart';
+import 'diet_tracker/child_diet_form.dart';
+import 'diet_tracker/mother_diet_form.dart';
 import 'tips_page.dart';
 import 'drawer_content.dart';
-import 'pregnancy_tracker_form.dart';
+import 'pregnancy_tracking/pregnancy_tracker_form.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {

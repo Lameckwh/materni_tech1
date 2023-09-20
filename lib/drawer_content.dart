@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'calendar_page.dart';
+import 'calendar_diary/calendar_diary.dart';
 // import 'pregnancy_tools.dart';
 import 'pregnancy_tools_page.dart';
 import 'settings_page.dart';
@@ -78,7 +78,7 @@ class DrawerContent extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => CalendarPage()));
+                  MaterialPageRoute(builder: (context) => CalendarDiary()));
             },
           ),
           ListTile(

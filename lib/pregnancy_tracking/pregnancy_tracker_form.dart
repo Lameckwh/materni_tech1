@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:materni_tech1/child_diet.dart';
+import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
 
-class ChildDietForm extends StatefulWidget {
+class PregnancyTrackerForm extends StatefulWidget {
   @override
-  State<ChildDietForm> createState() => _ChildDietFormState();
+  State<PregnancyTrackerForm> createState() => _PregnancyTrackerFormState();
 }
 
-class _ChildDietFormState extends State<ChildDietForm> {
+class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
   DateTime selectedDate = DateTime.now();
   DateTime selectedDate1 = DateTime.now();
   DateTime selectedDate2 = DateTime.now();
@@ -65,6 +65,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
         iconTheme: const IconThemeData(
           color: Colors.black, // Change this color to your desired color
         ),
+        backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -81,7 +82,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: const Text(
-                    "Provide your Child's information",
+                    'Provide your pregnancy information',
                     style: TextStyle(
                       color: Color.fromRGBO(0, 176, 255, 1),
                       fontSize: 20,
@@ -199,7 +200,8 @@ class _ChildDietFormState extends State<ChildDietForm> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const childDiet()),
+                    MaterialPageRoute(
+                        builder: (context) => PregnancyTrackerPage()),
                   );
 
                   // Navigate to the next screen or perform any action here
