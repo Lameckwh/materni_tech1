@@ -2,14 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class childDiet extends StatefulWidget {
-  const childDiet({Key? key}) : super(key: key);
+class ChildDiet extends StatefulWidget {
+  const ChildDiet({Key? key}) : super(key: key);
 
   @override
-  State<childDiet> createState() => _childDietState();
+  State<ChildDiet> createState() => _ChildDietState();
 }
 
-class _childDietState extends State<childDiet> {
+class _ChildDietState extends State<ChildDiet> {
   final List<String> tips = [
     "Breastfeeding is the best start for your baby. It provides essential nutrients and antibodies for their growth and protection.",
     "Introduce a variety of fruits and vegetables to your child's diet. They provide essential vitamins and minerals for growth",
@@ -118,7 +118,8 @@ class _childDietState extends State<childDiet> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18.sp,
-                                      color: Color.fromRGBO(30, 211, 48, 1),
+                                      color:
+                                          const Color.fromRGBO(30, 211, 48, 1),
                                     ),
                                   ),
                                 ],
@@ -141,7 +142,7 @@ class _childDietState extends State<childDiet> {
                       child: Card(
                         elevation: 1,
                         child: Padding(
-                          padding: EdgeInsets.all(11.0),
+                          padding: const EdgeInsets.all(11.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -204,7 +205,8 @@ Large chunks of any food such as meat, potatoes, or raw vegetables and fruits
             ),
             Container(
               color: Colors.grey[200],
-              padding: EdgeInsets.all(16), // Padding based on screen width
+              padding:
+                  const EdgeInsets.all(16), // Padding based on screen width
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

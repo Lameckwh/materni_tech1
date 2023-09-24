@@ -75,7 +75,10 @@ Drinking water can also prevent constipation, hemorrhoids, urinary tract infecti
 ];
 
 class TipPage extends StatefulWidget {
+  const TipPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _TipPageState createState() => _TipPageState();
 }
 

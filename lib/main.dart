@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:materni_tech1/models/boxes.dart';
+// import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/models/note.dart';
+import 'package:materni_tech1/models/pregnancy_info.dart';
 import 'home_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive_flutter/adapters.dart';
+// import 'package:hive_flutter /adapters.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async {
 // Initializes Hive with a valid directory in your app files
   await Hive.initFlutter();
-// Register Hive Adapter
+// Register Note Adapter
   Hive.registerAdapter(NoteAdapter());
+  Hive.registerAdapter(PregnancyInfoAdapter());
 // open box
-  await Hive.openBox("noteBox");
+  boxNotes = await Hive.openBox<Note>("noteBox");
+  boxPregnancyInfo = await Hive.openBox<PregnancyInfo>("PregnancyInfoBox");
+
   runApp(const MyApp());
 }
 
@@ -20,8 +26,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
+    return const ScreenUtilInit(
+      designSize: Size(360, 690),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: GetStartedPage(),
@@ -31,6 +37,8 @@ class MyApp extends StatelessWidget {
 }
 
 class GetStartedPage extends StatelessWidget {
+  const GetStartedPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +75,7 @@ class GetStartedPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => const HomePage()),
                 );
 
                 // Navigate to the next screen or perform any action here

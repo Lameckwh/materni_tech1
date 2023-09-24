@@ -4,6 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'drawer_content.dart';
 
 class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
+
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
@@ -193,7 +195,7 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
         toolbarHeight: 100,
       ),
-      drawer: DrawerContent(),
+      drawer: const DrawerContent(),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(

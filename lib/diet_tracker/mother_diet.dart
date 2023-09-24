@@ -56,10 +56,8 @@ class _MotherDietState extends State<MotherDiet> {
     final String month = _getMonthName(now.month);
     final String formattedDate = '$day $month';
     // Extract the screen dimensions
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    double cardHeight =
-        screenHeight * 0.2; // For example, 20% of the screen height
+// For example, 20% of the screen height
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),

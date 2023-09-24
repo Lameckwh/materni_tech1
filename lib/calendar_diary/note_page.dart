@@ -1,38 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:materni_tech1/calendar_diary/calendar_diary.dart';
+import 'package:materni_tech1/models/boxes.dart';
+import 'package:materni_tech1/models/note.dart';
+// import 'package:materni_tech1/models/boxes.dart';
+// import 'package:materni_tech1/models/note.dart';
 
 class NotePage extends StatefulWidget {
+  final DateTime selectedDate; // Add this parameter
+
+  const NotePage({Key? key, required this.selectedDate}) : super(key: key);
+
   @override
+  // ignore: library_private_types_in_public_api
   _NotePageState createState() => _NotePageState();
 }
 
 class _NotePageState extends State<NotePage> {
-  TextEditingController _noteController = TextEditingController();
+  TextEditingController noteController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Note Input Page'),
+        title: Text(
+            DateFormat('d MMMM').format(widget.selectedDate)), // Set the title
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
               child: TextField(
-                controller: _noteController,
+                controller: noteController,
                 maxLines: null,
                 // Allows multiple lines of text
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your note here...',
                   fillColor: Color.fromARGB(255, 241, 179, 84),
                   border: InputBorder.none,
                 ),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -47,14 +59,11 @@ class _NotePageState extends State<NotePage> {
                     // Set the background color to orange
                   ),
                   onPressed: () {
-                    Navigator.pop(
-                      context,
-                      MaterialPageRoute(builder: (context) => CalendarDiary()),
-                    );
+                    Navigator.of(context).pop();
                   },
-                  child: Text("Cancel"),
+                  child: const Text("Cancel"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 ElevatedButton(
@@ -69,12 +78,20 @@ class _NotePageState extends State<NotePage> {
                     // Set the background color to orange
                   ),
                   onPressed: () {
-                    // Save or process the note
-                    String noteText = _noteController.text;
-                    // You can do whatever you want with the note text here
-                    print('Note saved: $noteText');
+                    setState(() {
+                      boxNotes.put(
+                        "key_${noteController.text}",
+                        Note(
+                          note: noteController.text,
+                          date: DateFormat('d MMMM')
+                              .format(widget.selectedDate)
+                              .toString(),
+                        ),
+                      );
+                    });
+                    Navigator.of(context).pop();
                   },
-                  child: Text('Save Note'),
+                  child: const Text('Save Note'),
                 ),
               ],
             ),
@@ -87,7 +104,7 @@ class _NotePageState extends State<NotePage> {
   @override
   void dispose() {
     // Clean up the TextEditingController
-    _noteController.dispose();
+    noteController.dispose();
     super.dispose();
   }
 }

@@ -39,6 +39,8 @@ dependencies:
   flutter_screenutil: ^5.9.0
   hive:
   hive_flutter:
+  intl:
+  uuid:
 
 dev_dependencies:
   flutter_test:

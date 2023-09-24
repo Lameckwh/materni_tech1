@@ -3,6 +3,8 @@ import 'child_diet_form.dart';
 import 'mother_diet_form.dart';
 
 class DietTrackerPage extends StatelessWidget {
+  const DietTrackerPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,8 @@ class DietTrackerPage extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChildDietForm()),
+                    MaterialPageRoute(
+                        builder: (context) => const ChildDietForm()),
                   );
                 },
                 child: Container(
@@ -52,7 +55,8 @@ class DietTrackerPage extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MotherDietForm()),
+                    MaterialPageRoute(
+                        builder: (context) => const MotherDietForm()),
                   );
                 },
                 child: Container(

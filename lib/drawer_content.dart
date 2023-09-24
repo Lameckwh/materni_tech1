@@ -7,6 +7,8 @@ import 'settings_page.dart';
 import 'home_page.dart';
 
 class DrawerContent extends StatelessWidget {
+  const DrawerContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -59,8 +61,8 @@ class DrawerContent extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()));
             },
           ),
           ListTile(
@@ -77,8 +79,10 @@ class DrawerContent extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => CalendarDiary()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CalendarDiary()));
             },
           ),
           ListTile(
@@ -122,8 +126,10 @@ class DrawerContent extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingsPage()));
             },
           ),
         ],

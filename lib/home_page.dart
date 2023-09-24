@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:materni_tech1/models/boxes.dart';
+import 'package:materni_tech1/models/pregnancy_info.dart';
+import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'diet_tracker/child_diet_form.dart';
 import 'diet_tracker/mother_diet_form.dart';
@@ -10,7 +14,10 @@ import 'pregnancy_tracking/pregnancy_tracker_form.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
@@ -110,88 +117,108 @@ class _HomePageState extends State<HomePage> {
             // You can further customize the shape here
             side: const BorderSide(color: Colors.blue, width: 2.0),
           ),
-          title: const Text('Whom to track?'),
-          content: Container(
-            height: 100.h,
-            width: 200.w,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 20.h),
-                Container(
-                  height: 30.h,
-                  width: 110.w,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      // Add your onPressed logic here
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MotherDietForm()),
-                      );
-                    },
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            20.0), // Set the border radius
-                      ),
-                      side: const BorderSide(
-                        color: Colors.blue, // Set the border color
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Mother',
-                          style: TextStyle(fontSize: 14.sp),
+          title: const Text(
+            'Whom to track?',
+            textAlign: TextAlign.center,
+          ),
+          content: Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 15.h),
+                  SizedBox(
+                    height: 30.h,
+                    width: 110.w,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        // Add your onPressed logic here
+
+                        // if (boxPregnancyInfo.isEmpty) {
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             const PregnancyTrackerForm()),
+                        //   );
+                        // } else {
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             const PregnancyTrackerPage()),
+                        //   );
+                        // }
+                      },
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              20.0), // Set the border radius
                         ),
-                        const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.blue, // Set the icon color
+                        side: const BorderSide(
+                          color: Colors.blue, // Set the border color
                         ),
-                      ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Mother',
+                            style: TextStyle(fontSize: 14.sp),
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.blue, // Set the icon color
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10.h),
-                Container(
-                  height: 30.h,
-                  width: 110.w,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      // Add your onPressed logic here
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChildDietForm()),
-                      );
-                    },
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            20.0), // Set the border radius
-                      ),
-                      side: const BorderSide(
-                        color: Colors.blue, // Set the border color
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Child',
-                          style: TextStyle(fontSize: 14.sp),
+                  SizedBox(height: 10.h),
+                  SizedBox(
+                    height: 30.h,
+                    width: 110.w,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ChildDietForm()),
+                        );
+                      },
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              20.0), // Set the border radius
                         ),
-                        const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.blue, // Set the icon color
+                        side: const BorderSide(
+                          color: Colors.blue, // Set the border color
                         ),
-                      ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Child',
+                            style: TextStyle(fontSize: 14.sp),
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.blue, // Set the icon color
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           actions: [
@@ -201,6 +228,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: const Text(
                 'Close',
+                textAlign: TextAlign.center,
               ),
             ),
           ],
@@ -231,7 +259,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      drawer: DrawerContent(),
+      drawer: const DrawerContent(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -362,11 +390,21 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PregnancyTrackerForm()),
-                          );
+                          if (boxPregnancyInfo.isEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PregnancyTrackerForm()),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PregnancyTrackerPage()),
+                            );
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -468,7 +506,8 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => TipPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const TipPage()),
                           );
                         },
                         child: Container(

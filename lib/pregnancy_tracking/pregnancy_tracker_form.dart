@@ -1,59 +1,163 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:materni_tech1/models/boxes.dart';
+import 'package:materni_tech1/models/pregnancy_info.dart';
 import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
+import 'package:uuid/uuid.dart';
 
 class PregnancyTrackerForm extends StatefulWidget {
+  const PregnancyTrackerForm({super.key});
+
   @override
   State<PregnancyTrackerForm> createState() => _PregnancyTrackerFormState();
 }
 
 class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
-  DateTime selectedDate = DateTime.now();
-  DateTime selectedDate1 = DateTime.now();
-  DateTime selectedDate2 = DateTime.now();
+  DateTime? selectedDate = DateTime.now();
+  int pregnancyDays = 0;
+  int pregnancyWeeks = 0;
+  String expectedDeliveryDate = "";
+
+  void calculatePregnancy() {
+    if (selectedDate != null) {
+      // Assuming a 280-day pregnancy duration (40 weeks)
+      const pregnancyDuration = Duration(days: 280);
+      final lastPeriodDate = selectedDate!;
+      final expectedDelivery = lastPeriodDate.add(pregnancyDuration);
+
+      // Calculate the number of days and weeks
+      final today = DateTime.now();
+      final difference = today.difference(lastPeriodDate);
+      setState(() {
+        pregnancyDays = difference.inDays;
+        pregnancyWeeks = (difference.inDays / 7).floor();
+        expectedDeliveryDate =
+            "${expectedDelivery.year}-${expectedDelivery.month}-${expectedDelivery.day}";
+      });
+    }
+  }
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: selectedDate ?? DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
-
-    if (picked != null && picked != selectedDate) {
+    if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
-        selectedDate = picked;
+        selectedDate = pickedDate;
       });
     }
   }
 
-  Future<void> _selectDate1(BuildContext context) async {
-    final DateTime? picked1 = await showDatePicker(
+  void _dietTracker(BuildContext context) {
+    showDialog(
       context: context,
-      initialDate: selectedDate1,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(10.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14.0),
+            side: const BorderSide(color: Colors.blue, width: 2.0),
+          ),
+          title: const Text(
+            'Pregnancy Information',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 18),
+          ),
+          content: Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Number of Days Pregnant: $pregnancyDays',
+                    style: TextStyle(fontSize: 16.sp),
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'Pregnancy Weeks: $pregnancyWeeks',
+                    style: TextStyle(fontSize: 16.sp),
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'Expected Delivery Date: $expectedDeliveryDate',
+                    style: TextStyle(fontSize: 16.sp),
+                  ),
+                  SizedBox(height: 10.h),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the popup
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(20.0), // Set the border radius
+                    ),
+                    side: const BorderSide(
+                      color: Colors.red, // Set the border color
+                    ),
+                  ),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10.sp,
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      const uuid = Uuid(); // Create a UUID generator
+                      final key = uuid.v4();
+                      boxPregnancyInfo.put(
+                        key,
+                        PregnancyInfo(
+                            days: pregnancyDays.toString(),
+                            weeks: pregnancyWeeks,
+                            deliveryDate: expectedDeliveryDate),
+                      );
+                    });
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PregnancyTrackerPage()),
+                    ); // Close the popup
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(20.0), // Set the border radius
+                    ),
+                    side: const BorderSide(
+                      color: Colors.blue, // Set the border color
+                    ),
+                  ),
+                  child: const Text(
+                    'Proceed',
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
     );
-
-    if (picked1 != null && picked1 != selectedDate1) {
-      setState(() {
-        selectedDate1 = picked1;
-      });
-    }
-  }
-
-  Future<void> _selectDate2(BuildContext context) async {
-    final DateTime? picked2 = await showDatePicker(
-      context: context,
-      initialDate: selectedDate2,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
-    if (picked2 != null && picked2 != selectedDate2) {
-      setState(() {
-        selectedDate2 = picked2;
-      });
-    }
   }
 
   @override
@@ -61,6 +165,7 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
+        toolbarHeight: 100,
         elevation: 0,
         iconTheme: const IconThemeData(
           color: Colors.black, // Change this color to your desired color
@@ -68,10 +173,9 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
         backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -119,71 +223,7 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
                             border: InputBorder.none,
                           ),
                           child: Text(
-                            "${selectedDate.toLocal()}".split(' ')[0],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, .5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Set the border radius here
-                      ),
-                      color: const Color.fromRGBO(238, 238, 238, 1),
-                      child: InkWell(
-                        onTap: () => _selectDate1(context),
-                        child: InputDecorator(
-                          decoration: const InputDecoration(
-                            labelText: 'Last day of period',
-                            prefixIcon: Icon(
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                              Icons.calendar_today,
-                            ), // Leading calendar icon
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ), // Trailing forward arrow icon
-                            border: InputBorder.none,
-                          ),
-                          child: Text(
-                            "${selectedDate1.toLocal()}".split(' ')[0],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, .5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Set the border radius here
-                      ),
-                      color: const Color.fromRGBO(238, 238, 238, 1),
-                      child: InkWell(
-                        onTap: () => _selectDate2(context),
-                        child: InputDecorator(
-                          decoration: const InputDecoration(
-                            labelText: 'Last day of period',
-                            prefixIcon: Icon(
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                              Icons.calendar_today,
-                            ), // Leading calendar icon
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ), // Trailing forward arrow icon
-                            border: InputBorder.none,
-                          ),
-                          child: Text(
-                            "${selectedDate2.toLocal()}".split(' ')[0],
+                            "${selectedDate?.toLocal()}".split(' ')[0],
                             style: const TextStyle(
                               fontSize: 16,
                               color: Color.fromRGBO(0, 0, 0, .5),
@@ -198,11 +238,13 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
               const SizedBox(height: 60),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PregnancyTrackerPage()),
-                  );
+                  calculatePregnancy(); // Calculate pregnancy details based on selectedDate
+                  _dietTracker(context);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const PregnancyTrackerPage()),
+                  // );
 
                   // Navigate to the next screen or perform any action here
                 },
@@ -227,77 +269,6 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildContainer(String labelText, String date) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: const Offset(0, 3), // Shadow position
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(10), // Added padding
-      height: 90, // Reduced height
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            height: 30,
-            child: Center(
-              child: Text(
-                labelText,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            height: 20,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Icon(
-                  Icons.calendar_today,
-                  color: Colors.blue, // Set icon color to blue
-                  size: 30, // Increased icon size
-                ),
-                Text(
-                  date,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Icon(
-                  Icons.keyboard_arrow_right,
-                  color: Colors.black,
-                  size: 30,
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:materni_tech1/diet_tracker/child_diet.dart';
 
 class ChildDietForm extends StatefulWidget {
+  const ChildDietForm({super.key});
+
   @override
   State<ChildDietForm> createState() => _ChildDietFormState();
 }
@@ -199,7 +201,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const childDiet()),
+                    MaterialPageRoute(builder: (context) => const ChildDiet()),
                   );
 
                   // Navigate to the next screen or perform any action here
@@ -225,77 +227,6 @@ class _ChildDietFormState extends State<ChildDietForm> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildContainer(String labelText, String date) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: const Offset(0, 3), // Shadow position
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(10), // Added padding
-      height: 90, // Reduced height
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            height: 30,
-            child: Center(
-              child: Text(
-                labelText,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            height: 20,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Icon(
-                  Icons.calendar_today,
-                  color: Colors.blue, // Set icon color to blue
-                  size: 30, // Increased icon size
-                ),
-                Text(
-                  date,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Icon(
-                  Icons.keyboard_arrow_right,
-                  color: Colors.black,
-                  size: 30,
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

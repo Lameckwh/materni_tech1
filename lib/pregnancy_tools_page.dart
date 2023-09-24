@@ -8,7 +8,7 @@ class PregnancyToolsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(246, 242, 242, 1),
+      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
         title: const Text(
           'Pregnancy Tools',
@@ -17,10 +17,10 @@ class PregnancyToolsPage extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: Color.fromRGBO(0, 176, 255, 1),
+        backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
         toolbarHeight: 100,
       ),
-      drawer: DrawerContent(),
+      drawer: const DrawerContent(),
 
       body: const Column(
         children: [
