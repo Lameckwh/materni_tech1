@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:materni_tech1/pregnancy_info_update_form.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'drawer_content.dart';
@@ -14,109 +16,6 @@ class _SettingsPageState extends State<SettingsPage> {
   bool notificationsEnabled = false;
   DateTime selectedDate = DateTime.now();
   DateTime selectedDate2 = DateTime.now();
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
-
-  Future<void> _selectDate2(BuildContext context) async {
-    final DateTime? picked2 = await showDatePicker(
-      context: context,
-      initialDate: selectedDate2,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
-    if (picked2 != null && picked2 != selectedDate2) {
-      setState(() {
-        selectedDate2 = picked2;
-      });
-    }
-  }
-
-  void _pregnancyInfoUpdate(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: const EdgeInsets.all(20.0),
-          title: const Text('Update Pregnancy Information'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InkWell(
-                onTap: () => _selectDate(context),
-                child: InputDecorator(
-                  decoration: const InputDecoration(
-                    labelText: 'Last day of period',
-                    prefixIcon: Icon(
-                      color: Color.fromRGBO(0, 176, 255, 1),
-                      Icons.calendar_today,
-                    ), // Leading calendar icon
-                    suffixIcon: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Color.fromRGBO(0, 176, 255, 1),
-                    ), // Trailing forward arrow icon
-                    border: InputBorder.none,
-                  ),
-                  child: Text(
-                    "${selectedDate.toLocal()}".split(' ')[0],
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Color.fromRGBO(0, 0, 0, .5),
-                    ),
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () => _selectDate2(context),
-                child: InputDecorator(
-                  decoration: const InputDecoration(
-                    labelText: 'Last day of period',
-                    prefixIcon: Icon(
-                      color: Color.fromRGBO(0, 176, 255, 1),
-                      Icons.calendar_today,
-                    ), // Leading calendar icon
-                    suffixIcon: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Color.fromRGBO(0, 176, 255, 1),
-                    ), // Trailing forward arrow icon
-                    border: InputBorder.none,
-                  ),
-                  child: Text(
-                    "${selectedDate.toLocal()}".split(' ')[0],
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Color.fromRGBO(0, 0, 0, .5),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the popup
-              },
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   void _measurementsUnits(BuildContext context) {
     showDialog(
@@ -222,8 +121,11 @@ class _SettingsPageState extends State<SettingsPage> {
                         const Text("Update Pregnancy Information"),
                         IconButton(
                           onPressed: () {
-                            _pregnancyInfoUpdate(
+                            Navigator.push(
                               context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PregnancyInfoUpdateForm()),
                             );
                           },
                           icon: const Icon(Icons.arrow_forward_ios),

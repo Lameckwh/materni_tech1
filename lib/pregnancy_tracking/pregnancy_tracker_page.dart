@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:materni_tech1/home_page.dart';
 import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/models/pregnancy_info.dart';
 
-class PregnancyTrackerPage extends StatelessWidget {
+class PregnancyTrackerPage extends StatefulWidget {
   const PregnancyTrackerPage({super.key});
 
+  @override
+  State<PregnancyTrackerPage> createState() => _PregnancyTrackerPageState();
+}
+
+class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
   @override
   Widget build(BuildContext context) {
     final PregnancyInfo? pregnancyInfo = boxPregnancyInfo.values.isNotEmpty
@@ -14,9 +19,37 @@ class PregnancyTrackerPage extends StatelessWidget {
     String pregnancyStatus =
         'WEEK ${pregnancyInfo?.weeks ?? 'N/A'} Day ${pregnancyInfo?.days ?? 'N/A'}';
 
+    DateTime? formatAndParse(String? dateStr) {
+      if (dateStr == null) return null;
+      List<String> parts = dateStr.split('-');
+      if (parts.length != 3) return null; // Invalid date format
+
+      int year = int.tryParse(parts[0]) ?? 0;
+      int month = int.tryParse(parts[1]) ?? 0;
+      int day = int.tryParse(parts[2]) ?? 0;
+
+      return DateTime(year, month, day);
+    }
+
+    final today = DateTime.now();
+    DateTime? deliveryDateTime = formatAndParse(pregnancyInfo?.deliveryDate);
+    final difference = deliveryDateTime?.difference(today);
+    final daysLeft =
+        difference?.inDays ?? 0; // Calculate the days left for pregnancy
+
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+              Icons.arrow_back), // Replace with your custom back icon
+          onPressed: () {
+            // Navigate to the specified screen
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          },
+        ),
         backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
         toolbarHeight: 80,
         elevation: 1,
@@ -78,9 +111,9 @@ class PregnancyTrackerPage extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    const Text(
-                      '263 days left (20.04.2024)',
-                      style: TextStyle(
+                    Text(
+                      '$daysLeft days left (${pregnancyInfo?.deliveryDate ?? 'N/A'})',
+                      style: const TextStyle(
                         fontSize: 18,
                       ),
                     ),
@@ -103,9 +136,9 @@ class PregnancyTrackerPage extends StatelessWidget {
                       color: Color.fromRGBO(0, 176, 255, 1),
                     ),
                   ),
-                  const Text(
-                    "Week 6",
-                    style: TextStyle(
+                  Text(
+                    'WeeK ${pregnancyInfo?.weeks ?? 'N/A'}',
+                    style: const TextStyle(
                       fontSize: 19,
                       color: Color.fromRGBO(0, 0, 0, 1),
                     ),
