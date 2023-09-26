@@ -1,15 +1,53 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:materni_tech1/diet_tracker/mother_dirt.dart';
+import 'package:materni_tech1/models/boxes.dart';
+import 'package:materni_tech1/models/pregnancy_info.dart';
+import 'package:materni_tech1/pregnancy_tracking/mother.dart';
 
-class MotherDiet extends StatefulWidget {
-  const MotherDiet({Key? key}) : super(key: key);
+class MotherDietTracking extends StatefulWidget {
+  const MotherDietTracking({Key? key}) : super(key: key);
 
   @override
-  State<MotherDiet> createState() => _MotherDietState();
+  State<MotherDietTracking> createState() => _MotherDietTrackingState();
 }
 
-class _MotherDietState extends State<MotherDiet> {
+class _MotherDietTrackingState extends State<MotherDietTracking> {
+  int currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize currentIndex with the pregnancy weeks from the Hive box
+    final PregnancyInfo? pregnancyInfo = boxPregnancyInfo.values.isNotEmpty
+        ? boxPregnancyInfo.values.first
+        : null;
+
+    if (pregnancyInfo != null) {
+      currentIndex = pregnancyInfo.weeks;
+    }
+
+    startTimer();
+  }
+
+  void goToNextWeek() {
+    if (currentIndex < motherDiet.length - 1) {
+      setState(() {
+        currentIndex++;
+      });
+    }
+  }
+
+  void goToPreviousWeek() {
+    if ((currentIndex > 0)) {
+      setState(() {
+        currentIndex--;
+      });
+    }
+  }
+
   final List<String> tips = [
     "During pregnancy, aim for regular prenatal check-ups to monitor your health and your baby's development. It's essential for a healthy pregnancy.",
     "Stay physically active during pregnancy, but consult your healthcare provider for safe exercise recommendations.",
@@ -24,13 +62,6 @@ class _MotherDietState extends State<MotherDiet> {
 
   int currentTipIndex = 0;
   late Timer timer;
-
-  @override
-  void initState() {
-    super.initState();
-    // Start the timer when the page is initialized
-    startTimer();
-  }
 
   @override
   void dispose() {
@@ -62,7 +93,9 @@ class _MotherDietState extends State<MotherDiet> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: const Color.fromARGB(255, 166, 0, 255),
+        toolbarHeight: 55.h,
+        elevation: 1,
         title: const Text('Mother Diet Tracker',
             style: TextStyle(color: Colors.white)),
         leading: IconButton(
@@ -93,7 +126,7 @@ class _MotherDietState extends State<MotherDiet> {
                       height: 150,
                       width: 150,
                       child: Image.asset(
-                        'images/mother_diet.png',
+                        motherDiet[currentIndex].image,
                       ),
                     ),
                     // 2% of screen height
@@ -103,7 +136,7 @@ class _MotherDietState extends State<MotherDiet> {
 
                     Container(
                       margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      height: 250,
+                      // height: 250,
                       child: Card(
                         child: Padding(
                           padding: const EdgeInsets.all(11.0),
@@ -113,28 +146,29 @@ class _MotherDietState extends State<MotherDiet> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
+                                  Text(
                                     "Today's Tip",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 19),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.sp),
                                   ),
                                   Text(
                                     formattedDate,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 19,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.sp,
                                       color: Color.fromRGBO(30, 211, 48, 1),
                                     ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 30,
+                              SizedBox(
+                                height: 10.h,
                               ),
                               Text(
                                 tips[currentTipIndex],
-                                style: const TextStyle(fontSize: 19),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 15.sp),
                               )
                             ],
                           ),
@@ -146,25 +180,30 @@ class _MotherDietState extends State<MotherDiet> {
                     ),
                     Container(
                       margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      height: 250,
-                      child: const Card(
+                      // height: 250,
+                      child: Card(
                         child: Padding(
                           padding: EdgeInsets.all(11.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Lorem Ipsum",
-                                textAlign: TextAlign.left,
+                                motherDiet[currentIndex].title,
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 19),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               SizedBox(
-                                height: 30,
+                                height: 8.h,
                               ),
                               Text(
-                                """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non risus eget orci ornare rhoncus sit amet quis justo.""",
-                                style: TextStyle(fontSize: 19),
+                                motherDiet[currentIndex].description,
+                                style: TextStyle(
+                                  // fontWeight: FontWeight.w600,
+                                  fontSize: 15.sp,
+                                ),
                               )
                             ],
                           ),
@@ -184,12 +223,16 @@ class _MotherDietState extends State<MotherDiet> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back),
-                    onPressed: () {},
+                    onPressed: currentIndex > 0 ? goToPreviousWeek : null,
                   ),
-                  const Text('Week 2'),
+                  Text(
+                    'Week $currentIndex',
+                  ),
                   IconButton(
                     icon: const Icon(Icons.arrow_forward),
-                    onPressed: () {},
+                    onPressed: currentIndex < motherDiet.length - 1
+                        ? goToNextWeek
+                        : null,
                   ),
                 ],
               ),

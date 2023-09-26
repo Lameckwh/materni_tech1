@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Tip {
   final String title;
@@ -111,7 +112,9 @@ class _TipPageState extends State<TipPage> {
           'Tips',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: const Color.fromARGB(255, 166, 0, 255),
+        toolbarHeight: 55.h,
+        elevation: 1,
         leading: IconButton(
           color: Colors.white,
           icon: const Icon(Icons.arrow_back),
@@ -139,20 +142,20 @@ class _TipPageState extends State<TipPage> {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          const SizedBox(
-                            height: 20,
+                          SizedBox(
+                            height: 18.h,
                           ),
                           Text(
                             tips[currentIndex].title,
-                            style: const TextStyle(
-                              fontSize: 24.0,
+                            style: TextStyle(
+                              fontSize: 17.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 16.0),
+                          SizedBox(height: 15.h),
                           Text(
                             tips[currentIndex].description,
-                            style: const TextStyle(fontSize: 18.0),
+                            style: TextStyle(fontSize: 16.sp),
                           ),
                           const SizedBox(height: 16.0),
                           ButtonBar(

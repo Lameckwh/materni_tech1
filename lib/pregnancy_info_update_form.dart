@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:materni_tech1/models/boxes.dart';
-import 'package:materni_tech1/models/pregnancy_info.dart';
 import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
-import 'package:uuid/uuid.dart';
 
 class PregnancyInfoUpdateForm extends StatefulWidget {
   const PregnancyInfoUpdateForm({super.key});
@@ -14,7 +12,7 @@ class PregnancyInfoUpdateForm extends StatefulWidget {
 }
 
 class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
-  DateTime? selectedDate = DateTime.now();
+  DateTime? selectedDate = boxPregnancyInfo.get('user123')?.lastDateOfPeriod;
   int pregnancyDays = 0;
   int pregnancyWeeks = 0;
   String expectedDeliveryDate = "";
@@ -33,7 +31,7 @@ class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
         pregnancyDays = difference.inDays;
         pregnancyWeeks = (difference.inDays / 7).floor();
         expectedDeliveryDate =
-            "${expectedDelivery.year}-${expectedDelivery.month}-${expectedDelivery.day}";
+            "${expectedDelivery.year}-${expectedDelivery.month.toString().padLeft(2, '0')}-${expectedDelivery.day.toString().padLeft(2, '0')}";
       });
     }
   }
@@ -42,8 +40,8 @@ class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
+      firstDate: DateTime(2001),
+      lastDate: DateTime(2028),
     );
     if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
@@ -67,30 +65,28 @@ class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 18),
           ),
-          content: Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Number of Days Pregnant: $pregnancyDays',
-                    style: TextStyle(fontSize: 16.sp),
-                  ),
-                  SizedBox(height: 20.h),
-                  Text(
-                    'Pregnancy Weeks: $pregnancyWeeks',
-                    style: TextStyle(fontSize: 16.sp),
-                  ),
-                  SizedBox(height: 20.h),
-                  Text(
-                    'Expected Delivery Date: $expectedDeliveryDate',
-                    style: TextStyle(fontSize: 16.sp),
-                  ),
-                  SizedBox(height: 10.h),
-                ],
-              ),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Number of Days Pregnant: $pregnancyDays',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  'Pregnancy Weeks: $pregnancyWeeks',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  'Expected Delivery Date: $expectedDeliveryDate',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                SizedBox(height: 10.h),
+              ],
             ),
           ),
           actions: [
@@ -118,10 +114,32 @@ class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
                   ),
                 ),
                 SizedBox(
-                  width: 10.sp,
+                  width: 10.w,
                 ),
                 OutlinedButton(
                   onPressed: () {
+                    setState(() {
+                      const customKey = "user123";
+                      final expectedDeliveryDateTime =
+                          DateTime.parse(expectedDeliveryDate);
+
+                      // Retrieve the existing PregnancyInfo object from the box
+                      final existingPregnancyInfo =
+                          boxPregnancyInfo.get(customKey);
+
+                      // Check if the object exists in the box
+                      if (existingPregnancyInfo != null) {
+                        // Update the properties of the existing object
+                        existingPregnancyInfo.days = pregnancyDays.toString();
+                        existingPregnancyInfo.weeks = pregnancyWeeks;
+                        existingPregnancyInfo.deliveryDate =
+                            expectedDeliveryDateTime;
+                        existingPregnancyInfo.lastDateOfPeriod = selectedDate!;
+
+                        // Put the updated object back into the box
+                        boxPregnancyInfo.put(customKey, existingPregnancyInfo);
+                      }
+                    });
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -175,7 +193,7 @@ class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: const Text(
-                    'Update Pregnancy Information',
+                    'Update the Pregnancy Information',
                     style: TextStyle(
                       color: Color.fromRGBO(0, 176, 255, 1),
                       fontSize: 20,

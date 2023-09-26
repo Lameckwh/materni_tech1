@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'mother_diet.dart';
+import 'mother_diet_tracking.dart';
 
 class MotherDietForm extends StatefulWidget {
   const MotherDietForm({super.key});
@@ -203,7 +203,8 @@ class _MotherDietFormState extends State<MotherDietForm> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MotherDiet()),
+                    MaterialPageRoute(
+                        builder: (context) => const MotherDietTracking()),
                   );
 
                   // Navigate to the next screen or perform any action here

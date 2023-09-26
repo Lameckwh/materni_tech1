@@ -19,20 +19,23 @@ class PregnancyInfoAdapter extends TypeAdapter<PregnancyInfo> {
     return PregnancyInfo(
       days: fields[0] as String,
       weeks: fields[1] as int,
-      deliveryDate: fields[2] as String,
+      deliveryDate: fields[2] as DateTime,
+      lastDateOfPeriod: fields[3] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, PregnancyInfo obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.days)
       ..writeByte(1)
       ..write(obj.weeks)
       ..writeByte(2)
-      ..write(obj.deliveryDate);
+      ..write(obj.deliveryDate)
+      ..writeByte(3)
+      ..write(obj.lastDateOfPeriod);
   }
 
   @override

@@ -26,11 +26,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScreenUtilInit(
-      designSize: Size(360, 690),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
       child: MaterialApp(
+        theme: ThemeData(fontFamily: 'Poppins'),
         debugShowCheckedModeBanner: false,
-        home: GetStartedPage(),
+        home: const GetStartedPage(),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:materni_tech1/diet_tracker/diet_tracker.dart';
+import 'package:materni_tech1/diet_tracker/mother_diet_tracking.dart';
 import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -127,26 +129,24 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 15.h),
                   SizedBox(
                     height: 30.h,
-                    width: 110.w,
+                    width: 130.w,
                     child: OutlinedButton(
                       onPressed: () {
-                        // Add your onPressed logic here
-
-                        // if (boxPregnancyInfo.isEmpty) {
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             const PregnancyTrackerForm()),
-                        //   );
-                        // } else {
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             const PregnancyTrackerPage()),
-                        //   );
-                        // }
+                        if (boxPregnancyInfo.isEmpty) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const PregnancyTrackerForm()),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const MotherDietTracking()),
+                          );
+                        }
                       },
                       style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -245,14 +245,14 @@ class _HomePageState extends State<HomePage> {
             bottomRight: Radius.circular(5.0), // Adjust the radius as needed
           ),
         ),
-        toolbarHeight: 70.h,
+        toolbarHeight: 55.h,
         elevation: 1,
         backgroundColor: Colors.blue,
         title: Text(
           "Home",
           style: TextStyle(
-            fontSize: 19.sp,
-            fontWeight: FontWeight.w700,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
@@ -367,15 +367,15 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 'Diet',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
                                 ),
                               ),
                               Text(
                                 'Tracker',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
                                 ),
                               ),
                             ],
@@ -428,15 +428,15 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 'Pregnancy',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
                                 ),
                               ),
                               Text(
                                 'Tracker',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
                                 ),
                               ),
                             ],
@@ -481,15 +481,15 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 'Magazine &',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
                                 ),
                               ),
                               Text(
                                 'Stories',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
                                 ),
                               ),
                             ],
@@ -532,8 +532,8 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 'Tips',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
                                 ),
                               ),
                             ],

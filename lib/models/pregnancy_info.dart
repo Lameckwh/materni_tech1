@@ -8,6 +8,7 @@ class PregnancyInfo {
     required this.days,
     required this.weeks,
     required this.deliveryDate,
+    required this.lastDateOfPeriod,
   });
 
   @HiveField(0)
@@ -17,5 +18,8 @@ class PregnancyInfo {
   int weeks;
 
   @HiveField(2)
-  String deliveryDate;
+  DateTime deliveryDate;
+
+  @HiveField(3)
+  DateTime lastDateOfPeriod;
 }

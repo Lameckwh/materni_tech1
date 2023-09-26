@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:materni_tech1/home_page.dart';
 import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/models/pregnancy_info.dart';
+import 'package:materni_tech1/pregnancy_tracking/mother.dart';
+
+class Advice {
+  final String title;
+  final String description;
+
+  Advice(this.title, this.description);
+}
 
 class PregnancyTrackerPage extends StatefulWidget {
   const PregnancyTrackerPage({super.key});
@@ -11,29 +20,56 @@ class PregnancyTrackerPage extends StatefulWidget {
 }
 
 class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
+  int currentIndex = 0;
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+
+    // Initialize currentIndex with the pregnancy weeks from the Hive box
     final PregnancyInfo? pregnancyInfo = boxPregnancyInfo.values.isNotEmpty
         ? boxPregnancyInfo.values.first
         : null;
-    String pregnancyStatus =
-        'WEEK ${pregnancyInfo?.weeks ?? 'N/A'} Day ${pregnancyInfo?.days ?? 'N/A'}';
 
-    DateTime? formatAndParse(String? dateStr) {
-      if (dateStr == null) return null;
-      List<String> parts = dateStr.split('-');
-      if (parts.length != 3) return null; // Invalid date format
+    if (pregnancyInfo != null) {
+      currentIndex = pregnancyInfo.weeks;
+    }
+  }
 
-      int year = int.tryParse(parts[0]) ?? 0;
-      int month = int.tryParse(parts[1]) ?? 0;
-      int day = int.tryParse(parts[2]) ?? 0;
+  void goToNextWeek() {
+    if (currentIndex < mothers.length - 1) {
+      setState(() {
+        currentIndex++;
+      });
+    }
+  }
 
-      return DateTime(year, month, day);
+  void goToPreviousWeek() {
+    if ((currentIndex > 0)) {
+      setState(() {
+        currentIndex--;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final today = DateTime.now();
+    final PregnancyInfo? pregnancyInfo = boxPregnancyInfo.values.isNotEmpty
+        ? boxPregnancyInfo.values.first
+        : null;
+    final pregnancyDays =
+        today.difference(pregnancyInfo?.lastDateOfPeriod ?? today).inDays;
+
+    String pregnancyStatus = 'N/A';
+
+    if (pregnancyInfo != null) {
+      pregnancyStatus = 'Week ${pregnancyInfo.weeks} Day $pregnancyDays';
     }
 
-    final today = DateTime.now();
-    DateTime? deliveryDateTime = formatAndParse(pregnancyInfo?.deliveryDate);
+    DateTime? deliveryDateTime = pregnancyInfo?.deliveryDate;
+
     final difference = deliveryDateTime?.difference(today);
+
     final daysLeft =
         difference?.inDays ?? 0; // Calculate the days left for pregnancy
 
@@ -50,119 +86,138 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
             );
           },
         ),
-        backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
-        toolbarHeight: 80,
+        backgroundColor: const Color.fromARGB(255, 166, 0, 255),
+        toolbarHeight: 55.h,
         elevation: 1,
-        title: const Text(
+        title: Text(
           'Pregnancy Tracking',
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+        child: Container(
+          padding: const EdgeInsets.only(
+            left: 15,
+            bottom: 15,
+            right: 15,
+          ),
           child: Column(
             children: [
-              Card(
-                color: const Color.fromRGBO(142, 157, 234, 1),
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const Text(
-                      'Pregnancy Status',
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      pregnancyStatus,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        child: LinearProgressIndicator(
-                          value: 0.1, // Adjust the value to set progress
-                          minHeight: 15,
-                          backgroundColor: Colors.grey[300],
-                          valueColor:
-                              const AlwaysStoppedAnimation<Color>(Colors.green),
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 15,
+                ),
+                width: 330.w,
+                height: 190.h,
+                child: Card(
+                  color: const Color.fromRGBO(142, 157, 234, 1),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 8.h,
                         ),
-                      ),
+                        Text(
+                          'Pregnancy Status',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Text(
+                          pregnancyStatus,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17.sp,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 30,
+                            right: 30,
+                          ),
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            child: LinearProgressIndicator(
+                              value: pregnancyInfo!.weeks / 40,
+                              // Adjust the value to set progress
+                              minHeight: 12.h,
+                              backgroundColor: Colors.grey[300],
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.green),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Text(
+                          '$daysLeft days left (${pregnancyInfo.deliveryDate.toLocal().toString().split(' ')[0]})',
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      '$daysLeft days left (${pregnancyInfo?.deliveryDate ?? 'N/A'})',
-                      style: const TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                  ],
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 10.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: currentIndex > 0 ? goToPreviousWeek : null,
                     icon: const Icon(
                       Icons.arrow_back_ios,
-                      color: Color.fromRGBO(0, 176, 255, 1),
+                      color: Color.fromRGBO(142, 157, 234, 1),
                     ),
                   ),
                   Text(
-                    'WeeK ${pregnancyInfo?.weeks ?? 'N/A'}',
-                    style: const TextStyle(
-                      fontSize: 19,
-                      color: Color.fromRGBO(0, 0, 0, 1),
+                    'Week $currentIndex',
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      color: const Color.fromRGBO(0, 0, 0, 1),
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed:
+                        currentIndex < mothers.length - 1 ? goToNextWeek : null,
                     icon: const Icon(
                       Icons.arrow_forward_ios,
-                      color: Color.fromRGBO(0, 176, 255, 1),
+                      color: Color.fromRGBO(142, 157, 234, 1),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 10.h,
               ),
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.circular(15), // Adjust the radius as needed
                 ),
-                color: const Color.fromRGBO(0, 176, 255, 1),
+                color: const Color.fromRGBO(142, 157, 234, 1),
                 child: SizedBox(
-                  height: 70,
+                  height: 50.h,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,54 +228,60 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
                           shape: const StadiumBorder(),
                           // Set the background color here
                         ),
-                        onPressed: () {},
-                        child: const Text(
+                        onPressed: () {
+                          // boxPregnancyInfo.clear();
+                        },
+                        child: Text(
                           "Mother",
                           style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 19,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15.sp,
                           ),
                         ),
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: const Text(
+                        child: Text(
                           "Baby",
                           style: TextStyle(
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w400,
                             color: Colors.white,
-                            fontSize: 19,
+                            fontSize: 15.sp,
                           ),
                         ),
                       ),
                       TextButton(
                           onPressed: () {},
-                          child: const Text(
+                          child: Text(
                             "Advice",
                             style: TextStyle(
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                               color: Colors.white,
-                              fontSize: 19,
+                              fontSize: 15.sp,
                             ),
                           )),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: 15.h,
+              ),
+              Text(
+                mothers[currentIndex].title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               SizedBox(
-                width: 180.0, // Set the desired width
-                height: 180.0, // Set the desired height
-                child: Image.asset("images/baby_stage.png"),
+                height: 15.h,
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non risus eget orci ornare rhoncus sit amet quis justo",
-                style: TextStyle(fontSize: 19),
+              Text(
+                mothers[currentIndex].description,
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 15.sp),
               )
             ],
           ),

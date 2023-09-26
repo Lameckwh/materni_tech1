@@ -53,10 +53,10 @@ class DrawerContent extends StatelessWidget {
               size: 30,
               color: Colors.black,
             ),
-            title: const Text(
+            title: Text(
               'Home',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.sp,
               ),
             ),
             onTap: () {
@@ -87,7 +87,7 @@ class DrawerContent extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(
-              Icons.pregnant_woman,
+              Icons.pregnant_woman_sharp,
               size: 30,
               color: Colors.black,
             ),

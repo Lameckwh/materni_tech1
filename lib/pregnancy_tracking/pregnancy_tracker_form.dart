@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/models/pregnancy_info.dart';
 import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
-import 'package:uuid/uuid.dart';
 
 class PregnancyTrackerForm extends StatefulWidget {
   const PregnancyTrackerForm({super.key});
@@ -32,7 +31,7 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
         pregnancyDays = difference.inDays;
         pregnancyWeeks = (difference.inDays / 7).floor();
         expectedDeliveryDate =
-            "${expectedDelivery.year}-${expectedDelivery.month}-${expectedDelivery.day}";
+            "${expectedDelivery.year}-${expectedDelivery.month.toString().padLeft(2, '0')}-${expectedDelivery.day.toString().padLeft(2, '0')}";
       });
     }
   }
@@ -41,8 +40,8 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
+      firstDate: DateTime(2022),
+      lastDate: DateTime(2024),
     );
     if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
@@ -62,34 +61,32 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
             side: const BorderSide(color: Colors.blue, width: 2.0),
           ),
           title: const Text(
-            'Pregnancy Information',
+            'Updated Pregnancy Information',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 18),
           ),
-          content: Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Number of Days Pregnant: $pregnancyDays',
-                    style: TextStyle(fontSize: 16.sp),
-                  ),
-                  SizedBox(height: 20.h),
-                  Text(
-                    'Pregnancy Weeks: $pregnancyWeeks',
-                    style: TextStyle(fontSize: 16.sp),
-                  ),
-                  SizedBox(height: 20.h),
-                  Text(
-                    'Expected Delivery Date: $expectedDeliveryDate',
-                    style: TextStyle(fontSize: 16.sp),
-                  ),
-                  SizedBox(height: 10.h),
-                ],
-              ),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Number of Days Pregnant: $pregnancyDays',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  'Pregnancy Weeks: $pregnancyWeeks',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  'Expected Delivery Date: $expectedDeliveryDate',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                SizedBox(height: 10.h),
+              ],
             ),
           ),
           actions: [
@@ -102,11 +99,10 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
                   },
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(20.0), // Set the border radius
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     side: const BorderSide(
-                      color: Colors.red, // Set the border color
+                      color: Colors.red,
                     ),
                   ),
                   child: const Text(
@@ -122,30 +118,33 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
                 OutlinedButton(
                   onPressed: () {
                     setState(() {
-                      const uuid = Uuid(); // Create a UUID generator
-                      final key = uuid.v4();
+                      const customKey =
+                          "user123"; // Custom key based on the user's username
+                      final expectedDeliveryDateTime =
+                          DateTime.parse(expectedDeliveryDate);
                       boxPregnancyInfo.put(
-                        key,
+                        customKey,
                         PregnancyInfo(
-                            days: pregnancyDays.toString(),
-                            weeks: pregnancyWeeks,
-                            deliveryDate: expectedDeliveryDate),
+                          days: pregnancyDays.toString(),
+                          weeks: pregnancyWeeks,
+                          deliveryDate: expectedDeliveryDateTime,
+                          lastDateOfPeriod: selectedDate!,
+                        ),
                       );
                     });
-
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const PregnancyTrackerPage()),
+                        builder: (context) => const PregnancyTrackerPage(),
+                      ),
                     ); // Close the popup
                   },
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(20.0), // Set the border radius
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     side: const BorderSide(
-                      color: Colors.blue, // Set the border color
+                      color: Colors.blue,
                     ),
                   ),
                   child: const Text(
