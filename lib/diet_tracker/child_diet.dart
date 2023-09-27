@@ -1,292 +1,82 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+class ChildDiet {
+  final String title;
+  final String image;
+  final String description;
 
-class ChildDiet extends StatefulWidget {
-  const ChildDiet({Key? key}) : super(key: key);
-
-  @override
-  State<ChildDiet> createState() => _ChildDietState();
+  ChildDiet(this.title, this.image, this.description);
 }
 
-class _ChildDietState extends State<ChildDiet> {
-  final List<String> tips = [
-    "Breastfeeding is the best start for your baby. It provides essential nutrients and antibodies for their growth and protection.",
-    "Introduce a variety of fruits and vegetables to your child's diet. They provide essential vitamins and minerals for growth",
-    "Encourage family meals. Eating together promotes healthy eating habits and family bonding.",
-    "Limit sugary drinks and snacks for your child. Opt for water, milk, and healthy snacks like fruits and nuts",
-    "Introduce whole grains like whole wheat bread and brown rice. They are rich in fiber and nutrients",
-    "Offer lean protein sources like chicken, fish, and beans to support your child's growth and development",
-    "Be patient with picky eaters. Offer new foods multiple times and create a positive eating environment",
-    // Add more tips here...
-  ];
+final List<ChildDiet> childDiet = [
+  ChildDiet(
+    "Take a Prenatal Vitamin",
+    'images/healthy_foods.png',
+    """It's smart to start taking prenatal vitamins as soon as you know you're pregnant. In fact, many experts recommend taking them when you start trying to conceive. This is because your baby's neural tube, which becomes the brain and spinal cord, develops within the first month of pregnancy, so it's important you get essential nutrients—like folate, calcium, and iron—from the very start.
 
-  int currentTipIndex = 0;
-  late Timer timer;
+Prenatal vitamins are available over the counter at most drug stores, or you can get them by prescription from a doctor. If taking them makes you feel queasy, try taking them at night or with a light snack. Chewing gum or sucking on hard candy afterward can help, too.""",
+  ),
+  ChildDiet(
+    "Exercise",
+    'images/mother_diet.png',
+    """Staying active is important for your general health and can help you reduce stress, improve circulation, and boost your mood. It can also encourage better sleep. Studies have shown that exercise has many benefits to support a healthy pregnancy, including helping to lower the risk of preeclampsia.
 
-  @override
-  void initState() {
-    super.initState();
-    // Start the timer when the page is initialized
-    startTimer();
-  }
+Take a pregnancy exercise class or walk at least 15 to 20 minutes a day at a moderate pace—in cool, shaded areas or indoors in order to prevent overheating.
 
-  @override
-  void dispose() {
-    // Dispose of the timer when the page is disposed
-    timer.cancel();
-    super.dispose();
-  }
+Pilates, yoga, swimming, and walking are also great activities for most pregnant people, but be sure to check with a health care provider before starting any exercise program. Aim for 30 minutes of exercise most days of the week. Listen to your body, though, and don't overdo it.""",
+  ),
+  ChildDiet(
+    "Write a Birth Plan",
+    'images/mother_diet.png',
+    """Determined to have a doula? Counting on that epidural? Write down your wishes and give a copy to everyone involved in your labor and delivery. Here are some things to consider when writing your birth plan:
 
-  void startTimer() {
-    // Create a timer that triggers every 24 hours
-    timer = Timer.periodic(const Duration(hours: 24), (timer) {
-      setState(() {
-        // Increment the tip index to display the next tip
-        currentTipIndex = (currentTipIndex + 1) % tips.length;
-      });
-    });
-  }
+Who you want present
+Procedures you want to avoid
+What positions you prefer for labor and delivery
+Special clothing you'd like to wear
+Whether you want music or a special focal point
+Whether you want pain medications and what kind
+What to do if complications arise""",
+  ),
+  ChildDiet(
+    "Educate Yourself",
+    'images/mother_diet.png',
+    """Even if this isn't your first baby, attending a childbirth class will help you feel more prepared for delivery. Not only will you have the chance to learn more about childbirth and infant care, but you can also ask specific questions and voice concerns. You'll also become more acquainted with the facility and its staff.
 
-  @override
-  Widget build(BuildContext context) {
-    final DateTime now = DateTime.now();
-    final String day = '${now.day}';
-    final String month = _getMonthName(now.month);
-    final String formattedDate = '$day $month';
+Now is also a good time to brush up on your family's medical history. Talk to your doctor about problems with past pregnancies, and report any family incidences of congenital disorders.""",
+  ),
+  ChildDiet(
+    "Practice Kegels",
+    'images/mother_diet.png',
+    """Kegel exercises strengthen the pelvic floor muscles, which support your bladder, bowels, and uterus. Done correctly, this simple exercise can help make your delivery easier and prevent problems later with incontinence.3
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlue,
-        toolbarHeight: 70.h,
-        title: Text(
-          'Child Diet Tracker',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 19.sp,
-          ),
-        ),
-        leading: IconButton(
-          color: Colors.white,
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: Container(
-        color: const Color.fromARGB(255, 226, 226, 226),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // ignore: sized_box_for_whitespace
-                    Container(
-                      height: 150.sp,
-                      width: 150.sp,
-                      child: Image.asset(
-                        'images/chield_diet.png',
-                      ),
-                    ),
-                    SizedBox(height: 20.h), // 2% of screen height
+The best part: No one can tell you're doing them—so you can practice Kegels in the car, while you're sitting at your desk, or even standing in line at the grocery store.
 
-                    Container(
-                      margin:
-                          const EdgeInsets.only(left: 11, right: 11, top: 11),
-                      // height: 25,
-                      child: Card(
-                        elevation: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(11.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Today’s tip",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.sp),
-                                  ),
-                                  Text(
-                                    formattedDate,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18.sp,
-                                      color:
-                                          const Color.fromRGBO(30, 211, 48, 1),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 30.h,
-                              ),
-                              Text(
-                                tips[currentTipIndex],
-                                style: TextStyle(fontSize: 16.sp),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+Here's how to do them:
 
-                    Container(
-                      margin: const EdgeInsets.all(7),
-                      child: Card(
-                        elevation: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(11.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Unsafe foods for toddlers: choking risks",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18.sp),
-                              ),
-                              SizedBox(
-                                height: 30.h,
-                              ),
-                              Text(
-                                """At two years old, your child should be able to use a spoon, drink from a cup with just one hand, and feed themselves a wide variety of finger foods. However, they are still learning to chew and swallow efficiently and may gulp food down when in a hurry to get on with playing. For that reason, the risk of choking at this age is high.""",
-                                style: TextStyle(fontSize: 16.sp),
-                              ),
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              Text(
-                                """Avoid these foods, which could be swallowed whole and block the windpipe:
-Hot dogs (unless cut in quarters lengthwise before being sliced)
+1. Practice squeezing as though you're stopping the flow of urine when you use the bathroom.
+2. Hold for three seconds, then relax for three.
+3. Repeat 10 times for a complete set.""",
+  ),
+  ChildDiet(
+    "Eliminate Toxins",
+    'images/mother_diet.png',
+    """Because of their link to congenital disorders, miscarriage, and other pregnancy complications, you should avoid tobacco, alcohol, illicit drugs, and even solvents such as paint thinners and nail polish remover while pregnant. Smoking cigarettes, for example, decreases oxygen flow to your baby, and it's linked to preterm birth and other complications.4
 
-Chunks of peanut butter (Peanut butter may be spread thinly on bread or a cracker, but never give chunks of peanut butter to a toddler.)
+"If you can't stop smoking, drinking, or using drugs, let your doctor know," recommends Roger Harms, MD, an OB-GYN at the Mayo Clinic. A doctor can offer advice and support and refer you to a program that can help you quit.""",
+  ),
+  ChildDiet(
+    "Check Your Medications",
+    'images/mother_diet.png',
+    """Check with a health care provider before taking any medications, supplements, or "natural" remedies. Some are surprised to learn that even commonly used over-the-counter medications like ibuprofen and other non-steroidal anti-inflammatory drugs (NSAIDs) should be avoided during pregnancy.
 
-Nuts—especially peanuts
+For example, some studies have shown a potential link between using ibuprofen during pregnancy and an increased risk of miscarriage and congenital disorders. Additionally, the Food and Drug Administration doesn't recommend the use of ibuprofen after week 20 of pregnancy due to the risk of kidney problems in the fetus.
 
-Raw cherries with pits
+Rather than worry about whether something is safe to take during pregnancy, go ahead and check with a health care provider before taking any medication, prescribed or otherwise.""",
+  ),
+  ChildDiet(
+    "Drink More Water",
+    'images/mother_diet.png',
+    """During pregnancy, your blood is supplying oxygen and essential nutrients to your baby through the placenta and carrying waste and carbon dioxide away, and your blood volume increases up to 50% to handle all this extra activity. So, you need to drink more to support that gain.
 
-Round, hard candies—including jelly beans
-
-Gum
-
-Whole grapes
-
-Marshmallows
-
-Raw carrots, celery, green beans
-
-Popcorn
-
-Seeds—such as processed pumpkin or sunflower seeds
-
-Whole grapes, cherry tomatoes (cut them in quarters)
-
-Large chunks of any food such as meat, potatoes, or raw vegetables and fruits
-
-""",
-                                style: TextStyle(fontSize: 16.sp),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              color: Colors.grey[200],
-              padding:
-                  const EdgeInsets.all(16), // Padding based on screen width
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {},
-                  ),
-                  Text('Year 2', style: TextStyle(fontSize: 18.sp)),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_forward),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildCard(
-      String title, String date, String content, double cardHeight) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        color: Colors.white,
-        child: Container(
-          width: double.infinity,
-          height: cardHeight,
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(title,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                  Text(date,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const SizedBox(height: 5),
-              Text(content),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  String _getMonthName(int month) {
-    switch (month) {
-      case 1:
-        return 'January';
-      case 2:
-        return 'February';
-      case 3:
-        return 'March';
-      case 4:
-        return 'April';
-      case 5:
-        return 'May';
-      case 6:
-        return 'June';
-      case 7:
-        return 'July';
-      case 8:
-        return 'August';
-      case 9:
-        return 'September';
-      case 10:
-        return 'October';
-      case 11:
-        return 'November';
-      case 12:
-        return 'December';
-      default:
-        return '';
-    }
-  }
-}
+Drinking water can also prevent consMotheration, hemorrhoids, urinary tract infections (UTIs), fatigue, headaches, swelling, and other uncomfortable pregnancy symptoms. Aim for eight to 10 glasses per day, and if you don't enjoy the taste, try adding a squeeze of lime or a splash of fruit juice.""",
+  ),
+];

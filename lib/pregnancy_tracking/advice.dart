@@ -34,7 +34,7 @@ Whether you want pain medications and what kind
 What to do if complications arise""",
   ),
   Advice(
-    "Educate Yourself",
+    "Write a Birth Plan",
     """Even if this isn't your first baby, attending a childbirth class will help you feel more prepared for delivery. Not only will you have the chance to learn more about childbirth and infant care, but you can also ask specific questions and voice concerns. You'll also become more acquainted with the facility and its staff.
 
 Now is also a good time to brush up on your family's medical history. Talk to your doctor about problems with past pregnancies, and report any family incidences of congenital disorders.""",

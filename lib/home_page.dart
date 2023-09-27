@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:materni_tech1/diet_tracker/diet_tracker.dart';
+import 'package:materni_tech1/diet_tracker/child_diet_tracking.dart';
 import 'package:materni_tech1/diet_tracker/mother_diet_tracking.dart';
 import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
@@ -181,11 +181,20 @@ class _HomePageState extends State<HomePage> {
                     width: 110.w,
                     child: OutlinedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ChildDietForm()),
-                        );
+                        if (boxChildInfo.isEmpty) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ChildDietForm()),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ChildDietTracking()),
+                          );
+                        }
                       },
                       style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(

@@ -61,7 +61,7 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
             side: const BorderSide(color: Colors.blue, width: 2.0),
           ),
           title: const Text(
-            'Updated Pregnancy Information',
+            'Pregnancy Information',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 18),
           ),
@@ -185,7 +185,7 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: const Text(
-                    'Provide your pregnancy information',
+                    'Provide Pregnancy Information',
                     style: TextStyle(
                       color: Color.fromRGBO(0, 176, 255, 1),
                       fontSize: 20,

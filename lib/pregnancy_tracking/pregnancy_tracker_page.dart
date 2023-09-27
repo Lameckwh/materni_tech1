@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:materni_tech1/home_page.dart';
 import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/models/pregnancy_info.dart';
+import 'package:materni_tech1/pregnancy_tracking/advice.dart';
+import 'package:materni_tech1/pregnancy_tracking/baby.dart';
 import 'package:materni_tech1/pregnancy_tracking/mother.dart';
 
 class Advice {
@@ -21,6 +23,10 @@ class PregnancyTrackerPage extends StatefulWidget {
 
 class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
   int currentIndex = 0;
+
+  int selectedCategoryIndex = 0; // 0 for Mother, 1 for Child, 2 for Advice
+  List<dynamic> currentCategoryData = advice; // Initialize with Mother data
+  // Initialize with Mother data
   @override
   void initState() {
     super.initState();
@@ -49,6 +55,19 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
         currentIndex--;
       });
     }
+  }
+
+  void switchToCategory(int index) {
+    setState(() {
+      selectedCategoryIndex = index;
+      if (selectedCategoryIndex == 0) {
+        currentCategoryData = mothers;
+      } else if (selectedCategoryIndex == 1) {
+        currentCategoryData = baby;
+      } else if (selectedCategoryIndex == 2) {
+        currentCategoryData = advice;
+      }
+    });
   }
 
   @override
@@ -223,52 +242,98 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: const StadiumBorder(),
-                          // Set the background color here
-                        ),
+                        style: selectedCategoryIndex == 0
+                            ? TextButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                // shape: const StadiumBorder(),
+                                // Set the background color here
+                              )
+                            : TextButton.styleFrom(),
                         onPressed: () {
+                          switchToCategory(0);
                           // boxPregnancyInfo.clear();
                         },
                         child: Text(
                           "Mother",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15.sp,
-                          ),
+                          style: selectedCategoryIndex == 0
+                              ? TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15.sp,
+                                )
+                              : TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15.sp,
+                                  color: Colors.white,
+                                ),
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        style: selectedCategoryIndex == 1
+                            ? TextButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                // shape: const StadiumBorder(),
+                                // Set the background color here
+                              )
+                            : TextButton.styleFrom(),
+                        onPressed: () {
+                          switchToCategory(1);
+                        },
                         child: Text(
                           "Baby",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 15.sp,
-                          ),
+                          style: selectedCategoryIndex == 1
+                              ? TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15.sp,
+                                )
+                              : TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15.sp,
+                                  color: Colors.white,
+                                ),
                         ),
                       ),
                       TextButton(
-                          onPressed: () {},
+                          style: selectedCategoryIndex == 2
+                              ? TextButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  // shape: const StadiumBorder(),
+                                  // Set the background color here
+                                )
+                              : TextButton.styleFrom(),
+                          onPressed: () {
+                            switchToCategory(2);
+                          },
                           child: Text(
                             "Advice",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
-                              fontSize: 15.sp,
-                            ),
+                            style: selectedCategoryIndex == 2
+                                ? TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 15.sp,
+                                  )
+                                : TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 15.sp,
+                                    color: Colors.white,
+                                  ),
                           )),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
-                height: 15.h,
-              ),
+              selectedCategoryIndex == 1
+                  ? Container(
+                      margin: const EdgeInsets.only(top: 5),
+                      height: 140.h,
+                      width: 140.h,
+                      child: Image.asset(
+                        currentCategoryData[currentIndex].image,
+                      ),
+                    )
+                  : SizedBox(
+                      height: 15.h,
+                    ),
               Text(
-                mothers[currentIndex].title,
+                currentCategoryData[currentIndex].title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15.sp,
@@ -279,7 +344,7 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
                 height: 15.h,
               ),
               Text(
-                mothers[currentIndex].description,
+                currentCategoryData[currentIndex].description,
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15.sp),
               )

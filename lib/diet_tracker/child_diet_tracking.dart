@@ -1,61 +1,27 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:materni_tech1/diet_tracker/mother_dirt.dart';
+import 'package:materni_tech1/diet_tracker/child_diet.dart';
 import 'package:materni_tech1/home_page.dart';
 import 'package:materni_tech1/models/boxes.dart';
-import 'package:materni_tech1/models/pregnancy_info.dart';
+import 'package:materni_tech1/models/child_info.dart';
 
-class MotherDietTracking extends StatefulWidget {
-  const MotherDietTracking({Key? key}) : super(key: key);
+class ChildDietTracking extends StatefulWidget {
+  const ChildDietTracking({Key? key}) : super(key: key);
 
   @override
-  State<MotherDietTracking> createState() => _MotherDietTrackingState();
+  State<ChildDietTracking> createState() => _ChildDietTrackingState();
 }
 
-class _MotherDietTrackingState extends State<MotherDietTracking> {
-  int currentIndex = 0;
-  @override
-  void initState() {
-    super.initState();
-
-    // Initialize currentIndex with the pregnancy weeks from the Hive box
-    final PregnancyInfo? pregnancyInfo = boxPregnancyInfo.values.isNotEmpty
-        ? boxPregnancyInfo.values.first
-        : null;
-
-    if (pregnancyInfo != null) {
-      currentIndex = pregnancyInfo.weeks;
-    }
-
-    startTimer();
-  }
-
-  void goToNextWeek() {
-    if (currentIndex < motherDiet.length - 1) {
-      setState(() {
-        currentIndex++;
-      });
-    }
-  }
-
-  void goToPreviousWeek() {
-    if ((currentIndex > 0)) {
-      setState(() {
-        currentIndex--;
-      });
-    }
-  }
-
+class _ChildDietTrackingState extends State<ChildDietTracking> {
   final List<String> tips = [
-    "During pregnancy, aim for regular prenatal check-ups to monitor your health and your baby's development. It's essential for a healthy pregnancy.",
-    "Stay physically active during pregnancy, but consult your healthcare provider for safe exercise recommendations.",
-    "Get plenty of rest and manage stress during pregnancy. Both are crucial for your well-being and your baby's development.",
-    "Take your prenatal vitamins as prescribed by your doctor. They help fill nutritional gaps during pregnancy.",
-    "Stay hydrated. Drink plenty of water throughout your pregnancy to support your body's changing needs.",
-    "Learn about childbirth and discuss your birth plan with your healthcare provider. Being informed helps reduce anxiety.",
-    "Avoid smoking, alcohol, and recreational drugs during pregnancy. They can harm your baby's health",
-    "Stay hydrated. Drink plenty of water throughout your pregnancy to support your body's changing needs.",
+    "Breastfeeding is the best start for your baby. It provides essential nutrients and antibodies for their growth and protection.",
+    "Introduce a variety of fruits and vegetables to your child's diet. They provide essential vitamins and minerals for growth",
+    "Encourage family meals. Eating together promotes healthy eating habits and family bonding.",
+    "Limit sugary drinks and snacks for your child. Opt for water, milk, and healthy snacks like fruits and nuts",
+    "Introduce whole grains like whole wheat bread and brown rice. They are rich in fiber and nutrients",
+    "Offer lean protein sources like chicken, fish, and beans to support your child's growth and development",
+    "Be patient with picky eaters. Offer new foods multiple times and create a positive eating environment",
     // Add more tips here...
   ];
 
@@ -79,24 +45,56 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
     });
   }
 
+  int currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize currentIndex with the pregnancy weeks from the Hive box
+    final ChildInfo? childInfo =
+        boxChildInfo.values.isNotEmpty ? boxChildInfo.values.first : null;
+
+    if (childInfo != null) {
+      currentIndex = childInfo.years;
+    }
+
+    startTimer();
+  }
+
+  void goToNextYear() {
+    if (currentIndex < childDiet.length - 1) {
+      setState(() {
+        currentIndex++;
+      });
+    }
+  }
+
+  void goToPreviousYear() {
+    if ((currentIndex > 0)) {
+      setState(() {
+        currentIndex--;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final DateTime now = DateTime.now();
     final String day = '${now.day}';
     final String month = _getMonthName(now.month);
     final String formattedDate = '$day $month';
-    // Extract the screen dimensions
-    double screenWidth = MediaQuery.of(context).size.width;
-// For example, 20% of the screen height
 
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 166, 0, 255),
-        toolbarHeight: 55.h,
-        elevation: 1,
-        title: const Text('Mother Diet Tracker',
-            style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.lightBlue,
+        toolbarHeight: 70.h,
+        title: Text(
+          'Child Diet Tracker',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 19.sp,
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(
               Icons.arrow_back), // Replace with your custom back icon
@@ -112,29 +110,27 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
         color: const Color.fromARGB(255, 226, 226, 226),
         child: Column(
           children: [
-            Flexible(
+            Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // ignore: sized_box_for_whitespace
                     Container(
-                      margin: const EdgeInsets.fromLTRB(
-                        0,
-                        10,
-                        0,
-                        10,
-                      ),
-                      height: 150,
-                      width: 150,
+                      height: 150.sp,
+                      width: 150.sp,
                       child: Image.asset(
-                        motherDiet[currentIndex].image,
+                        childDiet[currentIndex].image,
                       ),
                     ),
+                    SizedBox(height: 20.h), // 2% of screen height
+
                     Container(
-                      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      // height: 250,
+                      margin:
+                          const EdgeInsets.only(left: 11, right: 11, top: 11),
+                      // height: 25,
                       child: Card(
+                        elevation: 1,
                         child: Padding(
                           padding: const EdgeInsets.all(11.0),
                           child: Column(
@@ -144,7 +140,7 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Today's Tip",
+                                    "Today’s tip",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16.sp),
@@ -161,11 +157,10 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
                                 ],
                               ),
                               SizedBox(
-                                height: 10.h,
+                                height: 15.h,
                               ),
                               Text(
                                 tips[currentTipIndex],
-                                textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 15.sp),
                               )
                             ],
@@ -173,35 +168,63 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+
                     Container(
-                      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      // height: 250,
+                      margin: const EdgeInsets.all(7),
                       child: Card(
+                        elevation: 1,
                         child: Padding(
                           padding: const EdgeInsets.all(11.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                motherDiet[currentIndex].title,
-                                textAlign: TextAlign.center,
+                                childDiet[currentIndex].title,
+                                textAlign: TextAlign.left,
                                 style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.sp),
                               ),
                               SizedBox(
-                                height: 8.h,
+                                height: 15.h,
                               ),
                               Text(
-                                motherDiet[currentIndex].description,
-                                style: TextStyle(
-                                  // fontWeight: FontWeight.w600,
-                                  fontSize: 15.sp,
-                                ),
+                                childDiet[currentIndex].description,
+                                style: TextStyle(fontSize: 16.sp),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Text(
+                                """Avoid these foods, which could be swallowed whole and block the windpipe:
+Hot dogs (unless cut in quarters lengthwise before being sliced)
+
+Chunks of peanut butter (Peanut butter may be spread thinly on bread or a cracker, but never give chunks of peanut butter to a toddler.)
+
+Nuts—especially peanuts
+
+Raw cherries with pits
+
+Round, hard candies—including jelly beans
+
+Gum
+
+Whole grapes
+
+Marshmallows
+
+Raw carrots, celery, green beans
+
+Popcorn
+
+Seeds—such as processed pumpkin or sunflower seeds
+
+Whole grapes, cherry tomatoes (cut them in quarters)
+
+Large chunks of any food such as meat, potatoes, or raw vegetables and fruits
+
+""",
+                                style: TextStyle(fontSize: 15.sp),
                               )
                             ],
                           ),
@@ -214,22 +237,25 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
             ),
             Container(
               color: Colors.grey[200],
-              padding: EdgeInsets.all(
-                  screenWidth * 0.02), // Padding based on screen width
+              padding:
+                  const EdgeInsets.all(16), // Padding based on screen width
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back),
-                    onPressed: currentIndex > 0 ? goToPreviousWeek : null,
+                    onPressed: currentIndex > 0 ? goToPreviousYear : null,
                   ),
                   Text(
-                    'Week $currentIndex',
+                    "Year $currentIndex",
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                    ),
                   ),
                   IconButton(
                     icon: const Icon(Icons.arrow_forward),
-                    onPressed: currentIndex < motherDiet.length - 1
-                        ? goToNextWeek
+                    onPressed: currentIndex < childDiet.length - 1
+                        ? goToNextYear
                         : null,
                   ),
                 ],

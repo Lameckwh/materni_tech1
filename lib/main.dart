@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:materni_tech1/models/boxes.dart';
+import 'package:materni_tech1/models/child_info.dart';
 // import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/models/note.dart';
 import 'package:materni_tech1/models/pregnancy_info.dart';
@@ -14,9 +15,11 @@ void main() async {
 // Register Note Adapter
   Hive.registerAdapter(NoteAdapter());
   Hive.registerAdapter(PregnancyInfoAdapter());
+  Hive.registerAdapter(ChildInfoAdapter());
 // open box
   boxNotes = await Hive.openBox<Note>("noteBox");
   boxPregnancyInfo = await Hive.openBox<PregnancyInfo>("PregnancyInfoBox");
+  boxChildInfo = await Hive.openBox<ChildInfo>("ChildInfoBox");
 
   runApp(const MyApp());
 }

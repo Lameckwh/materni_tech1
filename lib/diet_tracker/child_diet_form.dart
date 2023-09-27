@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:materni_tech1/diet_tracker/child_diet.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:materni_tech1/diet_tracker/child_diet_tracking.dart';
+import 'package:materni_tech1/models/boxes.dart';
+import 'package:materni_tech1/models/child_info.dart';
 
 class ChildDietForm extends StatefulWidget {
   const ChildDietForm({super.key});
@@ -9,53 +12,142 @@ class ChildDietForm extends StatefulWidget {
 }
 
 class _ChildDietFormState extends State<ChildDietForm> {
-  DateTime selectedDate = DateTime.now();
-  DateTime selectedDate1 = DateTime.now();
-  DateTime selectedDate2 = DateTime.now();
+  DateTime? selectedDate = DateTime.now();
+  int? days;
+  int? months;
+  int? years;
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2024),
     );
-
-    if (picked != null && picked != selectedDate) {
+    if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
-        selectedDate = picked;
+        selectedDate = pickedDate;
+        // Calculate the age from the selected date
+        final today = DateTime.now();
+        final difference = today.difference(selectedDate!);
+
+        // Calculate years, months, and days
+        final years = difference.inDays ~/ 365;
+        final months = (difference.inDays % 365) ~/ 30;
+        final days = (difference.inDays % 365) % 30;
+
+        this.days = days;
+        this.months = months;
+        this.years = years;
       });
     }
   }
 
-  Future<void> _selectDate1(BuildContext context) async {
-    final DateTime? picked1 = await showDatePicker(
+  void _dietTracker(BuildContext context) {
+    showDialog(
       context: context,
-      initialDate: selectedDate1,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(10.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14.0),
+            side: const BorderSide(color: Colors.blue, width: 2.0),
+          ),
+          title: const Text(
+            'Child Age Information',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 18),
+          ),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Days: $days',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  'Months: $months',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  'Years: $years',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+                SizedBox(height: 10.h),
+              ],
+            ),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the popup
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    side: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10.sp,
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    if (days != null && months != null && years != null) {
+                      const customKey =
+                          "child124"; // Custom key based on the user's username
+                      final dateOfBirth = selectedDate!;
+                      boxChildInfo.put(
+                          customKey,
+                          ChildInfo(
+                            days: days!,
+                            months: months!,
+                            years: years!,
+                            dateOfBirth: dateOfBirth,
+                          ));
+                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChildDietTracking(),
+                      ),
+                    ); // Close the popup
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    side: const BorderSide(
+                      color: Colors.blue,
+                    ),
+                  ),
+                  child: const Text(
+                    'Proceed',
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
     );
-
-    if (picked1 != null && picked1 != selectedDate1) {
-      setState(() {
-        selectedDate1 = picked1;
-      });
-    }
-  }
-
-  Future<void> _selectDate2(BuildContext context) async {
-    final DateTime? picked2 = await showDatePicker(
-      context: context,
-      initialDate: selectedDate2,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
-    if (picked2 != null && picked2 != selectedDate2) {
-      setState(() {
-        selectedDate2 = picked2;
-      });
-    }
   }
 
   @override
@@ -63,16 +155,17 @@ class _ChildDietFormState extends State<ChildDietForm> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
+        toolbarHeight: 100,
         elevation: 0,
         iconTheme: const IconThemeData(
           color: Colors.black, // Change this color to your desired color
         ),
+        backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -83,7 +176,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: const Text(
-                    "Provide your Child's information",
+                    "Provide Child's Birth Information",
                     style: TextStyle(
                       color: Color.fromRGBO(0, 176, 255, 1),
                       fontSize: 20,
@@ -108,7 +201,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                         onTap: () => _selectDate(context),
                         child: InputDecorator(
                           decoration: const InputDecoration(
-                            labelText: 'Last day of period',
+                            labelText: 'Date of birth',
                             prefixIcon: Icon(
                               color: Color.fromRGBO(0, 176, 255, 1),
                               Icons.calendar_today,
@@ -120,71 +213,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                             border: InputBorder.none,
                           ),
                           child: Text(
-                            "${selectedDate.toLocal()}".split(' ')[0],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, .5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Set the border radius here
-                      ),
-                      color: const Color.fromRGBO(238, 238, 238, 1),
-                      child: InkWell(
-                        onTap: () => _selectDate1(context),
-                        child: InputDecorator(
-                          decoration: const InputDecoration(
-                            labelText: 'Last day of period',
-                            prefixIcon: Icon(
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                              Icons.calendar_today,
-                            ), // Leading calendar icon
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ), // Trailing forward arrow icon
-                            border: InputBorder.none,
-                          ),
-                          child: Text(
-                            "${selectedDate1.toLocal()}".split(' ')[0],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, .5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Set the border radius here
-                      ),
-                      color: const Color.fromRGBO(238, 238, 238, 1),
-                      child: InkWell(
-                        onTap: () => _selectDate2(context),
-                        child: InputDecorator(
-                          decoration: const InputDecoration(
-                            labelText: 'Last day of period',
-                            prefixIcon: Icon(
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                              Icons.calendar_today,
-                            ), // Leading calendar icon
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ), // Trailing forward arrow icon
-                            border: InputBorder.none,
-                          ),
-                          child: Text(
-                            "${selectedDate2.toLocal()}".split(' ')[0],
+                            "${selectedDate?.toLocal()}".split(' ')[0],
                             style: const TextStyle(
                               fontSize: 16,
                               color: Color.fromRGBO(0, 0, 0, .5),
@@ -199,12 +228,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
               const SizedBox(height: 60),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ChildDiet()),
-                  );
-
-                  // Navigate to the next screen or perform any action here
+                  _dietTracker(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
