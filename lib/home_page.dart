@@ -11,10 +11,12 @@ import 'tips_page.dart';
 import 'drawer_content.dart';
 import 'pregnancy_tracking/pregnancy_tracker_form.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  
   @override
   // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
@@ -137,14 +139,14 @@ class _HomePageState extends State<HomePage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const PregnancyTrackerForm()),
+                                    PregnancyTrackerForm()),
                           );
                         } else {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const MotherDietTracking()),
+                                builder: (context) => MotherDietTracking(
+                                    )),
                           );
                         }
                       },
@@ -185,14 +187,17 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ChildDietForm()),
+                                builder: (context) => ChildDietForm(
+                                   
+                                    )),
                           );
                         } else {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const ChildDietTracking()),
+                                builder: (context) => ChildDietTracking(
+                                      
+                                    )),
                           );
                         }
                       },
@@ -265,7 +270,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      drawer: const DrawerContent(),
+      drawer: DrawerContent(
+       
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -292,6 +299,25 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Positioned(
+                    bottom: 15, // adjust the position as you prefer
+                    left: MediaQuery.of(context).size.width * 0.5 -
+                        15, // adjust the position as you prefer
+                    child: SmoothPageIndicator(
+                      controller:
+                          _pageController, // PageController for your PageView
+                      count: images.length, // number of dots
+                      effect: const ExpandingDotsEffect(
+                        expansionFactor: 2,
+                        spacing: 8,
+                        radius: 15,
+                        dotWidth: 15,
+                        dotHeight: 15,
+                        dotColor: Colors.grey,
+                        activeDotColor: Colors.blue,
+                      ),
+                    ),
+                  ),
+                  Positioned(
                     top: 20,
                     bottom: 0,
                     left: 0,
@@ -300,6 +326,8 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
+                          height: 35.h,
+                          width: 35.h,
                           margin: const EdgeInsets.all(7),
                           decoration: const BoxDecoration(
                             color: Color.fromRGBO(255, 255, 255,
@@ -318,6 +346,8 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Container(
+                          height: 35.h,
+                          width: 35.h,
                           margin: const EdgeInsets.all(7),
                           decoration: const BoxDecoration(
                             color: Color.fromRGBO(255, 255, 255, .6),
@@ -401,14 +431,14 @@ class _HomePageState extends State<HomePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const PregnancyTrackerForm()),
+                                      PregnancyTrackerForm()),
                             );
                           } else {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const PregnancyTrackerPage()),
+                                      PregnancyTrackerPage()),
                             );
                           }
                         },

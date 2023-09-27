@@ -7,7 +7,7 @@ import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/models/child_info.dart';
 
 class ChildDietTracking extends StatefulWidget {
-  const ChildDietTracking({Key? key}) : super(key: key);
+  const ChildDietTracking({super.key});
 
   @override
   State<ChildDietTracking> createState() => _ChildDietTrackingState();
@@ -101,7 +101,7 @@ class _ChildDietTrackingState extends State<ChildDietTracking> {
           onPressed: () {
             // Navigate to the specified screen
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomePage()),
+              MaterialPageRoute(builder: (context) => HomePage()),
             );
           },
         ),

@@ -79,7 +79,7 @@ class GetStartedPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
 
                 // Navigate to the next screen or perform any action here

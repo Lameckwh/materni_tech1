@@ -5,6 +5,8 @@ import 'drawer_content.dart';
 class PregnancyToolsPage extends StatelessWidget {
   const PregnancyToolsPage({super.key});
 
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +22,9 @@ class PregnancyToolsPage extends StatelessWidget {
         backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
         toolbarHeight: 100,
       ),
-      drawer: const DrawerContent(),
-
+      drawer: DrawerContent(
+      
+      ),
       body: const Column(
         children: [
           Padding(

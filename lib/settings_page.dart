@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:materni_tech1/pregnancy_info_update_form.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -7,6 +8,7 @@ import 'drawer_content.dart';
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
+ 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
@@ -65,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onPressed: () {
                 Navigator.of(context).pop(); // Close the popup
               },
-              child: const Text('ClOSE'),
+              child: const Text('CLOSE'),
             ),
             TextButton(
               onPressed: () {
@@ -82,28 +84,32 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
         title: const Text(
           'Settings',
           style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w600,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
           ),
         ),
         backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
-        toolbarHeight: 100,
+        toolbarHeight: 70,
       ),
-      drawer: const DrawerContent(),
+      drawer: DrawerContent(
+        
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
           children: [
             Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    const Align(
+              elevation: 2,
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 15.0, top: 10.0),
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
                         "Personalization",
@@ -114,68 +120,73 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.w600),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Update Pregnancy Information"),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const PregnancyInfoUpdateForm()),
-                            );
-                          },
-                          icon: const Icon(Icons.arrow_forward_ios),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Measurements Units"),
-                        IconButton(
-                          onPressed: () {
-                            _measurementsUnits(
-                              context,
-                            );
-                          },
-                          icon: const Icon(Icons.arrow_forward_ios),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Notifications"),
-                        Switch(
-                          value: notificationsEnabled,
-                          onChanged: (value) {
-                            setState(() {
-                              notificationsEnabled = value;
-                            });
+                  ),
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  ListTile(
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    title: const Text("Update Pregnancy Information"),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PregnancyInfoUpdateForm(
+                                 
+                                )),
+                      );
+                    },
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  ListTile(
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    title: const Text("Measurements Units"),
+                    onTap: () {
+                      _measurementsUnits(
+                        context,
+                      );
+                    },
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  ListTile(
+                    trailing: Switch(
+                      value: notificationsEnabled,
+                      onChanged: (value) {
+                        setState(() {
+                          notificationsEnabled = value;
+                        });
 
-                            // You can add code here to handle enabling/disabling notifications.
-                            // For example, you can use a plugin like 'flutter_local_notifications'
-                            // to schedule and display notifications when notificationsEnabled is true.
-                          },
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                        // You can add code here to handle enabling/disabling notifications.
+                        // For example, you can use a plugin like 'flutter_local_notifications'
+                        // to schedule and display notifications when notificationsEnabled is true.
+                      },
+                    ),
+                    title: const Text("Notifications"),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  )
+                ],
               ),
             ),
             Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    const Align(
+              elevation: 2,
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 15.0, top: 10.0),
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Feedback",
+                        "FeedBack",
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             color: Color.fromRGBO(0, 176, 255, 1),
@@ -183,49 +194,44 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.w600),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Send FeedBack",
-                          style: TextStyle(),
-                        ),
-                        IconButton(
-                          onPressed: () async {
-                            String email =
-                                Uri.encodeComponent("bit-032-19@must.ac.mw");
-                            String subject =
-                                Uri.encodeComponent("MaterniTech FeedBack ");
-                            String body = Uri.encodeComponent("Hi, I am .....");
-                            // print(subject); //output,: Hello%20Flutter
-                            Uri mail = Uri.parse(
-                                "mailto:$email?subject=$subject&body=$body");
-                            if (await launchUrl(mail)) {
-                              //email app opened
-                            } else {
-                              //email app is not opened
-                            }
-                          },
-                          icon: const Icon(Icons.arrow_forward_ios),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Rate Us"),
-                        IconButton(
-                          onPressed: () {
-                            _rateUs(
-                              context,
-                            );
-                          },
-                          icon: const Icon(Icons.arrow_forward_ios),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  ListTile(
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    title: const Text("Send FeedBack"),
+                    onTap: () async {
+                      String email =
+                          Uri.encodeComponent("bit-032-19@must.ac.mw");
+                      String subject =
+                          Uri.encodeComponent("MaterniTech FeedBack ");
+                      String body = Uri.encodeComponent("Hi, I am .....");
+                      // print(subject); //output,: Hello%20Flutter
+                      Uri mail = Uri.parse(
+                          "mailto:$email?subject=$subject&body=$body");
+                      if (await launchUrl(mail)) {
+                        //email app opened
+                      } else {
+                        //email app is not opened
+                      }
+                    },
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  ListTile(
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    title: const Text("Rate Us"),
+                    onTap: () {
+                      _rateUs(
+                        context,
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ],

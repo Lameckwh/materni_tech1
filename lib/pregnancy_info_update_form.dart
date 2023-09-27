@@ -6,6 +6,8 @@ import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
 class PregnancyInfoUpdateForm extends StatefulWidget {
   const PregnancyInfoUpdateForm({super.key});
 
+ 
+
   @override
   State<PregnancyInfoUpdateForm> createState() =>
       _PregnancyInfoUpdateFormState();
@@ -143,7 +145,9 @@ class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const PregnancyTrackerPage()),
+                          builder: (context) => PregnancyTrackerPage(
+                                 
+                              )),
                     ); // Close the popup
                   },
                   style: OutlinedButton.styleFrom(

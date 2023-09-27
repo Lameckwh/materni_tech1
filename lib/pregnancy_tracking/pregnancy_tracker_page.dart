@@ -17,6 +17,7 @@ class Advice {
 class PregnancyTrackerPage extends StatefulWidget {
   const PregnancyTrackerPage({super.key});
 
+ 
   @override
   State<PregnancyTrackerPage> createState() => _PregnancyTrackerPageState();
 }
@@ -101,7 +102,11 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
           onPressed: () {
             // Navigate to the specified screen
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomePage()),
+              MaterialPageRoute(
+                builder: (context) => HomePage(
+               
+                ),
+              ),
             );
           },
         ),
