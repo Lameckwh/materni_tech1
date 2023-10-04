@@ -17,7 +17,6 @@ class Advice {
 class PregnancyTrackerPage extends StatefulWidget {
   const PregnancyTrackerPage({super.key});
 
- 
   @override
   State<PregnancyTrackerPage> createState() => _PregnancyTrackerPageState();
 }
@@ -103,15 +102,13 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
             // Navigate to the specified screen
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => HomePage(
-               
-                ),
+                builder: (context) => const HomePage(),
               ),
             );
           },
         ),
-        backgroundColor: const Color.fromARGB(255, 166, 0, 255),
-        toolbarHeight: 55.h,
+        backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
+        toolbarHeight: 65.h,
         elevation: 1,
         title: Text(
           'Pregnancy Tracking',
@@ -135,11 +132,12 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
                   top: 15,
                 ),
                 width: 330.w,
-                height: 190.h,
+                // height: 190.h,
                 child: Card(
                   color: const Color.fromRGBO(142, 157, 234, 1),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(
+                        left: 10, top: 20, bottom: 20, right: 10),
                     child: Column(
                       // mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -204,32 +202,45 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
               SizedBox(
                 height: 10.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: currentIndex > 0 ? goToPreviousWeek : null,
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: Color.fromRGBO(142, 157, 234, 1),
+              SizedBox(
+                width: 210.h,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed:
+                                currentIndex > 0 ? goToPreviousWeek : null,
+                            icon: const Icon(
+                              Icons.arrow_back_ios,
+                              color: Color.fromRGBO(142, 157, 234, 1),
+                            ),
+                          ),
+                          Text(
+                            'Week $currentIndex',
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                color: const Color.fromRGBO(0, 0, 0, 1),
+                                fontWeight: FontWeight.w500),
+                          ),
+                          IconButton(
+                            onPressed: currentIndex < mothers.length - 1
+                                ? goToNextWeek
+                                : null,
+                            icon: const Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color.fromRGBO(142, 157, 234, 1),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Text(
-                    'Week $currentIndex',
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      color: const Color.fromRGBO(0, 0, 0, 1),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed:
-                        currentIndex < mothers.length - 1 ? goToNextWeek : null,
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      color: Color.fromRGBO(142, 157, 234, 1),
-                    ),
-                  ),
-                ],
+                ),
               ),
               SizedBox(
                 height: 10.h,

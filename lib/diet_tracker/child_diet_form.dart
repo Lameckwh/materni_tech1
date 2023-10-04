@@ -13,9 +13,9 @@ class ChildDietForm extends StatefulWidget {
 
 class _ChildDietFormState extends State<ChildDietForm> {
   DateTime? selectedDate = DateTime.now();
-  int? days;
-  int? months;
-  int? years;
+  int days = 0;
+  int months = 0;
+  int years = 0;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -110,19 +110,17 @@ class _ChildDietFormState extends State<ChildDietForm> {
                 ),
                 OutlinedButton(
                   onPressed: () {
-                    if (days != null && months != null && years != null) {
-                      const customKey =
-                          "child124"; // Custom key based on the user's username
-                      final dateOfBirth = selectedDate!;
-                      boxChildInfo.put(
-                          customKey,
-                          ChildInfo(
-                            days: days!,
-                            months: months!,
-                            years: years!,
-                            dateOfBirth: dateOfBirth,
-                          ));
-                    }
+                    const customKey =
+                        "child124"; // Custom key based on the user's username
+                    final dateOfBirth = selectedDate!;
+                    boxChildInfo.put(
+                        customKey,
+                        ChildInfo(
+                          days: days,
+                          months: months,
+                          years: years,
+                          dateOfBirth: dateOfBirth,
+                        ));
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -162,95 +160,94 @@ class _ChildDietFormState extends State<ChildDietForm> {
         ),
         backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(10, 30, 20, 30),
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const Text(
-                    "Provide Child's Birth Information",
-                    style: TextStyle(
-                      color: Color.fromRGBO(0, 176, 255, 1),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(10, 30, 20, 30),
+              decoration: BoxDecoration(
+                color: Colors.white70,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: const Text(
+                "Provide Child's Birth Information",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color.fromRGBO(0, 176, 255, 1),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 50),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Set the border radius here
+            ),
+          ),
+          const SizedBox(height: 50),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Set the border radius here
+                  ),
+                  color: const Color.fromRGBO(238, 238, 238, 1),
+                  child: InkWell(
+                    onTap: () => _selectDate(context),
+                    child: InputDecorator(
+                      decoration: const InputDecoration(
+                        labelStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                        labelText: 'Date of birth',
+                        prefixIcon: Icon(
+                          color: Color.fromRGBO(0, 176, 255, 1),
+                          Icons.calendar_today,
+                        ), // Leading calendar icon
+                        suffixIcon: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color.fromRGBO(0, 176, 255, 1),
+                        ), // Trailing forward arrow icon
+                        border: InputBorder.none,
                       ),
-                      color: const Color.fromRGBO(238, 238, 238, 1),
-                      child: InkWell(
-                        onTap: () => _selectDate(context),
-                        child: InputDecorator(
-                          decoration: const InputDecoration(
-                            labelText: 'Date of birth',
-                            prefixIcon: Icon(
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                              Icons.calendar_today,
-                            ), // Leading calendar icon
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ), // Trailing forward arrow icon
-                            border: InputBorder.none,
-                          ),
-                          child: Text(
-                            "${selectedDate?.toLocal()}".split(' ')[0],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, .5),
-                            ),
-                          ),
+                      child: Text(
+                        "${selectedDate?.toLocal()}".split(' ')[0],
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Color.fromRGBO(0, 0, 0, .5),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 60),
-              ElevatedButton(
-                onPressed: () {
-                  _dietTracker(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
-                  minimumSize:
-                      const Size(200, 50), // Set button width and height
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5), // Set border radius
                   ),
-                  // Set the background color to orange
                 ),
-                child: const Text(
-                  'Done',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Ubuntu"),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+          const SizedBox(height: 60),
+          ElevatedButton(
+            onPressed: () {
+              _dietTracker(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
+              minimumSize: const Size(200, 50), // Set button width and height
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5), // Set border radius
+              ),
+              // Set the background color to orange
+            ),
+            child: const Text(
+              'Done',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Ubuntu"),
+            ),
+          ),
+        ],
       ),
     );
   }

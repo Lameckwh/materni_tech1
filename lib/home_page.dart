@@ -16,7 +16,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-  
   @override
   // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
@@ -24,9 +23,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<String> images = [
-    'images/baby.png',
-    'images/healthy_foods.png',
-    'images/T-Fitness-Guide.jpeg',
+    'images/slideshow/baby.png',
+    'images/slideshow/healthy_foods.png',
+    'images/slideshow/T-Fitness-Guide.jpeg',
   ];
 
   int currentIndex = 0;
@@ -116,120 +115,117 @@ class _HomePageState extends State<HomePage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14.0),
             // You can further customize the shape here
-            side: const BorderSide(color: Colors.blue, width: 2.0),
+            side: const BorderSide(
+                color: Color.fromRGBO(0, 176, 255, 1), width: 2.0),
           ),
           title: const Text(
             'Whom to track?',
             textAlign: TextAlign.center,
           ),
-          content: Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 15.h),
-                  SizedBox(
-                    height: 30.h,
-                    width: 130.w,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        if (boxPregnancyInfo.isEmpty) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    PregnancyTrackerForm()),
-                          );
-                        } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MotherDietTracking(
-                                    )),
-                          );
-                        }
-                      },
-                      style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              20.0), // Set the border radius
-                        ),
-                        side: const BorderSide(
-                          color: Colors.blue, // Set the border color
-                        ),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 15.h),
+                SizedBox(
+                  height: 30.h,
+                  width: 130.w,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      if (boxPregnancyInfo.isEmpty) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const PregnancyTrackerForm()),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MotherDietTracking()),
+                        );
+                      }
+                    },
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Set the border radius
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Mother',
-                            style: TextStyle(fontSize: 14.sp),
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.blue, // Set the icon color
-                          ),
-                        ],
+                      side: const BorderSide(
+                        color: Color.fromRGBO(
+                            0, 176, 255, 1), // Set the border color
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10.h),
-                  SizedBox(
-                    height: 30.h,
-                    width: 110.w,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        if (boxChildInfo.isEmpty) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChildDietForm(
-                                   
-                                    )),
-                          );
-                        } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChildDietTracking(
-                                      
-                                    )),
-                          );
-                        }
-                      },
-                      style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              20.0), // Set the border radius
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Mother',
+                          style: TextStyle(fontSize: 14.sp),
                         ),
-                        side: const BorderSide(
-                          color: Colors.blue, // Set the border color
+                        SizedBox(
+                          width: 5.w,
                         ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Child',
-                            style: TextStyle(fontSize: 14.sp),
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.blue, // Set the icon color
-                          ),
-                        ],
-                      ),
+                        const Icon(
+                          Icons.arrow_forward,
+                          color: Color.fromRGBO(
+                              0, 176, 255, 1), // Set the icon color
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 10.h),
+                SizedBox(
+                  height: 30.h,
+                  width: 110.w,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      if (boxChildInfo.isEmpty) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ChildDietForm()),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ChildDietTracking()),
+                        );
+                      }
+                    },
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Set the border radius
+                      ),
+                      side: const BorderSide(
+                        color: Color.fromRGBO(
+                            0, 176, 255, 1), // Set the border color
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Child',
+                          style: TextStyle(fontSize: 14.sp),
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        const Icon(
+                          Icons.arrow_forward,
+                          color: Colors.blue, // Set the icon color
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           actions: [
@@ -259,9 +255,9 @@ class _HomePageState extends State<HomePage> {
             bottomRight: Radius.circular(5.0), // Adjust the radius as needed
           ),
         ),
-        toolbarHeight: 55.h,
+        toolbarHeight: 65.h,
         elevation: 1,
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
         title: Text(
           "Home",
           style: TextStyle(
@@ -270,9 +266,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      drawer: DrawerContent(
-       
-      ),
+      drawer: const DrawerContent(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -313,7 +307,7 @@ class _HomePageState extends State<HomePage> {
                         dotWidth: 15,
                         dotHeight: 15,
                         dotColor: Colors.grey,
-                        activeDotColor: Colors.blue,
+                        activeDotColor: Color.fromRGBO(0, 176, 255, 1),
                       ),
                     ),
                   ),
@@ -371,7 +365,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20.h),
               SizedBox(
-                height: 180.h, // Set a fixed height for the containers
+                height: 200.h, // Set a fixed height for the containers
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -398,7 +392,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                'images/diet_tracker.png', // Replace with your image path
+                                'images/home_page/diet_tracker.png', // Replace with your image path
                                 width: 90.w, // Adjust width as needed
                                 height: 90.h, // Adjust height as needed
                               ),
@@ -406,14 +400,14 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 'Diet',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 18.sp,
                                 ),
                               ),
                               Text(
                                 'Tracker',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 18.sp,
                                 ),
                               ),
@@ -431,14 +425,14 @@ class _HomePageState extends State<HomePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      PregnancyTrackerForm()),
+                                      const PregnancyTrackerForm()),
                             );
                           } else {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      PregnancyTrackerPage()),
+                                      const PregnancyTrackerPage()),
                             );
                           }
                         },
@@ -459,7 +453,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                'images/pregnancy_tracker.png', // Replace with your image path
+                                'images/home_page/pregnancy_tracker.png', // Replace with your image path
                                 width: 80.w, // Adjust width as needed
                                 height: 80.h, // Adjust height as needed
                               ),
@@ -467,14 +461,14 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 'Pregnancy',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 18.sp,
                                 ),
                               ),
                               Text(
                                 'Tracker',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 18.sp,
                                 ),
                               ),
@@ -488,7 +482,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 15.h),
               SizedBox(
-                height: 180.h, // Set a fixed height for the containers
+                height: 200.h, // Set a fixed height for the containers
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -512,7 +506,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                'images/magazine.png', // Replace with your image path
+                                'images/home_page/magazine.png', // Replace with your image path
                                 width: 90.w, // Adjust width as needed
                                 height: 90.h, // Adjust height as needed
                               ),
@@ -520,14 +514,14 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 'Magazine &',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 18.sp,
                                 ),
                               ),
                               Text(
                                 'Stories',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 18.sp,
                                 ),
                               ),
@@ -563,7 +557,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                'images/tips.png', // Replace with your image path
+                                'images/home_page/tips.png', // Replace with your image path
                                 width: 90.w, // Adjust width as needed
                                 height: 90.h, // Adjust height as needed
                               ),
@@ -571,7 +565,7 @@ class _HomePageState extends State<HomePage> {
                               Text(
                                 'Tips',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 18.sp,
                                 ),
                               ),

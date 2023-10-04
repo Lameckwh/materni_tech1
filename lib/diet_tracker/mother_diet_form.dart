@@ -72,167 +72,164 @@ class _MotherDietFormState extends State<MotherDietForm> {
         ),
         backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(10, 30, 20, 30),
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const Text(
-                    'Provide your pregnancy information',
-                    style: TextStyle(
-                      color: Color.fromRGBO(0, 176, 255, 1),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(10, 30, 20, 30),
+              decoration: BoxDecoration(
+                color: Colors.white70,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: const Text(
+                'Provide Pregnancy Information',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color.fromRGBO(0, 176, 255, 1),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 50),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Set the border radius here
-                      ),
-                      color: const Color.fromRGBO(238, 238, 238, 1),
-                      child: InkWell(
-                        onTap: () => _selectDate(context),
-                        child: InputDecorator(
-                          decoration: const InputDecoration(
-                            labelText: 'Last day of period',
-                            prefixIcon: Icon(
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                              Icons.calendar_today,
-                            ), // Leading calendar icon
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ), // Trailing forward arrow icon
-                            border: InputBorder.none,
-                          ),
-                          child: Text(
-                            "${selectedDate.toLocal()}".split(' ')[0],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, .5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Set the border radius here
-                      ),
-                      color: const Color.fromRGBO(238, 238, 238, 1),
-                      child: InkWell(
-                        onTap: () => _selectDate1(context),
-                        child: InputDecorator(
-                          decoration: const InputDecoration(
-                            labelText: 'Last day of period',
-                            prefixIcon: Icon(
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                              Icons.calendar_today,
-                            ), // Leading calendar icon
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ), // Trailing forward arrow icon
-                            border: InputBorder.none,
-                          ),
-                          child: Text(
-                            "${selectedDate1.toLocal()}".split(' ')[0],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, .5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Set the border radius here
-                      ),
-                      color: const Color.fromRGBO(238, 238, 238, 1),
-                      child: InkWell(
-                        onTap: () => _selectDate2(context),
-                        child: InputDecorator(
-                          decoration: const InputDecoration(
-                            labelText: 'Last day of period',
-                            prefixIcon: Icon(
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                              Icons.calendar_today,
-                            ), // Leading calendar icon
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ), // Trailing forward arrow icon
-                            border: InputBorder.none,
-                          ),
-                          child: Text(
-                            "${selectedDate2.toLocal()}".split(' ')[0],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, .5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 60),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MotherDietTracking()),
-                  );
-
-                  // Navigate to the next screen or perform any action here
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
-                  minimumSize:
-                      const Size(200, 50), // Set button width and height
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5), // Set border radius
-                  ),
-                  // Set the background color to orange
-                ),
-                child: const Text(
-                  'Done',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Ubuntu"),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          const SizedBox(height: 50),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Set the border radius here
+                  ),
+                  color: const Color.fromRGBO(238, 238, 238, 1),
+                  child: InkWell(
+                    onTap: () => _selectDate(context),
+                    child: InputDecorator(
+                      decoration: const InputDecoration(
+                        labelStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                        labelText: 'Last day of period',
+                        prefixIcon: Icon(
+                          color: Color.fromRGBO(0, 176, 255, 1),
+                          Icons.calendar_today,
+                        ), // Leading calendar icon
+                        suffixIcon: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color.fromRGBO(0, 176, 255, 1),
+                        ), // Trailing forward arrow icon
+                        border: InputBorder.none,
+                      ),
+                      child: Text(
+                        "${selectedDate.toLocal()}".split(' ')[0],
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Color.fromRGBO(0, 0, 0, .5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Set the border radius here
+                  ),
+                  color: const Color.fromRGBO(238, 238, 238, 1),
+                  child: InkWell(
+                    onTap: () => _selectDate1(context),
+                    child: InputDecorator(
+                      decoration: const InputDecoration(
+                        labelText: 'Last day of period',
+                        prefixIcon: Icon(
+                          color: Color.fromRGBO(0, 176, 255, 1),
+                          Icons.calendar_today,
+                        ), // Leading calendar icon
+                        suffixIcon: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color.fromRGBO(0, 176, 255, 1),
+                        ), // Trailing forward arrow icon
+                        border: InputBorder.none,
+                      ),
+                      child: Text(
+                        "${selectedDate1.toLocal()}".split(' ')[0],
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Color.fromRGBO(0, 0, 0, .5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Set the border radius here
+                  ),
+                  color: const Color.fromRGBO(238, 238, 238, 1),
+                  child: InkWell(
+                    onTap: () => _selectDate2(context),
+                    child: InputDecorator(
+                      decoration: const InputDecoration(
+                        labelText: 'Last day of period',
+                        prefixIcon: Icon(
+                          color: Color.fromRGBO(0, 176, 255, 1),
+                          Icons.calendar_today,
+                        ), // Leading calendar icon
+                        suffixIcon: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color.fromRGBO(0, 176, 255, 1),
+                        ), // Trailing forward arrow icon
+                        border: InputBorder.none,
+                      ),
+                      child: Text(
+                        "${selectedDate2.toLocal()}".split(' ')[0],
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Color.fromRGBO(0, 0, 0, .5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 60),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MotherDietTracking()),
+              );
+
+              // Navigate to the next screen or perform any action here
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
+              minimumSize: const Size(200, 50), // Set button width and height
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5), // Set border radius
+              ),
+              // Set the background color to orange
+            ),
+            child: const Text(
+              'Done',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Ubuntu"),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:materni_tech1/calendar_diary/calendar_diary.dart';
 import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/models/note.dart';
 // import 'package:materni_tech1/models/boxes.dart';
@@ -22,6 +23,7 @@ class _NotePageState extends State<NotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
         title: Text(
             DateFormat('d MMMM').format(widget.selectedDate)), // Set the title
@@ -88,7 +90,10 @@ class _NotePageState extends State<NotePage> {
                         ),
                       );
                     });
-                    Navigator.of(context).pop();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => const CalendarDiary()),
+                    );
                   },
                   child: const Text('Save Note'),
                 ),

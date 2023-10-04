@@ -7,8 +7,6 @@ import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_page.dart';
 class PregnancyTrackerForm extends StatefulWidget {
   const PregnancyTrackerForm({super.key});
 
- 
-
   @override
   State<PregnancyTrackerForm> createState() => _PregnancyTrackerFormState();
 }
@@ -74,7 +72,7 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Number of Days Pregnant: $pregnancyDays',
+                  'Pregnancy Days: $pregnancyDays',
                   style: TextStyle(fontSize: 16.sp),
                 ),
                 SizedBox(height: 20.h),
@@ -137,7 +135,7 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PregnancyTrackerPage(),
+                        builder: (context) => const PregnancyTrackerPage(),
                       ),
                     ); // Close the popup
                   },
@@ -173,103 +171,98 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
         ),
         backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(10, 30, 20, 30),
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const Text(
-                    'Provide Pregnancy Information',
-                    style: TextStyle(
-                      color: Color.fromRGBO(0, 176, 255, 1),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(10, 30, 20, 30),
+              decoration: BoxDecoration(
+                color: Colors.white70,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: const Text(
+                'Provide Pregnancy Information',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color.fromRGBO(0, 176, 255, 1),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 50),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Set the border radius here
-                      ),
-                      color: const Color.fromRGBO(238, 238, 238, 1),
-                      child: InkWell(
-                        onTap: () => _selectDate(context),
-                        child: InputDecorator(
-                          decoration: const InputDecoration(
-                            labelText: 'Last day of period',
-                            prefixIcon: Icon(
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                              Icons.calendar_today,
-                            ), // Leading calendar icon
-                            suffixIcon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ), // Trailing forward arrow icon
-                            border: InputBorder.none,
-                          ),
-                          child: Text(
-                            "${selectedDate?.toLocal()}".split(' ')[0],
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, .5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 60),
-              ElevatedButton(
-                onPressed: () {
-                  calculatePregnancy(); // Calculate pregnancy details based on selectedDate
-                  _dietTracker(context);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const PregnancyTrackerPage()),
-                  // );
-
-                  // Navigate to the next screen or perform any action here
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
-                  minimumSize:
-                      const Size(200, 50), // Set button width and height
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5), // Set border radius
-                  ),
-                  // Set the background color to orange
-                ),
-                child: const Text(
-                  'Done',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Ubuntu"),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          const SizedBox(height: 50),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(10.0), // Set the border radius here
+              ),
+              color: const Color.fromRGBO(238, 238, 238, 1),
+              child: InkWell(
+                onTap: () => _selectDate(context),
+                child: InputDecorator(
+                  decoration: const InputDecoration(
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
+                    labelText: 'Last day of period',
+                    prefixIcon: Icon(
+                      color: Color.fromRGBO(0, 176, 255, 1),
+                      Icons.calendar_today,
+                    ), // Leading calendar icon
+                    suffixIcon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromRGBO(0, 176, 255, 1),
+                    ), // Trailing forward arrow icon
+                    border: InputBorder.none,
+                  ),
+                  child: Text(
+                    "${selectedDate?.toLocal()}".split(' ')[0],
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(0, 0, 0, .5),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 60),
+          ElevatedButton(
+            onPressed: () {
+              calculatePregnancy(); // Calculate pregnancy details based on selectedDate
+              _dietTracker(context);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => const PregnancyTrackerPage()),
+              // );
+
+              // Navigate to the next screen or perform any action here
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
+              minimumSize: const Size(200, 50), // Set button width and height
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5), // Set border radius
+              ),
+              // Set the background color to orange
+            ),
+            child: const Text(
+              'Done',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Ubuntu"),
+            ),
+          ),
+        ],
       ),
     );
   }

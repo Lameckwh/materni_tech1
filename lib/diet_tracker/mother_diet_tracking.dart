@@ -92,8 +92,8 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 166, 0, 255),
-        toolbarHeight: 55.h,
+        backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
+        toolbarHeight: 65.h,
         elevation: 1,
         title: const Text('Mother Diet Tracker',
             style: TextStyle(color: Colors.white)),
@@ -103,7 +103,7 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
           onPressed: () {
             // Navigate to the specified screen
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => const HomePage()),
             );
           },
         ),

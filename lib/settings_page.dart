@@ -8,7 +8,6 @@ import 'drawer_content.dart';
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
- 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
@@ -96,9 +95,7 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
         toolbarHeight: 70,
       ),
-      drawer: DrawerContent(
-        
-      ),
+      drawer: const DrawerContent(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
@@ -121,9 +118,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                   ),
-                  const Divider(
-                    thickness: 2,
-                  ),
                   ListTile(
                     trailing: const Icon(Icons.arrow_forward_ios),
                     title: const Text("Update Pregnancy Information"),
@@ -131,16 +125,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PregnancyInfoUpdateForm(
-                                 
-                                )),
+                            builder: (context) =>
+                                const PregnancyInfoUpdateForm()),
                       );
                     },
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    indent: 10,
-                    endIndent: 10,
                   ),
                   ListTile(
                     trailing: const Icon(Icons.arrow_forward_ios),
@@ -150,11 +138,6 @@ class _SettingsPageState extends State<SettingsPage> {
                         context,
                       );
                     },
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    indent: 10,
-                    endIndent: 10,
                   ),
                   ListTile(
                     trailing: Switch(
@@ -195,9 +178,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                   ),
-                  const Divider(
-                    thickness: 2,
-                  ),
                   ListTile(
                     trailing: const Icon(Icons.arrow_forward_ios),
                     title: const Text("Send FeedBack"),
@@ -216,11 +196,6 @@ class _SettingsPageState extends State<SettingsPage> {
                         //email app is not opened
                       }
                     },
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    indent: 10,
-                    endIndent: 10,
                   ),
                   ListTile(
                     trailing: const Icon(Icons.arrow_forward_ios),
