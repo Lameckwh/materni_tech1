@@ -70,11 +70,16 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
   }
 
   void startTimer() {
-    // Create a timer that triggers every 24 hours
-    timer = Timer.periodic(const Duration(hours: 24), (timer) {
+    // Calculate the time remaining until midnight
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day + 1);
+    final timeUntilMidnight = midnight.difference(now);
+
+    // Create a timer that triggers at midnight and every 24 hours
+    timer = Timer.periodic(timeUntilMidnight, (timer) {
       setState(() {
-        // Increment the tip index to display the next tip
-        currentTipIndex = (currentTipIndex + 1) % tips.length;
+        // Reset the tip index to the first tip at midnight
+        currentTipIndex = 0;
       });
     });
   }

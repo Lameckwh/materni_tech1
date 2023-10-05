@@ -18,12 +18,20 @@ class _ChildDietFormState extends State<ChildDietForm> {
   int years = 0;
 
   Future<void> _selectDate(BuildContext context) async {
+    final DateTime currentDate = DateTime.now();
+
+    // Calculate the minimum date by subtracting 5 years from the current date
+    final DateTime minDate =
+        DateTime(currentDate.year - 5, currentDate.month, currentDate.day);
+
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2010),
-      lastDate: DateTime(2024),
+      initialDate: selectedDate ?? currentDate,
+      firstDate:
+          minDate, // Set the first date to 5 years ago from the current date
+      lastDate: currentDate, // Set the last date to today's date
     );
+
     if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
         selectedDate = pickedDate;

@@ -22,7 +22,6 @@ class _ChildDietTrackingState extends State<ChildDietTracking> {
     "Introduce whole grains like whole wheat bread and brown rice. They are rich in fiber and nutrients",
     "Offer lean protein sources like chicken, fish, and beans to support your child's growth and development",
     "Be patient with picky eaters. Offer new foods multiple times and create a positive eating environment",
-    // Add more tips here...
   ];
 
   int currentTipIndex = 0;
@@ -36,11 +35,16 @@ class _ChildDietTrackingState extends State<ChildDietTracking> {
   }
 
   void startTimer() {
-    // Create a timer that triggers every 24 hours
-    timer = Timer.periodic(const Duration(hours: 24), (timer) {
+    // Calculate the time remaining until midnight
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day + 1);
+    final timeUntilMidnight = midnight.difference(now);
+
+    // Create a timer that triggers at midnight and every 24 hours
+    timer = Timer.periodic(timeUntilMidnight, (timer) {
       setState(() {
-        // Increment the tip index to display the next tip
-        currentTipIndex = (currentTipIndex + 1) % tips.length;
+        // Reset the tip index to the first tip at midnight
+        currentTipIndex = 0;
       });
     });
   }
@@ -195,37 +199,6 @@ class _ChildDietTrackingState extends State<ChildDietTracking> {
                               SizedBox(
                                 height: 15.h,
                               ),
-                              Text(
-                                """Avoid these foods, which could be swallowed whole and block the windpipe:
-Hot dogs (unless cut in quarters lengthwise before being sliced)
-
-Chunks of peanut butter (Peanut butter may be spread thinly on bread or a cracker, but never give chunks of peanut butter to a toddler.)
-
-Nuts—especially peanuts
-
-Raw cherries with pits
-
-Round, hard candies—including jelly beans
-
-Gum
-
-Whole grapes
-
-Marshmallows
-
-Raw carrots, celery, green beans
-
-Popcorn
-
-Seeds—such as processed pumpkin or sunflower seeds
-
-Whole grapes, cherry tomatoes (cut them in quarters)
-
-Large chunks of any food such as meat, potatoes, or raw vegetables and fruits
-
-""",
-                                style: TextStyle(fontSize: 15.sp),
-                              )
                             ],
                           ),
                         ),

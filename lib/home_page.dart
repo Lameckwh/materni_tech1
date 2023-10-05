@@ -115,8 +115,6 @@ class _HomePageState extends State<HomePage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14.0),
             // You can further customize the shape here
-            side: const BorderSide(
-                color: Color.fromRGBO(0, 176, 255, 1), width: 2.0),
           ),
           title: const Text(
             'Whom to track?',

@@ -12,7 +12,8 @@ class PregnancyInfoUpdateForm extends StatefulWidget {
 }
 
 class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
-  DateTime? selectedDate = boxPregnancyInfo.get('user123')?.lastDateOfPeriod;
+  DateTime? selectedDate =
+      boxPregnancyInfo.get('user123')?.lastDateOfPeriod ?? DateTime.now();
   int pregnancyDays = 0;
   int pregnancyWeeks = 0;
   String expectedDeliveryDate = "";
@@ -37,12 +38,19 @@ class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
+    final DateTime currentDate = DateTime.now();
+
+    // Calculate the minimum date by subtracting 280 days from the current date
+    final DateTime minDate = currentDate.subtract(const Duration(days: 280));
+
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2001),
-      lastDate: DateTime(2028),
+      initialDate: selectedDate ?? currentDate,
+      firstDate:
+          minDate, // Set the first date to 280 days ago from the current date
+      lastDate: currentDate, // Set the last date to today's date
     );
+
     if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
         selectedDate = pickedDate;
@@ -58,7 +66,6 @@ class _PregnancyInfoUpdateFormState extends State<PregnancyInfoUpdateForm> {
           contentPadding: const EdgeInsets.all(10.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14.0),
-            side: const BorderSide(color: Colors.blue, width: 2.0),
           ),
           title: const Text(
             'Updated Pregnancy Information',

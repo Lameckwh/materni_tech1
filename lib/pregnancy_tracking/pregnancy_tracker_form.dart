@@ -37,12 +37,19 @@ class _PregnancyTrackerFormState extends State<PregnancyTrackerForm> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
+    final DateTime currentDate = DateTime.now();
+
+    // Calculate the minimum date by subtracting 280 days from the current date
+    final DateTime minDate = currentDate.subtract(const Duration(days: 280));
+
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2022),
-      lastDate: DateTime(2024),
+      initialDate: selectedDate ?? currentDate,
+      firstDate:
+          minDate, // Set the first date to 280 days ago from the current date
+      lastDate: currentDate, // Set the last date to today's date
     );
+
     if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
         selectedDate = pickedDate;
