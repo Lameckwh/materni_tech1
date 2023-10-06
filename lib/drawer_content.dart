@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:materni_tech1/favorite_tips_page.dart';
 import 'package:materni_tech1/models/boxes.dart';
 import 'calendar_diary/calendar_diary.dart';
 // import 'pregnancy_tools.dart';
@@ -259,7 +260,7 @@ class _DrawerContentState extends State<DrawerContent> {
                     color: Colors.black,
                   ),
                   title: Text(
-                    'Calendar',
+                    'Calendar and Diary',
                     style: TextStyle(
                       fontSize: 16.sp,
                     ),
@@ -289,6 +290,27 @@ class _DrawerContentState extends State<DrawerContent> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const PregnancyToolsPage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.favorite,
+                    size: 30,
+                    color: Colors.black,
+                  ),
+                  title: Text(
+                    'Favorite Tips',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FavoriteTipsPage(),
                       ),
                     );
                   },

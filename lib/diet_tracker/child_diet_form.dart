@@ -56,18 +56,18 @@ class _ChildDietFormState extends State<ChildDietForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: const EdgeInsets.all(10.0),
+          contentPadding: EdgeInsets.all(10.w),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14.0),
+            borderRadius: BorderRadius.circular(14.w),
             side: const BorderSide(color: Colors.blue, width: 2.0),
           ),
-          title: const Text(
+          title: Text(
             'Child Age Information',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 17.sp),
           ),
           content: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -100,7 +100,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                   },
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(20.w),
                     ),
                     side: const BorderSide(
                       color: Colors.red,
@@ -114,7 +114,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                   ),
                 ),
                 SizedBox(
-                  width: 10.sp,
+                  width: 10.w,
                 ),
                 OutlinedButton(
                   onPressed: () {
@@ -122,13 +122,14 @@ class _ChildDietFormState extends State<ChildDietForm> {
                         "child124"; // Custom key based on the user's username
                     final dateOfBirth = selectedDate!;
                     boxChildInfo.put(
-                        customKey,
-                        ChildInfo(
-                          days: days,
-                          months: months,
-                          years: years,
-                          dateOfBirth: dateOfBirth,
-                        ));
+                      customKey,
+                      ChildInfo(
+                        days: days,
+                        months: months,
+                        years: years,
+                        dateOfBirth: dateOfBirth,
+                      ),
+                    );
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -138,7 +139,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
                   },
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(20.w),
                     ),
                     side: const BorderSide(
                       color: Colors.blue,
@@ -161,7 +162,7 @@ class _ChildDietFormState extends State<ChildDietForm> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
-        toolbarHeight: 100,
+        // toolbarHeight: 100,
         elevation: 0,
         iconTheme: const IconThemeData(
           color: Colors.black, // Change this color to your desired color
@@ -171,28 +172,33 @@ class _ChildDietFormState extends State<ChildDietForm> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Image(
+            width: 140.w,
+            height: 140.h,
+            image: const AssetImage('images/baby_girl.png'),
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Container(
-              padding: const EdgeInsets.fromLTRB(10, 30, 20, 30),
+              padding: EdgeInsets.fromLTRB(10.w, 30.h, 20.w, 30.h),
               decoration: BoxDecoration(
                 color: Colors.white70,
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(10.w),
               ),
-              child: const Text(
+              child: Text(
                 "Provide Child's Birth Information",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color.fromRGBO(0, 176, 255, 1),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  color: const Color.fromRGBO(0, 176, 255, 1),
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 50),
+          SizedBox(height: 30.h),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Column(
               children: [
                 Card(
@@ -222,9 +228,9 @@ class _ChildDietFormState extends State<ChildDietForm> {
                       ),
                       child: Text(
                         "${selectedDate?.toLocal()}".split(' ')[0],
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Color.fromRGBO(0, 0, 0, .5),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: const Color.fromRGBO(0, 0, 0, .5),
                         ),
                       ),
                     ),
@@ -233,26 +239,26 @@ class _ChildDietFormState extends State<ChildDietForm> {
               ],
             ),
           ),
-          const SizedBox(height: 60),
+          SizedBox(height: 60.h),
           ElevatedButton(
             onPressed: () {
               _dietTracker(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
-              minimumSize: const Size(200, 50), // Set button width and height
+              minimumSize: Size(200.w, 50.h), // Set button width and height
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5), // Set border radius
+                borderRadius: BorderRadius.circular(5.w), // Set border radius
               ),
               // Set the background color to orange
             ),
-            child: const Text(
+            child: Text(
               'Done',
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Ubuntu"),
+                color: Colors.white,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],

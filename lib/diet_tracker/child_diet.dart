@@ -57,26 +57,16 @@ Here's how to do them:
 3. Repeat 10 times for a complete set.""",
   ),
   ChildDiet(
-    "Eliminate Toxins",
+    "Practice Kegels",
     'images/mother_diet.png',
-    """Because of their link to congenital disorders, miscarriage, and other pregnancy complications, you should avoid tobacco, alcohol, illicit drugs, and even solvents such as paint thinners and nail polish remover while pregnant. Smoking cigarettes, for example, decreases oxygen flow to your baby, and it's linked to preterm birth and other complications.4
+    """Kegel exercises strengthen the pelvic floor muscles, which support your bladder, bowels, and uterus. Done correctly, this simple exercise can help make your delivery easier and prevent problems later with incontinence.3
 
-"If you can't stop smoking, drinking, or using drugs, let your doctor know," recommends Roger Harms, MD, an OB-GYN at the Mayo Clinic. A doctor can offer advice and support and refer you to a program that can help you quit.""",
-  ),
-  ChildDiet(
-    "Check Your Medications",
-    'images/mother_diet.png',
-    """Check with a health care provider before taking any medications, supplements, or "natural" remedies. Some are surprised to learn that even commonly used over-the-counter medications like ibuprofen and other non-steroidal anti-inflammatory drugs (NSAIDs) should be avoided during pregnancy.
+The best part: No one can tell you're doing them—so you can practice Kegels in the car, while you're sitting at your desk, or even standing in line at the grocery store.
 
-For example, some studies have shown a potential link between using ibuprofen during pregnancy and an increased risk of miscarriage and congenital disorders. Additionally, the Food and Drug Administration doesn't recommend the use of ibuprofen after week 20 of pregnancy due to the risk of kidney problems in the fetus.
+Here's how to do them:
 
-Rather than worry about whether something is safe to take during pregnancy, go ahead and check with a health care provider before taking any medication, prescribed or otherwise.""",
-  ),
-  ChildDiet(
-    "Drink More Water",
-    'images/mother_diet.png',
-    """During pregnancy, your blood is supplying oxygen and essential nutrients to your baby through the placenta and carrying waste and carbon dioxide away, and your blood volume increases up to 50% to handle all this extra activity. So, you need to drink more to support that gain.
-
-Drinking water can also prevent consMotheration, hemorrhoids, urinary tract infections (UTIs), fatigue, headaches, swelling, and other uncomfortable pregnancy symptoms. Aim for eight to 10 glasses per day, and if you don't enjoy the taste, try adding a squeeze of lime or a splash of fruit juice.""",
+1. Practice squeezing as though you're stopping the flow of urine when you use the bathroom.
+2. Hold for three seconds, then relax for three.
+3. Repeat 10 times for a complete set.""",
   ),
 ];

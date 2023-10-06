@@ -119,24 +119,21 @@ class _ChildDietTrackingState extends State<ChildDietTracking> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // ignore: sized_box_for_whitespace
-                    Container(
-                      height: 150.sp,
-                      width: 150.sp,
+                    SizedBox(
+                      height: 150.w,
+                      width: 150.w,
                       child: Image.asset(
                         childDiet[currentIndex].image,
                       ),
                     ),
-                    SizedBox(height: 20.h), // 2% of screen height
-
+                    SizedBox(height: 10.h),
                     Container(
                       margin:
-                          const EdgeInsets.only(left: 11, right: 11, top: 11),
-                      // height: 25,
+                          EdgeInsets.only(left: 11.w, right: 11.w, top: 11.h),
                       child: Card(
                         elevation: 1,
                         child: Padding(
-                          padding: const EdgeInsets.all(11.0),
+                          padding: EdgeInsets.all(11.w),
                           child: Column(
                             children: [
                               Row(
@@ -172,13 +169,12 @@ class _ChildDietTrackingState extends State<ChildDietTracking> {
                         ),
                       ),
                     ),
-
                     Container(
-                      margin: const EdgeInsets.all(7),
+                      margin: EdgeInsets.all(7.w),
                       child: Card(
                         elevation: 1,
                         child: Padding(
-                          padding: const EdgeInsets.all(11.0),
+                          padding: EdgeInsets.all(11.w),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -210,8 +206,7 @@ class _ChildDietTrackingState extends State<ChildDietTracking> {
             ),
             Container(
               color: Colors.grey[200],
-              padding:
-                  const EdgeInsets.all(16), // Padding based on screen width
+              padding: EdgeInsets.all(16.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -235,37 +230,6 @@ class _ChildDietTrackingState extends State<ChildDietTracking> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildCard(
-      String title, String date, String content, double cardHeight) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        color: Colors.white,
-        child: Container(
-          width: double.infinity,
-          height: cardHeight,
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(title,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                  Text(date,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const SizedBox(height: 5),
-              Text(content),
-            ],
-          ),
         ),
       ),
     );

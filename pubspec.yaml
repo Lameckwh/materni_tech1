@@ -43,6 +43,7 @@ dependencies:
   uuid:
   smooth_page_indicator:
   font_awesome_flutter:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

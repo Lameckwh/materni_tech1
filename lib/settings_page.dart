@@ -58,7 +58,6 @@ class _SettingsPageState extends State<SettingsPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           contentPadding: const EdgeInsets.all(20.0),
-          // title: Text('Popup Title'),
           content: const Text(
               "We worked really hard on this! You can make us so happy if you rated it 5 stars: D. Thank you!"),
           actions: [
@@ -85,132 +84,137 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Settings',
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 18.sp,
             fontWeight: FontWeight.w500,
           ),
         ),
         backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
-        toolbarHeight: 70,
+        toolbarHeight: 70.h,
       ),
       drawer: const DrawerContent(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: [
-            Card(
-              elevation: 2,
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 15.0, top: 10.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Personalization",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Color.fromRGBO(0, 176, 255, 1),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    trailing: const Icon(Icons.arrow_forward_ios),
-                    title: const Text("Update Pregnancy Information"),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const PregnancyInfoUpdateForm()),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    trailing: const Icon(Icons.arrow_forward_ios),
-                    title: const Text("Measurements Units"),
-                    onTap: () {
-                      _measurementsUnits(
-                        context,
-                      );
-                    },
-                  ),
-                  ListTile(
-                    trailing: Switch(
-                      value: notificationsEnabled,
-                      onChanged: (value) {
-                        setState(() {
-                          notificationsEnabled = value;
-                        });
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          // Determine the screen width
+          // double screenWidth = constraints.maxWidth;
+          // You can use screenWidth to adjust the UI elements as needed
 
-                        // You can add code here to handle enabling/disabling notifications.
-                        // For example, you can use a plugin like 'flutter_local_notifications'
-                        // to schedule and display notifications when notificationsEnabled is true.
-                      },
-                    ),
-                    title: const Text("Notifications"),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  )
-                ],
-              ),
-            ),
-            Card(
-              elevation: 2,
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 15.0, top: 10.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "FeedBack",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Color.fromRGBO(0, 176, 255, 1),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600),
+          return Padding(
+            padding: EdgeInsets.all(8.w),
+            child: ListView(
+              children: [
+                Card(
+                  elevation: 2,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.w, top: 10.h),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Persownalization",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: const Color.fromRGBO(0, 176, 255, 1),
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      ListTile(
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        title: const Text("Update Pregnancy Information"),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const PregnancyInfoUpdateForm()),
+                          );
+                        },
+                      ),
+                      ListTile(
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        title: const Text("Measurements Units"),
+                        onTap: () {
+                          _measurementsUnits(
+                            context,
+                          );
+                        },
+                      ),
+                      ListTile(
+                        trailing: Switch(
+                          value: notificationsEnabled,
+                          onChanged: (value) {
+                            setState(() {
+                              notificationsEnabled = value;
+                            });
+                          },
+                        ),
+                        title: const Text("Notifications"),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                    ],
                   ),
-                  ListTile(
-                    trailing: const Icon(Icons.arrow_forward_ios),
-                    title: const Text("Send FeedBack"),
-                    onTap: () async {
-                      String email =
-                          Uri.encodeComponent("bit-032-19@must.ac.mw");
-                      String subject =
-                          Uri.encodeComponent("MaterniTech FeedBack ");
-                      String body = Uri.encodeComponent("Hi, I am .....");
-                      // print(subject); //output,: Hello%20Flutter
-                      Uri mail = Uri.parse(
-                          "mailto:$email?subject=$subject&body=$body");
-                      if (await launchUrl(mail)) {
-                        //email app opened
-                      } else {
-                        //email app is not opened
-                      }
-                    },
+                ),
+                Card(
+                  elevation: 2,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.w, top: 10.h),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "FeedBack",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: const Color.fromRGBO(0, 176, 255, 1),
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        title: const Text("Send FeedBack"),
+                        onTap: () async {
+                          String email =
+                              Uri.encodeComponent("bit-032-19@must.ac.mw");
+                          String subject =
+                              Uri.encodeComponent("MaterniTech FeedBack ");
+                          String body = Uri.encodeComponent("Hi, I am .....");
+                          Uri mail = Uri.parse(
+                              "mailto:$email?subject=$subject&body=$body");
+                          if (await launchUrl(mail)) {
+                            // Email app opened
+                          } else {
+                            // Email app is not opened
+                          }
+                        },
+                      ),
+                      ListTile(
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        title: const Text("Rate Us"),
+                        onTap: () {
+                          _rateUs(
+                            context,
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  ListTile(
-                    trailing: const Icon(Icons.arrow_forward_ios),
-                    title: const Text("Rate Us"),
-                    onTap: () {
-                      _rateUs(
-                        context,
-                      );
-                    },
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

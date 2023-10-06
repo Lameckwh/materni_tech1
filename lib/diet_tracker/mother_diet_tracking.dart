@@ -15,6 +15,7 @@ class MotherDietTracking extends StatefulWidget {
 
 class _MotherDietTrackingState extends State<MotherDietTracking> {
   int currentIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -90,9 +91,6 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
     final String day = '${now.day}';
     final String month = _getMonthName(now.month);
     final String formattedDate = '$day $month';
-    // Extract the screen dimensions
-    double screenWidth = MediaQuery.of(context).size.width;
-// For example, 20% of the screen height
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
@@ -104,175 +102,160 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
             style: TextStyle(color: Colors.white)),
         leading: IconButton(
           icon: const Icon(
-              Icons.arrow_back), // Replace with your custom back icon
+            Icons.arrow_back,
+          ),
           onPressed: () {
-            // Navigate to the specified screen
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const HomePage()),
             );
           },
         ),
       ),
-      body: Container(
-        color: const Color.fromARGB(255, 226, 226, 226),
-        child: Column(
-          children: [
-            Flexible(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // ignore: sized_box_for_whitespace
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(
-                        0,
-                        10,
-                        0,
-                        10,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          // Extract the screen dimensions
+          double screenWidth = constraints.maxWidth;
+          double screenHeight = constraints.maxHeight;
+
+          return Column(
+            children: [
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(
+                          0,
+                          screenHeight * 0.02,
+                          0,
+                          screenHeight * 0.02,
+                        ),
+                        height: screenHeight * 0.2,
+                        width: screenHeight * 0.2,
+                        child: Image.asset(
+                          motherDiet[currentIndex].image,
+                        ),
                       ),
-                      height: 150,
-                      width: 150,
-                      child: Image.asset(
-                        motherDiet[currentIndex].image,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      // height: 250,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(11.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Today's Tip",
-                                    style: TextStyle(
+                      Container(
+                        margin: EdgeInsets.fromLTRB(
+                          screenWidth * 0.05,
+                          0,
+                          screenWidth * 0.05,
+                          0,
+                        ),
+                        child: Card(
+                          child: Padding(
+                            padding: EdgeInsets.all(screenWidth * 0.015),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Today's Tip",
+                                      style: TextStyle(
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 16.sp),
-                                  ),
-                                  Text(
-                                    formattedDate,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16.sp,
-                                      color:
-                                          const Color.fromRGBO(30, 211, 48, 1),
+                                        fontSize: screenWidth * 0.04,
+                                      ),
                                     ),
+                                    Text(
+                                      formattedDate,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: screenWidth * 0.04,
+                                        color: const Color.fromRGBO(
+                                            30, 211, 48, 1),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.015,
+                                ),
+                                Text(
+                                  tips[currentTipIndex],
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: screenWidth * 0.036,
                                   ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Text(
-                                tips[currentTipIndex],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 15.sp),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      // height: 250,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(11.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                motherDiet[currentIndex].title,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
+                      SizedBox(
+                        height: screenHeight * 0.01,
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(
+                          screenWidth * 0.05,
+                          0,
+                          screenWidth * 0.05,
+                          0,
+                        ),
+                        child: Card(
+                          child: Padding(
+                            padding: EdgeInsets.all(screenWidth * 0.015),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  motherDiet[currentIndex].title,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: screenWidth * 0.036,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              Text(
-                                motherDiet[currentIndex].description,
-                                style: TextStyle(
-                                  // fontWeight: FontWeight.w600,
-                                  fontSize: 15.sp,
+                                SizedBox(
+                                  height: screenHeight * 0.015,
                                 ),
-                              )
-                            ],
+                                Text(
+                                  motherDiet[currentIndex].description,
+                                  style: TextStyle(
+                                    fontSize: screenWidth * 0.036,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                color: Colors.grey[200],
+                padding: EdgeInsets.all(screenWidth * 0.02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: currentIndex > 0 ? goToPreviousWeek : null,
+                    ),
+                    Text(
+                      'Week $currentIndex',
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.04,
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.arrow_forward),
+                      onPressed: currentIndex < motherDiet.length - 1
+                          ? goToNextWeek
+                          : null,
                     ),
                   ],
                 ),
               ),
-            ),
-            Container(
-              color: Colors.grey[200],
-              padding: EdgeInsets.all(
-                  screenWidth * 0.02), // Padding based on screen width
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: currentIndex > 0 ? goToPreviousWeek : null,
-                  ),
-                  Text(
-                    'Week $currentIndex',
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_forward),
-                    onPressed: currentIndex < motherDiet.length - 1
-                        ? goToNextWeek
-                        : null,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildCard(
-      String title, String date, String content, double cardHeight) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        color: Colors.white,
-        child: Container(
-          width: double.infinity,
-          height: cardHeight,
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(title,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                  Text(date,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const SizedBox(height: 5),
-              Text(content),
             ],
-          ),
-        ),
+          );
+        },
       ),
     );
   }

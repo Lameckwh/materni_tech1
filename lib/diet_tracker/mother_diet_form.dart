@@ -1,236 +1,268 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'mother_diet_tracking.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:materni_tech1/diet_tracker/child_diet.dart';
+import 'package:materni_tech1/home_page.dart';
+import 'package:materni_tech1/models/boxes.dart';
+import 'package:materni_tech1/models/child_info.dart';
 
-class MotherDietForm extends StatefulWidget {
-  final int activePageIndex; // Add this parameter
-
-  const MotherDietForm({Key? key, required this.activePageIndex})
-      : super(key: key);
+class ChildDietTracking extends StatefulWidget {
+  const ChildDietTracking({super.key});
 
   @override
-  State<MotherDietForm> createState() => _MotherDietFormState();
+  State<ChildDietTracking> createState() => _ChildDietTrackingState();
 }
 
-class _MotherDietFormState extends State<MotherDietForm> {
-  DateTime selectedDate = DateTime.now();
-  DateTime selectedDate1 = DateTime.now();
-  DateTime selectedDate2 = DateTime.now();
+class _ChildDietTrackingState extends State<ChildDietTracking> {
+  final List<String> tips = [
+    "Breastfeeding is the best start for your baby. It provides essential nutrients and antibodies for their growth and protection.",
+    "Introduce a variety of fruits and vegetables to your child's diet. They provide essential vitamins and minerals for growth",
+    "Encourage family meals. Eating together promotes healthy eating habits and family bonding.",
+    "Limit sugary drinks and snacks for your child. Opt for water, milk, and healthy snacks like fruits and nuts",
+    "Introduce whole grains like whole wheat bread and brown rice. They are rich in fiber and nutrients",
+    "Offer lean protein sources like chicken, fish, and beans to support your child's growth and development",
+    "Be patient with picky eaters. Offer new foods multiple times and create a positive eating environment",
+  ];
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
+  int currentTipIndex = 0;
+  late Timer timer;
 
-    if (picked != null && picked != selectedDate) {
+  @override
+  void dispose() {
+    // Dispose of the timer when the page is disposed
+    timer.cancel();
+    super.dispose();
+  }
+
+  void startTimer() {
+    // Calculate the time remaining until midnight
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day + 1);
+    final timeUntilMidnight = midnight.difference(now);
+
+    // Create a timer that triggers at midnight and every 24 hours
+    timer = Timer.periodic(timeUntilMidnight, (timer) {
       setState(() {
-        selectedDate = picked;
+        // Reset the tip index to the first tip at midnight
+        currentTipIndex = 0;
+      });
+    });
+  }
+
+  int currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize currentIndex with the pregnancy weeks from the Hive box
+    final ChildInfo? childInfo =
+        boxChildInfo.values.isNotEmpty ? boxChildInfo.values.first : null;
+
+    if (childInfo != null) {
+      currentIndex = childInfo.years;
+    }
+
+    startTimer();
+  }
+
+  void goToNextYear() {
+    if (currentIndex < childDiet.length - 1) {
+      setState(() {
+        currentIndex++;
       });
     }
   }
 
-  Future<void> _selectDate1(BuildContext context) async {
-    final DateTime? picked1 = await showDatePicker(
-      context: context,
-      initialDate: selectedDate1,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
-    if (picked1 != null && picked1 != selectedDate1) {
+  void goToPreviousYear() {
+    if ((currentIndex > 0)) {
       setState(() {
-        selectedDate1 = picked1;
-      });
-    }
-  }
-
-  Future<void> _selectDate2(BuildContext context) async {
-    final DateTime? picked2 = await showDatePicker(
-      context: context,
-      initialDate: selectedDate2,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
-    if (picked2 != null && picked2 != selectedDate2) {
-      setState(() {
-        selectedDate2 = picked2;
+        currentIndex--;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
-      appBar: AppBar(
-        elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.black, // Change this color to your desired color
-        ),
-        backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(10, 30, 20, 30),
-              decoration: BoxDecoration(
-                color: Colors.white70,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: const Text(
-                'Provide Pregnancy Information',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color.fromRGBO(0, 176, 255, 1),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 50),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Set the border radius here
-                  ),
-                  color: const Color.fromRGBO(238, 238, 238, 1),
-                  child: InkWell(
-                    onTap: () => _selectDate(context),
-                    child: InputDecorator(
-                      decoration: const InputDecoration(
-                        labelStyle: TextStyle(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        labelText: 'Last day of period',
-                        prefixIcon: Icon(
-                          color: Color.fromRGBO(0, 176, 255, 1),
-                          Icons.calendar_today,
-                        ), // Leading calendar icon
-                        suffixIcon: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color.fromRGBO(0, 176, 255, 1),
-                        ), // Trailing forward arrow icon
-                        border: InputBorder.none,
-                      ),
-                      child: Text(
-                        "${selectedDate.toLocal()}".split(' ')[0],
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Color.fromRGBO(0, 0, 0, .5),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Set the border radius here
-                  ),
-                  color: const Color.fromRGBO(238, 238, 238, 1),
-                  child: InkWell(
-                    onTap: () => _selectDate1(context),
-                    child: InputDecorator(
-                      decoration: const InputDecoration(
-                        labelText: 'Last day of period',
-                        prefixIcon: Icon(
-                          color: Color.fromRGBO(0, 176, 255, 1),
-                          Icons.calendar_today,
-                        ), // Leading calendar icon
-                        suffixIcon: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color.fromRGBO(0, 176, 255, 1),
-                        ), // Trailing forward arrow icon
-                        border: InputBorder.none,
-                      ),
-                      child: Text(
-                        "${selectedDate1.toLocal()}".split(' ')[0],
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Color.fromRGBO(0, 0, 0, .5),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Set the border radius here
-                  ),
-                  color: const Color.fromRGBO(238, 238, 238, 1),
-                  child: InkWell(
-                    onTap: () => _selectDate2(context),
-                    child: InputDecorator(
-                      decoration: const InputDecoration(
-                        labelText: 'Last day of period',
-                        prefixIcon: Icon(
-                          color: Color.fromRGBO(0, 176, 255, 1),
-                          Icons.calendar_today,
-                        ), // Leading calendar icon
-                        suffixIcon: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color.fromRGBO(0, 176, 255, 1),
-                        ), // Trailing forward arrow icon
-                        border: InputBorder.none,
-                      ),
-                      child: Text(
-                        "${selectedDate2.toLocal()}".split(' ')[0],
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Color.fromRGBO(0, 0, 0, .5),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 60),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const MotherDietTracking()),
-              );
+    final DateTime now = DateTime.now();
+    final String day = '${now.day}';
+    final String month = _getMonthName(now.month);
+    final String formattedDate = '$day $month';
 
-              // Navigate to the next screen or perform any action here
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
-              minimumSize: const Size(200, 50), // Set button width and height
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5), // Set border radius
-              ),
-              // Set the background color to orange
-            ),
-            child: const Text(
-              'Done',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Ubuntu"),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.lightBlue,
+        toolbarHeight: 70.h,
+        title: Text(
+          'Child Diet Tracker',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 19.sp,
           ),
-        ],
+        ),
+        leading: IconButton(
+          icon: const Icon(
+              Icons.arrow_back), // Replace with your custom back icon
+          onPressed: () {
+            // Navigate to the specified screen
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          },
+        ),
+      ),
+      body: Container(
+        color: const Color.fromARGB(255, 226, 226, 226),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 150.w,
+                      width: 150.w,
+                      child: Image.asset(
+                        childDiet[currentIndex].image,
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    Container(
+                      margin:
+                          EdgeInsets.only(left: 11.w, right: 11.w, top: 11.h),
+                      child: Card(
+                        elevation: 1,
+                        child: Padding(
+                          padding: EdgeInsets.all(11.w),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Today’s tip",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.sp),
+                                  ),
+                                  Text(
+                                    formattedDate,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.sp,
+                                      color:
+                                          const Color.fromRGBO(30, 211, 48, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Text(
+                                tips[currentTipIndex],
+                                style: TextStyle(fontSize: 15.sp),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(7.w),
+                      child: Card(
+                        elevation: 1,
+                        child: Padding(
+                          padding: EdgeInsets.all(11.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                childDiet[currentIndex].title,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.sp),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Text(
+                                childDiet[currentIndex].description,
+                                style: TextStyle(fontSize: 16.sp),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.grey[200],
+              padding: EdgeInsets.all(16.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: currentIndex > 0 ? goToPreviousYear : null,
+                  ),
+                  Text(
+                    "Year $currentIndex",
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.arrow_forward),
+                    onPressed: currentIndex < childDiet.length - 1
+                        ? goToNextYear
+                        : null,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  String _getMonthName(int month) {
+    switch (month) {
+      case 1:
+        return 'January';
+      case 2:
+        return 'February';
+      case 3:
+        return 'March';
+      case 4:
+        return 'April';
+      case 5:
+        return 'May';
+      case 6:
+        return 'June';
+      case 7:
+        return 'July';
+      case 8:
+        return 'August';
+      case 9:
+        return 'September';
+      case 10:
+        return 'October';
+      case 11:
+        return 'November';
+      case 12:
+        return 'December';
+      default:
+        return '';
+    }
   }
 }

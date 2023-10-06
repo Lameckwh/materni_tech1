@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:materni_tech1/favorite_tips_page.dart';
+import 'package:materni_tech1/models/boxes.dart';
+import 'package:materni_tech1/models/favorite_tip.dart';
 
 class Tip {
   final String title;
@@ -102,17 +105,44 @@ class _TipPageState extends State<TipPage> {
     }
   }
 
+  bool isFavorite(Tip tip) {
+    // Check if the tip is in the favorites box
+    var favoriteTips = boxFavoriteTip.values.toList();
+    return favoriteTips.any((favoriteTip) => favoriteTip.title == tip.title);
+  }
+
+  void toggleFavorite(Tip tip) {
+    var favoriteTipKey = boxFavoriteTip.keys.firstWhere(
+      (key) {
+        var favoriteTip = boxFavoriteTip.get(key) as FavoriteTip?;
+        return favoriteTip != null && favoriteTip.title == tip.title;
+      },
+      orElse: () => null,
+    );
+
+    if (favoriteTipKey != null) {
+      // If a favorite tip with the same title is found, remove it
+      boxFavoriteTip.delete(favoriteTipKey);
+    } else {
+      // Otherwise, add the tip to favorites
+      boxFavoriteTip.add(FavoriteTip(tip.title, tip.description));
+    }
+
+    // Force a rebuild of the widget to update the favorite icon
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    // double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           'Tips',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: const Color.fromARGB(255, 166, 0, 255),
+        backgroundColor: const Color.fromRGBO(0, 176, 255, 1),
         toolbarHeight: 55.h,
         elevation: 1,
         leading: IconButton(
@@ -120,6 +150,22 @@ class _TipPageState extends State<TipPage> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.favorite,
+              color: Colors.red,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FavoriteTipsPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
         color: const Color.fromARGB(255, 226, 226, 226),
@@ -130,44 +176,51 @@ class _TipPageState extends State<TipPage> {
               child: SingleChildScrollView(
                 child: Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Adjust the radius as needed
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: Colors.white, // Ensure the card's main color is white
+                  color: Colors.white,
                   elevation: 4.0,
-                  margin: const EdgeInsets.all(16.0),
+                  margin: EdgeInsets.all(screenWidth * 0.02),
                   child: CustomPaint(
                     painter: BottomCornersPainter(),
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(screenWidth * 0.02),
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 18.h,
+                            height: screenHeight * 0.02,
                           ),
                           Text(
                             tips[currentIndex].title,
                             style: TextStyle(
-                              fontSize: 17.sp,
+                              fontSize: screenWidth * 0.04,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 15.h),
+                          SizedBox(height: screenHeight * 0.02),
                           Text(
                             tips[currentIndex].description,
-                            style: TextStyle(fontSize: 16.sp),
+                            style: TextStyle(fontSize: screenWidth * 0.036),
                           ),
                           const SizedBox(height: 16.0),
                           ButtonBar(
                             alignment: MainAxisAlignment.center,
                             children: <Widget>[
                               IconButton(
-                                iconSize: 30.0,
-                                icon: const Icon(Icons.star),
-                                onPressed: () {},
+                                iconSize: screenWidth * 0.1,
+                                icon: Icon(
+                                  isFavorite(tips[currentIndex])
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: isFavorite(tips[currentIndex])
+                                      ? Colors.red
+                                      : null,
+                                ),
+                                onPressed: () =>
+                                    toggleFavorite(tips[currentIndex]),
                               ),
                               IconButton(
-                                iconSize: 30.0,
+                                iconSize: screenWidth * 0.1,
                                 icon: const Icon(Icons.share),
                                 onPressed: () {},
                               ),
@@ -242,6 +295,3 @@ class BottomCornersPainter extends CustomPainter {
     return false;
   }
 }
-
-// ... [rest of the code remains unchanged]
-

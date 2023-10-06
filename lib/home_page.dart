@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:materni_tech1/diet_tracker/child_diet_tracking.dart';
 import 'package:materni_tech1/diet_tracker/mother_diet_tracking.dart';
 import 'package:materni_tech1/models/boxes.dart';
@@ -10,7 +11,6 @@ import 'diet_tracker/child_diet_form.dart';
 import 'tips_page.dart';
 import 'drawer_content.dart';
 import 'pregnancy_tracking/pregnancy_tracker_form.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
@@ -111,9 +111,9 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: const EdgeInsets.all(10.0),
+          contentPadding: EdgeInsets.all(10.w),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14.0),
+            borderRadius: BorderRadius.circular(14.w),
             // You can further customize the shape here
           ),
           title: const Text(
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
             textAlign: TextAlign.center,
           ),
           content: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.w),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
-                            20.0), // Set the border radius
+                            20.w), // Set the border radius
                       ),
                       side: const BorderSide(
                         color: Color.fromRGBO(
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
-                            20.0), // Set the border radius
+                            20.w), // Set the border radius
                       ),
                       side: const BorderSide(
                         color: Color.fromRGBO(
@@ -247,10 +247,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(246, 242, 242, 1),
       appBar: AppBar(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(5.0), // Adjust the radius as needed
-            bottomRight: Radius.circular(5.0), // Adjust the radius as needed
+            bottomLeft: Radius.circular(5.w), // Adjust the radius as needed
+            bottomRight: Radius.circular(5.w), // Adjust the radius as needed
           ),
         ),
         toolbarHeight: 65.h,
@@ -265,95 +265,314 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: const DrawerContent(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              Stack(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          // Determine the screen width
+          double screenWidth = constraints.maxWidth;
+          // You can use screenWidth to adjust the UI elements as needed
+
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(10.w),
+              child: Column(
                 children: <Widget>[
-                  SizedBox(
-                    height: 180.0.h,
-                    child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: images.length,
-                      itemBuilder: (context, index) {
-                        return Image.asset(
-                          images[index],
-                          fit: BoxFit.cover,
-                        );
-                      },
-                      onPageChanged: (index) {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 15, // adjust the position as you prefer
-                    left: MediaQuery.of(context).size.width * 0.5 -
-                        15, // adjust the position as you prefer
-                    child: SmoothPageIndicator(
-                      controller:
-                          _pageController, // PageController for your PageView
-                      count: images.length, // number of dots
-                      effect: const ExpandingDotsEffect(
-                        expansionFactor: 2,
-                        spacing: 8,
-                        radius: 15,
-                        dotWidth: 15,
-                        dotHeight: 15,
-                        dotColor: Colors.grey,
-                        activeDotColor: Color.fromRGBO(0, 176, 255, 1),
+                  Stack(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 180.h,
+                        child: PageView.builder(
+                          controller: _pageController,
+                          itemCount: images.length,
+                          itemBuilder: (context, index) {
+                            return Image.asset(
+                              images[index],
+                              fit: BoxFit.cover,
+                              width: screenWidth, // Adjust the width
+                            );
+                          },
+                          onPageChanged: (index) {
+                            setState(() {
+                              currentIndex = index;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 20,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          height: 35.h,
-                          width: 35.h,
-                          margin: const EdgeInsets.all(7),
-                          decoration: const BoxDecoration(
-                            color: Color.fromRGBO(255, 255, 255,
-                                .6), // Set the background color here
-                            // You can also set a shape
-                          ),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              size: 25,
-                              weight: 400,
-                              color: Color.fromRGBO(0, 176, 255, 1),
-                            ),
-                            onPressed: goToPreviousImage,
-                            color: Colors.white,
+                      Positioned(
+                        bottom: 15.h,
+                        left: screenWidth * 0.5 - 15.w,
+                        child: SmoothPageIndicator(
+                          controller: _pageController,
+                          count: images.length,
+                          effect: ExpandingDotsEffect(
+                            expansionFactor: 2,
+                            spacing: 8.w,
+                            radius: 15.w,
+                            dotWidth: 15.w,
+                            dotHeight: 15.h,
+                            dotColor: Colors.grey,
+                            activeDotColor:
+                                const Color.fromRGBO(0, 176, 255, 1),
                           ),
                         ),
-                        Container(
-                          height: 35.h,
-                          width: 35.h,
-                          margin: const EdgeInsets.all(7),
-                          decoration: const BoxDecoration(
-                            color: Color.fromRGBO(255, 255, 255, .6),
-                            // You can also set a shape
-                          ),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.arrow_forward_ios,
-                              size: 25,
-                              weight: 400,
-                              color: Color.fromRGBO(0, 176, 255, 1),
+                      ),
+                      Positioned(
+                        top: 20.h,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              height: 35.h,
+                              width: 35.h,
+                              margin: EdgeInsets.all(7.w),
+                              decoration: const BoxDecoration(
+                                color: Color.fromRGBO(255, 255, 255, .6),
+                              ),
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 25,
+                                  weight: 400,
+                                  color: Color.fromRGBO(0, 176, 255, 1),
+                                ),
+                                onPressed: goToPreviousImage,
+                                color: Colors.white,
+                              ),
                             ),
-                            onPressed: goToNextImage,
-                            color: Colors.white,
+                            Container(
+                              height: 35.h,
+                              width: 35.h,
+                              margin: EdgeInsets.all(7.w),
+                              decoration: const BoxDecoration(
+                                color: Color.fromRGBO(255, 255, 255, .6),
+                              ),
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 25,
+                                  weight: 400,
+                                  color: Color.fromRGBO(0, 176, 255, 1),
+                                ),
+                                onPressed: goToNextImage,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20.h),
+                  SizedBox(
+                    height: 200.h,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              _dietTracker(
+                                context,
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15.w),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0xE1DDDDDD),
+                                    blurRadius: 6.0,
+                                    spreadRadius: 2.0,
+                                    offset: Offset(0.0, 0.0),
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'images/home_page/diet_tracker.png',
+                                    width: 90.w,
+                                    height: 90.h,
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  Text(
+                                    'Diet',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Tracker',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 15.w),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              if (boxPregnancyInfo.isEmpty) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PregnancyTrackerForm()),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PregnancyTrackerPage()),
+                                );
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15.w),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0xE1DDDDDD),
+                                    blurRadius: 6.0,
+                                    spreadRadius: 2.0,
+                                    offset: Offset(0.0, 0.0),
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'images/home_page/pregnancy_tracker.png',
+                                    width: 80.w,
+                                    height: 80.h,
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  Text(
+                                    'Pregnancy',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Tracker',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15.h),
+                  SizedBox(
+                    height: 200.h,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: _launchURL,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15.w),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0xE1DDDDDD),
+                                    blurRadius: 6.0,
+                                    spreadRadius: 2.0,
+                                    offset: Offset(0.0, 0.0),
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'images/home_page/magazine.png',
+                                    width: 90.w,
+                                    height: 90.h,
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  Text(
+                                    'Magazine &',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Stories',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 15.w),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const TipPage()),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15.w),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0xE1DDDDDD),
+                                    blurRadius: 6.0,
+                                    spreadRadius: 2.0,
+                                    offset: Offset(0.0, 0.0),
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'images/home_page/tips.png',
+                                    width: 90.w,
+                                    height: 90.h,
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  Text(
+                                    'Tips',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -361,223 +580,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
-              SizedBox(
-                height: 200.h, // Set a fixed height for the containers
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          _dietTracker(
-                            context,
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0xE1DDDDDD),
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(0.0, 0.0),
-                              )
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'images/home_page/diet_tracker.png', // Replace with your image path
-                                width: 90.w, // Adjust width as needed
-                                height: 90.h, // Adjust height as needed
-                              ),
-                              SizedBox(height: 10.h),
-                              Text(
-                                'Diet',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                              Text(
-                                'Tracker',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 15.w),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          if (boxPregnancyInfo.isEmpty) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const PregnancyTrackerForm()),
-                            );
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const PregnancyTrackerPage()),
-                            );
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0xE1DDDDDD),
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(0.0, 0.0),
-                              )
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'images/home_page/pregnancy_tracker.png', // Replace with your image path
-                                width: 80.w, // Adjust width as needed
-                                height: 80.h, // Adjust height as needed
-                              ),
-                              SizedBox(height: 10.h),
-                              Text(
-                                'Pregnancy',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                              Text(
-                                'Tracker',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 15.h),
-              SizedBox(
-                height: 200.h, // Set a fixed height for the containers
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: _launchURL,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0xE1DDDDDD),
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(0.0, 0.0),
-                              )
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'images/home_page/magazine.png', // Replace with your image path
-                                width: 90.w, // Adjust width as needed
-                                height: 90.h, // Adjust height as needed
-                              ),
-                              SizedBox(height: 10.h),
-                              Text(
-                                'Magazine &',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                              Text(
-                                'Stories',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 15.w),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const TipPage()),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0xE1DDDDDD),
-                                blurRadius: 6.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(0.0, 0.0),
-                              )
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'images/home_page/tips.png', // Replace with your image path
-                                width: 90.w, // Adjust width as needed
-                                height: 90.h, // Adjust height as needed
-                              ),
-                              SizedBox(height: 10.h),
-                              Text(
-                                'Tips',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
