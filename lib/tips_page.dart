@@ -143,7 +143,7 @@ class _TipPageState extends State<TipPage> {
                             alignment: MainAxisAlignment.center,
                             children: <Widget>[
                               IconButton(
-                                iconSize: screenWidth * 0.1,
+                                iconSize: screenWidth * 0.07,
                                 icon: Icon(
                                   isFavorite(tips[currentIndex])
                                       ? Icons.favorite
@@ -156,11 +156,13 @@ class _TipPageState extends State<TipPage> {
                                     toggleFavorite(tips[currentIndex]),
                               ),
                               IconButton(
-                                iconSize: screenWidth * 0.1,
+                                iconSize: screenWidth * 0.07,
                                 icon: const Icon(Icons.share),
                                 onPressed: () {
-                                  final String text = '${tips[currentIndex].title}\n${tips[currentIndex].description}';
-    Share.share(text, subject: 'Check out this tip!');
+                                  final String text =
+                                      '${tips[currentIndex].title}\n${tips[currentIndex].description}';
+                                  Share.share(text,
+                                      subject: 'Check out this tip!');
                                 },
                               ),
                             ],

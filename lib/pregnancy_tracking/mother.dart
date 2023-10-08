@@ -71,4 +71,10 @@ Rather than worry about whether something is safe to take during pregnancy, go a
 
 Drinking water can also prevent consMotheration, hemorrhoids, urinary tract infections (UTIs), fatigue, headaches, swelling, and other uncomfortable pregnancy symptoms. Aim for eight to 10 glasses per day, and if you don't enjoy the taste, try adding a squeeze of lime or a splash of fruit juice.""",
   ),
+  Mother(
+    "Drink More Water",
+    """During pregnancy, your blood is supplying oxygen and essential nutrients to your baby through the placenta and carrying waste and carbon dioxide away, and your blood volume increases up to 50% to handle all this extra activity. So, you need to drink more to support that gain.
+
+Drinking water can also prevent consMotheration, hemorrhoids, urinary tract infections (UTIs), fatigue, headaches, swelling, and other uncomfortable pregnancy symptoms. Aim for eight to 10 glasses per day, and if you don't enjoy the taste, try adding a squeeze of lime or a splash of fruit juice.""",
+  ),
 ];

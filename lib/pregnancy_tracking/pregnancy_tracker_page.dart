@@ -25,7 +25,7 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
   int currentIndex = 0;
 
   int selectedCategoryIndex = 0; // 0 for Mother, 1 for Child, 2 for Advice
-  List<dynamic> currentCategoryData = advice; // Initialize with Mother data
+  List<dynamic> currentCategoryData = mothers; // Initialize with Mother data
   // Initialize with Mother data
   @override
   void initState() {
@@ -42,7 +42,9 @@ class _PregnancyTrackerPageState extends State<PregnancyTrackerPage> {
   }
 
   void goToNextWeek() {
-    if (currentIndex < mothers.length - 1) {
+    if ((currentIndex < mothers.length - 1) ||
+        (currentIndex < advice.length - 1) ||
+        (currentIndex < baby.length - 1)) {
       setState(() {
         currentIndex++;
       });
