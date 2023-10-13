@@ -208,13 +208,73 @@ class _CalendarDiaryState extends State<CalendarDiary> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ListTile(
-                              leading: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    boxNotes.deleteAt(index);
-                                  });
+                              leading: GestureDetector(
+                                onTap: () {
+                                  // Show a confirmation dialog before deleting the note
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                          'Confirm Deletion',
+                                          style: TextStyle(fontSize: 16.sp),
+                                        ),
+                                        content: Text(
+                                          'Are you sure you want to delete this note?',
+                                          style: TextStyle(fontSize: 16.sp),
+                                        ),
+                                        actions: <Widget>[
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pop(); // Close the confirmation dialog
+                                                },
+                                                child: Text(
+                                                  'Cancel',
+                                                  style: TextStyle(
+                                                      fontSize: 16.sp),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 10.h,
+                                              ),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty
+                                                          .all<Color>(Colors
+                                                              .red), // Set background color to red
+                                                ),
+                                                onPressed: () {
+                                                  // Delete the note when confirmed
+                                                  setState(() {
+                                                    boxNotes.deleteAt(index);
+                                                  });
+                                                  Navigator.of(context)
+                                                      .pop(); // Close the confirmation dialog
+                                                },
+                                                child: Text(
+                                                  'Delete',
+                                                  style: TextStyle(
+                                                      fontSize: 16.sp),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 },
-                                icon: const Icon(Icons.delete),
+                                child: Icon(
+                                  Icons.delete,
+                                  size: 24.sp,
+                                  color: Colors.red,
+                                ),
                               ),
                               title: Text(myNote.date),
                               subtitle: Text(myNote.note),

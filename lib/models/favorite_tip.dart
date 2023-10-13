@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-
 part 'favorite_tip.g.dart';
 
 @HiveType(typeId: 3)

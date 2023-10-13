@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:materni_tech1/diet_tracker/mother_dirt.dart';
+import 'package:materni_tech1/diet_tracker/mother_diet.dart';
 import 'package:materni_tech1/home_page.dart';
 import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/models/pregnancy_info.dart';
@@ -57,7 +57,6 @@ class _MotherDietTrackingState extends State<MotherDietTracking> {
     "Learn about childbirth and discuss your birth plan with your healthcare provider. Being informed helps reduce anxiety.",
     "Avoid smoking, alcohol, and recreational drugs during pregnancy. They can harm your baby's health",
     "Stay hydrated. Drink plenty of water throughout your pregnancy to support your body's changing needs.",
-    // Add more tips here...
   ];
 
   int currentTipIndex = 0;

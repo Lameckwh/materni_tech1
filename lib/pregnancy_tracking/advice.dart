@@ -180,4 +180,34 @@ Recognizing the signs of ovulation, such as a change in cervical mucus and a ris
     
     Engage in relaxation and stress-reduction practices, finalize your birth plan, pack your hospital bag, and ensure you have support in place for the postpartum period.""",
   ),
+  Advice(
+    "Final Preparations and Birth",
+    """For these remaining weeks, focus on final preparations and self-care. Monitor your baby’s movements, watch for signs of labor, and stay in close communication with your healthcare provider. 
+    
+    Engage in relaxation and stress-reduction practices, finalize your birth plan, pack your hospital bag, and ensure you have support in place for the postpartum period.""",
+  ),
+  Advice(
+    "Final Preparations and Birth",
+    """For these remaining weeks, focus on final preparations and self-care. Monitor your baby’s movements, watch for signs of labor, and stay in close communication with your healthcare provider. 
+    
+    Engage in relaxation and stress-reduction practices, finalize your birth plan, pack your hospital bag, and ensure you have support in place for the postpartum period.""",
+  ),
+  Advice(
+    "Final Preparations and Birth",
+    """For these remaining weeks, focus on final preparations and self-care. Monitor your baby’s movements, watch for signs of labor, and stay in close communication with your healthcare provider. 
+    
+    Engage in relaxation and stress-reduction practices, finalize your birth plan, pack your hospital bag, and ensure you have support in place for the postpartum period.""",
+  ),
+  Advice(
+    "Final Preparations and Birth",
+    """For these remaining weeks, focus on final preparations and self-care. Monitor your baby’s movements, watch for signs of labor, and stay in close communication with your healthcare provider. 
+    
+    Engage in relaxation and stress-reduction practices, finalize your birth plan, pack your hospital bag, and ensure you have support in place for the postpartum period.""",
+  ),
+  Advice(
+    "Final Preparations and Birth",
+    """For these remaining weeks, focus on final preparations and self-care. Monitor your baby’s movements, watch for signs of labor, and stay in close communication with your healthcare provider. 
+    
+    Engage in relaxation and stress-reduction practices, finalize your birth plan, pack your hospital bag, and ensure you have support in place for the postpartum period.""",
+  ),
 ];

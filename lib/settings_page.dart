@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:materni_tech1/models/boxes.dart';
 import 'package:materni_tech1/pregnancy_info_update_form.dart';
+import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_form.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'drawer_content.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -16,41 +17,6 @@ class _SettingsPageState extends State<SettingsPage> {
   bool notificationsEnabled = false;
   DateTime selectedDate = DateTime.now();
   DateTime selectedDate2 = DateTime.now();
-
-  void _measurementsUnits(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: const EdgeInsets.all(20.0),
-          title: const Text('Popup Title'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: const Text('Button 1'),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Add logic for the second button here
-                },
-                child: const Text('Button 2'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the popup
-              },
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   void _rateUs(BuildContext context) {
     showDialog(
@@ -72,6 +38,59 @@ class _SettingsPageState extends State<SettingsPage> {
                 Navigator.of(context).pop(); // Close the popup
               },
               child: const Text('RATE 5 STARS'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _notifications(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(20.0),
+          title: const Text('Notifications'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Today's tip"),
+                  Switch(
+                    value: notificationsEnabled,
+                    onChanged: (value) {
+                      setState(() {
+                        notificationsEnabled = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Pregnancy Tracking"),
+                  Switch(
+                    value: notificationsEnabled,
+                    onChanged: (value) {
+                      setState(() {
+                        notificationsEnabled = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the popup
+              },
+              child: const Text('Close'),
             ),
           ],
         );
@@ -114,7 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Persownalization",
+                            "Personalization",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               color: const Color.fromRGBO(0, 176, 255, 1),
@@ -128,32 +147,30 @@ class _SettingsPageState extends State<SettingsPage> {
                         trailing: const Icon(Icons.arrow_forward_ios),
                         title: const Text("Update Pregnancy Information"),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const PregnancyInfoUpdateForm()),
-                          );
+                          if (boxPregnancyInfo.isEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PregnancyTrackerForm()),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PregnancyInfoUpdateForm()),
+                            );
+                          }
                         },
                       ),
                       ListTile(
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                        title: const Text("Measurements Units"),
                         onTap: () {
-                          _measurementsUnits(
+                          _notifications(
                             context,
                           );
                         },
-                      ),
-                      ListTile(
-                        trailing: Switch(
-                          value: notificationsEnabled,
-                          onChanged: (value) {
-                            setState(() {
-                              notificationsEnabled = value;
-                            });
-                          },
-                        ),
+                        trailing: const Icon(Icons.arrow_forward_ios),
                         title: const Text("Notifications"),
                       ),
                       SizedBox(

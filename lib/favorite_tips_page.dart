@@ -83,14 +83,71 @@ class FavoriteTipsPage extends StatelessWidget {
                               },
                             );
                           },
-                          trailing: IconButton(
-                            icon: Icon(Icons.delete,
-                                size: 24.sp), // Set icon size
-                            onPressed: () {
-                              // Delete the favorite tip when the delete button is pressed
-                              box.delete(key);
+
+                          trailing: GestureDetector(
+                            onTap: () {
+                              // Show a confirmation dialog before deleting the favorite tip
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Confirm Deletion',
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
+                                    content: Text(
+                                      'Are you sure you want to delete this favorite tip?',
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
+                                    actions: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pop(); // Close the confirmation dialog
+                                            },
+                                            child: Text(
+                                              'Cancel',
+                                              style: TextStyle(fontSize: 16.sp),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10.h,
+                                          ),
+                                          ElevatedButton(
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty
+                                                  .all<Color>(Colors
+                                                      .red), // Set background color to red
+                                            ),
+                                            onPressed: () {
+                                              // Delete the favorite tip when confirmed
+                                              box.delete(key);
+                                              Navigator.of(context)
+                                                  .pop(); // Close the confirmation dialog
+                                            },
+                                            child: Text(
+                                              'Delete',
+                                              style: TextStyle(fontSize: 16.sp),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
+                            child: Icon(
+                              Icons.delete,
+                              size: 24.sp,
+                              color: Colors.red,
+                            ),
                           ),
+// ...
                         ),
                       ),
                     )

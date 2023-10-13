@@ -275,6 +275,64 @@ class _PregnancyToolsPageState extends State<PregnancyToolsPage> {
                 }),
               ),
             ),
+            // SizedBox(
+            //   height: 10.h,
+            // ),
+            // SizedBox(
+            //   width: 160.w,
+            //   height: 160.h,
+            //   child: Padding(
+            //     padding: EdgeInsets.only(
+            //       right: 3.w,
+            //     ),
+            //     child: InkWell(
+            //       onTap: () {
+
+            //       },
+            //       child: Card(
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(
+            //             12.w,
+            //           ),
+            //         ),
+            //         elevation: 2,
+            //         child: Padding(
+            //           padding: EdgeInsets.only(
+            //             top: 20.h,
+            //             left: 10.w,
+            //             bottom: 10.h,
+            //             right: 10.w,
+            //           ),
+            //           child: Column(
+            //             children: [
+            //               const CircleAvatar(
+            //                 radius: 43,
+            //                 child: Icon(
+            //                   Icons.camera_alt_rounded,
+            //                   size: 40,
+            //                 ),
+            //               ),
+            //               SizedBox(
+            //                 height: 5.h,
+            //               ),
+            //               SizedBox(
+            //                 height: 45.h,
+            //                 child: Text(
+            //                   "Bump \nGallery",
+            //                   textAlign: TextAlign.center,
+            //                   style: TextStyle(
+            //                     fontSize: 14.sp,
+            //                     fontWeight: FontWeight.w500,
+            //                   ),
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
