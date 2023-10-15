@@ -5,6 +5,7 @@ import 'package:materni_tech1/pregnancy_info_update_form.dart';
 import 'package:materni_tech1/pregnancy_tracking/pregnancy_tracker_form.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'drawer_content.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -17,6 +18,8 @@ class _SettingsPageState extends State<SettingsPage> {
   bool notificationsEnabled = false;
   DateTime selectedDate = DateTime.now();
   DateTime selectedDate2 = DateTime.now();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   void _rateUs(BuildContext context) {
     showDialog(
